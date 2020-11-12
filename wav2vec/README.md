@@ -1,0 +1,23 @@
+# wav2vec 
+Usage
+
+Making the manifest .tsv file
+```bash
+python manifest.py <path to wav files> --dest <path to destination tsv> --ext wav --train-name train.tsv --valid-percent 0 --jobs -1
+```
+
+Making the .wrd, .ltr file
+```bash
+python labels.py --jobs 64 --tsv <path to train.tsv>train.tsv --output-dir <destination dir> --output-name test --txt-dir
+```
+
+Making the lexicon.lst and dict.ltr.txt file
+```bash
+python dict_and_lexicon_maker.py --wrd <path to train.wrd>train.wrd --lexicon <destnation path>/lexicon.lst --dict <destnation path>/dict.ltr.txt
+```
+
+
+
+## License
+
+fairseq(-py) is MIT-licensed. The license applies to the pre-trained models as well.
