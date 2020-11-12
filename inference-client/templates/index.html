@@ -1,0 +1,405 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Streaming Example</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+    <script src="static/hark.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"
+        integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io-stream/0.9.1/socket.io-stream.min.js"
+        integrity="sha512-LTN7WQKvmCiOWbwxE4XRu3NCRqLzkFo28vBDHVhAyKjhmorNGjtvFxQgbvAttO31Ij6An4AIXU4GVaYOC0eNpQ=="
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <style>
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        ::-webkit-input-placeholder {
+            /* Chrome/Opera/Safari */
+            text-align: center;
+        }
+        ::-moz-placeholder {
+            text-align: center;
+        }
+        ::-ms-placeholder {
+            text-align: center;
+        }
+
+        .btn-bs-file {
+            position: relative;
+            font-size: 16px;
+            width: 200px;
+        }
+
+        .btn-bs-file input[type="file"] {
+            position: absolute;
+            top: -9999999;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            width: 0;
+            height: 0;
+            outline: none;
+            cursor: inherit;
+        }
+
+        .row {
+            padding: 15px;
+            margin: 15px;
+            border: 1px black solid;
+        }
+
+        .btn {
+            width: 200px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('textarea').on('input', function () {
+                $(this)
+                    .height(50)
+                    .height(this.scrollHeight);
+            });
+            function handleFiles(event) {
+                var files = event.target.files;
+                for(let file in files){
+                    let fileName = files[file].name;
+                    if(!fileName){
+                        continue;
+                    }
+                    let fileObj = {"files": new Array(files[file])};
+                    if(fileName.endsWith(".wav")){
+                        $("#audio_source").attr("src", URL.createObjectURL(files[file]));
+                        document.getElementById("audio").load();
+                        document.getElementById("audio_file_name").innerHTML = files[file].name;
+                    } else if(fileName.endsWith("original.txt")){
+                        readText(fileObj,"original")
+                    } else if(fileName.endsWith("google.txt")){
+                        readText(fileObj,"google")
+                    } else if(fileName.endsWith("azure.txt")){
+                        readText(fileObj,"azure")
+                    }
+                }                
+            }
+            document.getElementById("audio_file").addEventListener("change", handleFiles, false);
+            document.getElementById("choose_all").addEventListener("change",(event)=>{
+                let aud = document.getElementById("audio_file");
+                if(event.target.checked){
+                    aud.webkitdirectory = true;
+                } else {
+                    aud.webkitdirectory = false;
+                }
+            } ,false);
+        });
+
+        function readText(filePath, text_id) {
+            let file_name = filePath.files[0].name;
+            console.log(file_name)
+            if (!file_name || !file_name.endsWith(".txt")) {
+                alert("Select a .txt file")
+                return false;
+            }
+            let reader = new FileReader();
+            var output = ""; //placeholder for text output
+            if (filePath.files && filePath.files[0]) {
+                reader.onload = function (e) {
+                    output = e.target.result;
+                    displayContents(output, text_id);
+                };//end onload()
+                reader.readAsText(filePath.files[0]);
+            }//end if html5 filelist support
+            else if (ActiveXObject && filePath) { //fallback to IE 6-8 support via ActiveX
+                try {
+                    reader = new ActiveXObject("Scripting.FileSystemObject");
+                    var file = reader.OpenTextFile(filePath, 1); //ActiveX File Object
+                    output = file.ReadAll(); //text contents of file
+                    file.Close(); //close file "input stream"
+                    displayContents(output, text_id);
+                } catch (e) {
+                    if (e.number == -2146827859) {
+                        alert('Unable to access local files due to browser security settings. ' +
+                            'To overcome this, go to Tools->Internet Options->Security->Custom Level. ' +
+                            'Find the setting for "Initialize and script ActiveX controls not marked as safe" and change it to "Enable" or "Prompt"');
+                    }
+                }
+            }
+            else { //this is where you could fallback to Java Applet, Flash or similar
+                return false;
+            }
+            return true;
+        }
+        function displayContents(txt,text_id) {
+            var el = document.getElementById(text_id);
+            el.innerHTML = txt; //display output in DOM
+        }  
+    </script>
+</head>
+
+<body>
+    <center>
+        <div class="container">
+            <div class="row" style="border: 0px;">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <!-- <h4>Realtime microphone transcription</h4> -->
+                            <br />
+                        </div>
+                        <div class="col-sm-12">
+                            <img src="static/mic.webp" id="mic_image" onclick="toggle()" height="100" width="100" /><br />
+                        </div>
+                        <div class="col-sm-12">
+                            <!-- <p id="unidentified"></p> -->
+                            <br />
+                        </div>
+                        <div class="col-sm-12">
+                            <textarea id="output" placeholder="Output"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <!-- <h4>Realtime bulk file transcription</h4> -->
+                            <br />
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label class="btn-bs-file btn btn-lg btn-primary">
+                                        Choose Audio File
+                                        <input type="file" id="audio_file" multiple/>
+                                    </label>
+                                    <br/>
+                                    <p id="audio_file_name"></p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <audio id="audio" controls>
+                                        <source src="" id="audio_source" />
+                                    </audio>
+                                    <br/>
+                                    <input type="checkbox" class="form-check-input" id="choose_all" />
+                                    <label class="form-check-label" for="choose_all">Choose all</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label class="btn-bs-file btn btn-lg btn-primary">
+                                        Choose Google Text File
+                                        <input type="file" onchange='readText(this,"google")' />
+                                    </label>
+                                </div>
+                                <div class="col-sm-6" id="google">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label class="btn-bs-file btn btn-lg btn-primary">
+                                        Choose Azure Text File
+                                        <input type="file" onchange='readText(this,"azure")' />
+                                    </label>
+                                </div>
+                                <div class="col-sm-6" id="azure">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label class="btn-bs-file btn btn-lg btn-primary">
+                                        Choose Original Text File
+                                        <input type="file" onchange='readText(this,"original")' />
+                                    </label>
+                                </div>
+                                <div class="col-sm-6" id="original">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="row" style="border:none;">
+                                <div class="col-sm-6">
+                                    <button class="btn btn-primary" id="upload_btn"> Run Model</button>
+                                </div>
+                                <div class="col-sm-6" id="file_upload_output">
+                                    <!-- <textarea id="file_upload_output" placeholder="Output" style="min-height:400px"></textarea> -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-sm-12">
+                            <br />
+                        </div>
+                        <div class="col-sm-12">
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </center>
+    <script>
+        var start = false, socket;
+
+        $(document).ready(function () {
+            const socketio = io();
+            socket = socketio.on('connect', function () {
+                start = true;
+            });
+            socket.on('response', function (data) {
+                document.getElementById('output').textContent = data;
+            });
+
+            socket.on('unidentified', function (data) {
+                // document.getElementById('unidentified').textContent = data;
+            });
+
+            socket.on('file_upload_response', function (data) {
+                // console.log("called");
+                document.getElementById('file_upload_output').innerHTML += " " + data;
+            });
+
+            var file = {};
+            var slice_size = 1000 * 1024;
+
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            function start_upload(event) {
+                event.preventDefault();
+                document.getElementById("file_upload_output").innerHTML = "";
+                let files = document.querySelector('#audio_file').files;
+                for(let f in files){
+                    if(files[f].name.endsWith(".wav")){
+                        file = files[f];
+                        break;
+                    }
+                }
+                // file = document.querySelector('#audio_file').files[0];
+                read_as_chunks(file)
+            }
+
+            function read_as_chunks(file){
+                console.log(file)
+                var chunk_size = 504800;
+                var offset = 0;
+                var size = file.size;
+                var i=0;
+                
+                if(size < chunk_size){
+                    chunk_size = size;
+                }
+
+                while(i < size){
+                    let end_size = offset + chunk_size
+                    if(size < end_size){
+                        end_size = size
+                    }
+                    var blob = file.slice(offset, end_size);
+                    var reader = new FileReader();
+                    reader.addEventListener('load', function (e) {
+                        var chunk =  e.target.result;
+                        // console.log("emitted");
+                        socket.emit('file_data', chunk);
+                    });
+                    reader.readAsArrayBuffer(blob);
+                    offset += chunk_size;
+                    i += chunk_size;
+                }
+            }
+            $('#upload_btn').on('click', start_upload);
+        });
+
+        var state = "OFF";
+        let recordAudio = null;
+        let speechEvents = null;
+
+        function toggle() {
+            if (!start) {
+                alert("Try again")
+                return;
+            }
+            let image = document.getElementById("mic_image");
+            if (state === "OFF") {
+                state = "ON";
+                image.src = "static/stop.webp";
+                socket.emit("start", "");
+                startRecording(image);
+            } else if (state === "ON") {
+                state = "OFF";
+                image.src = "static/mic.webp";
+                transcribeText();
+            }
+        }
+
+        function startRecording(image) {
+            let constraints = { audio: true, video: false }
+            document.getElementById('output').textContent = "";
+            // document.getElementById('unidentified').innerHTML = "";
+            let sendData = false;
+            navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+                var options = {};
+                speechEvents = hark(stream, options);
+                let send_on_pause = false;
+                recordAudio = RecordRTC(stream, {
+                    type: 'audio',
+                    mimeType: 'audio/wav',
+                    sampleRate: 44100,
+                    desiredSampRate: 16000,
+                    recorderType: StereoAudioRecorder,
+                    numberOfAudioChannels: 1,
+                    timeSlice: 1000,
+                    ondataavailable: function (blob) {
+                        if (!sendData) {
+                            if(send_on_pause){
+                                send_on_pause = false;
+                                console.log("emitted false")
+                                socket.emit('mic_data', blob, false);
+                            }
+                            return;
+                        }
+                        console.log("emitted");
+                        send_on_pause = true;
+                        socket.emit('mic_data', blob, sendData);
+                    }
+                });
+
+                speechEvents.on('speaking', function () {
+                    console.log('speaking');
+                    sendData = true;
+                });
+
+                speechEvents.on('stopped_speaking', function () {
+                    console.log('stopped_speaking');
+                    sendData = false;
+                });
+
+                recordAudio.startRecording();
+            }).catch(function (err) {
+                image.src = "static/mic.webp";
+                state = "OFF";
+            });
+        }
+
+        function transcribeText() {
+            socket.emit("end", "");
+            recordAudio.stopRecording();
+            speechEvents.stop();
+        }
+    </script>
+</body>
+
+</html>
