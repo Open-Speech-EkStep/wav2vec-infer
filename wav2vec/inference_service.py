@@ -8,7 +8,7 @@ from fairseq.models.wav2vec.wav2vec2_asr import base_architecture, Wav2VecEncode
 from wav2letter.common import create_word_dict, load_words
 from wav2letter.decoder import CriterionType,DecoderOptions,KenLM,LM,LMState,SmearingMode,Trie,LexiconDecoder
 from wav2letter.criterion import CpuViterbiPath, get_data_ptr_as_bytes
-
+import logging
 import os
 import torch
 

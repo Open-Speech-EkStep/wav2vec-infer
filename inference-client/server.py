@@ -25,7 +25,7 @@ def make_message(message,audio, id, mic_flag = "continue"):
     )
 
 def _run_client(address, recognition_client):
-    with grpc.insecure_channel("localhost:55002") as channel:
+    with grpc.insecure_channel("localhost:55102") as channel:
         print("connected to grpc")
         stub = RecognizeStub(channel)
         responses = stub.recognize_audio(recognition_client)
@@ -123,10 +123,10 @@ if __name__ == "__main__":
     global recognition_client_mic, recognition_client_file
     recognition_client_mic = RecognitionClient()
     recognition_client_file = RecognitionClient()
-    mic_client_thread = threading.Thread(target=_run_client, args=('localhost:50052', recognition_client_mic))
+    mic_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_mic))
     mic_client_thread.start()
-    file_client_thread = threading.Thread(target=_run_client, args=('localhost:50052', recognition_client_file))
+    file_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_file))
     file_client_thread.start()
-    socketio.run(app, host='0.0.0.0', port=9009)
+    socketio.run(app, host='0.0.0.0', port=9008)
         
 

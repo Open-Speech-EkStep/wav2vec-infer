@@ -44,7 +44,7 @@ class RecognizeAudioServicer(RecognizeServicer):
         return json.dumps(result), True
 
 def serve():
-    PORT = 55002
+    PORT = 55102
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     add_RecognizeServicer_to_server(RecognizeAudioServicer(),server)
     server.add_insecure_port('[::]:%d'%PORT)
