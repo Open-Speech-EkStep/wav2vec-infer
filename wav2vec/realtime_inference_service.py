@@ -8,7 +8,7 @@ import time
 import json
 import io
 import json
-from inference_service import InferenceService
+from inference_service import InferenceService, Wav2VecCtc, W2lDecoder, W2lViterbiDecoder
 
 class RecognizeAudioServicer(RecognizeServicer):
     def __init__(self):
@@ -37,10 +37,13 @@ class RecognizeAudioServicer(RecognizeServicer):
         name = "wave_0%s.wav" % index
         file_name = self.write_wave_to_file(name, audio)
         result = self.inference.get_inference(file_name)
+        print("result", result)
         result["id"] = index
         os.remove(file_name)
         if(result['status'] != "OK"):
             result["success"] = False
+        else:
+            result["success"] = True
         return json.dumps(result), True
 
 def serve():

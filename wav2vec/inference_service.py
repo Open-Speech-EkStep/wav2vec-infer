@@ -116,25 +116,20 @@ class InferenceService:
     def __init__(self, model_path, dict_path):
         self.model_path = model_path
         self.dict_path = dict_path
+        if torch.cuda.is_available():
+           self.cuda = True
+           self.model = load_gpu_model(self.model_path)
+        else:
+           self.cuda = False
+           self.model = load_cpu_model(self.model_path)
 
     def get_inference(self, file_name):
-        if torch.cuda.is_available():
-            cuda = True
-        else:
-            cuda = False
-        logging.info('Transcribing file...')
-        result = ''
-        if cuda:
-            gpu_model = load_gpu_model(self.model_path)
-            result = get_results( file_name , self.dict_path,cuda,model=gpu_model)
-        else:
-            cpu_model = load_cpu_model(self.model_path)
-            result = get_results( file_name , self.dict_path,cuda,model=cpu_model)
-
+        result = get_results( file_name , self.dict_path,self.cuda,model=self.model)
+        res = {}
         logging.info('File transcribed')
         res['status'] = "OK"
         res['transcription'] = result
-        return jsonify(res)
+        return res
 
 
 

@@ -254,7 +254,7 @@
         var start = false, socket;
 
         $(document).ready(function () {
-            const socketio = io();
+            const socketio = io({path:'/ekstep/wav2vec/demo/socket.io'});
             socket = socketio.on('connect', function () {
                 start = true;
             });
