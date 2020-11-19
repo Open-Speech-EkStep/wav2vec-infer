@@ -49,7 +49,7 @@ gsutil -m cp gs://ekstepspeechrecognition-dev/experiments/wav2vec2/2020_hi_3/tes
 
 ## For Inference
 
-pip install flask flask-cors
+pip install flask flask-cors flask_socketio grpcio-tools grpcio
 
 
 ## Inference command: python wav2vec_inference.py -m ../files_hindi/final_custom_model.pt -d ../files_hindi/dict.ltr.txt  -w ../files_hindi/test.wav 
