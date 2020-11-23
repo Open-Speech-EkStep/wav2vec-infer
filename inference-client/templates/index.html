@@ -160,7 +160,14 @@
 		<div class="col-sm-12">
                     <div class="row">
                         <div class="col-sm-12">
-                            <!-- <h4>Realtime microphone transcription</h4> -->
+                            <p>Choose Language:</p>
+                            <select class="form-control" id="ddlLanguage" onchange="getval(this);">
+                                <option value='en' selected >English</option>
+                                <option value='hi'>Hindi</option>
+                                <option value='gu'>Gujarati</option>
+                                <option value='ta'>Tamil</option>
+                                <option value='te'>Telugu</option>
+                              </select>
                             <br />
                         </div>
                         <div class="col-sm-12">
@@ -259,6 +266,7 @@
     </center>
     <script>
         var start = false, socket;
+        var current_lang = 'en';
 
         $(document).ready(function () {
             const socketio = io({path:'/ekstep/wav2vec/demo/socket.io'});
@@ -320,7 +328,7 @@
                     reader.addEventListener('load', function (e) {
                         var chunk =  e.target.result;
                         // console.log("emitted");
-                        socket.emit('file_data', chunk);
+                        socket.emit('file_data', chunk, current_lang);
                     });
                     reader.readAsArrayBuffer(blob);
                     offset += chunk_size;
@@ -374,13 +382,13 @@
                             if(send_on_pause){
                                 send_on_pause = false;
                                 console.log("emitted false")
-                                socket.emit('mic_data', blob, false);
+                                socket.emit('mic_data', blob, false, current_lang);
                             }
                             return;
                         }
                         console.log("emitted");
                         send_on_pause = true;
-                        socket.emit('mic_data', blob, sendData);
+                        socket.emit('mic_data', blob, sendData, current_lang);
                     }
                 });
 
@@ -405,6 +413,10 @@
             socket.emit("end", "");
             recordAudio.stopRecording();
             speechEvents.stop();
+        }
+
+        function getval(sel){
+            current_lang = sel.value;
         }
     </script>
 </body>

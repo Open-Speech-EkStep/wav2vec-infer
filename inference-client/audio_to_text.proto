@@ -11,6 +11,7 @@ message Message {
   bytes audio = 2;
   string user = 3;
   string mic_flag = 4;
+  string language = 5;
 }
 
 message Response {
@@ -18,4 +19,5 @@ message Response {
     string type = 2;
     string user = 3;
     string mic_flag = 4;
+    string language = 5;
 }

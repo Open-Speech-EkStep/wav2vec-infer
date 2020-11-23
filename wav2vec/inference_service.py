@@ -113,18 +113,23 @@ class W2lViterbiDecoder(W2lDecoder):
 
 class InferenceService:
 
-    def __init__(self, model_path, dict_path):
-        self.model_path = model_path
-        self.dict_path = dict_path
-        if torch.cuda.is_available():
-           self.cuda = True
-           self.model = load_gpu_model(self.model_path)
-        else:
-           self.cuda = False
-           self.model = load_cpu_model(self.model_path)
+    def __init__(self, model_dict_path):
+        self.models = {}
+        self.dict_paths = {}
+        with open(model_dict_path) as f:
+            model_dict = json.load(f)
+        for lang, path in model_dict.items():
+            if torch.cuda.is_available():
+                self.cuda = True
+                self.model[lang] = load_gpu_model(path)
+            else:
+                self.cuda = False
+                self.model[lang] = load_cpu_model(path)
+            self.dict_paths[lang] = "/".join(path.split('/')[:-1]) + '/dict.ltr.txt'
+        
 
-    def get_inference(self, file_name):
-        result = get_results( file_name , self.dict_path,self.cuda,model=self.model)
+    def get_inference(self, file_name, language):
+        result = get_results( file_name , self.dict_paths[language],self.cuda,model=self.models[language])
         res = {}
         logging.info('File transcribed')
         res['status'] = "OK"

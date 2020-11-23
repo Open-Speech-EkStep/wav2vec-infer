@@ -16,12 +16,13 @@ socketio = SocketIO(app,cors_allowed_origins="*")
 client_buffers = {}
 client_transcriptions = {}
 
-def make_message(message,audio, id, mic_flag = "continue"):
+def make_message(message,audio, id, mic_flag = "continue", language = 'en'):
     return Message(
         message=message,
         audio=audio,
         user=str(id),
-        mic_flag=mic_flag
+        mic_flag=mic_flag,
+        language=language
     )
 
 def _run_client(address, recognition_client):
@@ -60,7 +61,7 @@ def start_event(json):
 mic_ids = []
 
 @socketio.on('mic_data')
-def mic_data(chunk, speaking):
+def mic_data(chunk, speaking, language):
     global client_buffers
     sid = request.sid
     mic_flag = "replace"
@@ -74,7 +75,7 @@ def mic_data(chunk, speaking):
         del client_buffers[sid]
         mic_flag = "append"
 
-    msg = make_message("mic",buffer, sid, mic_flag)
+    msg = make_message("mic",buffer, sid, mic_flag, language= language)
     print(sid, "send msg")
     msg_id = str(int(time.time()*1000.0))+str(sid)
     response = recognition_client_mic.recognize(msg, msg_id)
@@ -99,11 +100,11 @@ def mic_data(chunk, speaking):
 id_dict = []
 
 @socketio.on('file_data')
-def file_data(chunk):
+def file_data(chunk, language):
     global id_dict
     sid = request.sid
     msg_id = str(int(time.time()*1000.0))+str(sid)
-    msg = make_message("file",chunk[100:], sid, "append")
+    msg = make_message("file",chunk[100:], sid, "append", language=language)
     print(sid, "received chunk")
     response = recognition_client_file.recognize(msg, msg_id)
     message = json.loads(response.message)
@@ -121,12 +122,12 @@ def file_data(chunk):
 
 if __name__ == "__main__":
     global recognition_client_mic, recognition_client_file
-    recognition_client_mic = RecognitionClient()
-    recognition_client_file = RecognitionClient()
-    mic_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_mic))
-    mic_client_thread.start()
-    file_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_file))
-    file_client_thread.start()
+    # recognition_client_mic = RecognitionClient()
+    # recognition_client_file = RecognitionClient()
+    # mic_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_mic))
+    # mic_client_thread.start()
+    # file_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_file))
+    # file_client_thread.start()
     socketio.run(app, host='0.0.0.0', port=9008)
         
 
