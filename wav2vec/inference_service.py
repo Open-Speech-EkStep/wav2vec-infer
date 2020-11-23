@@ -11,6 +11,7 @@ from wav2letter.criterion import CpuViterbiPath, get_data_ptr_as_bytes
 import logging
 import os
 import torch
+import json
 
 class Wav2VecCtc(BaseFairseqModel):
     def __init__(self, w2v_encoder, args):
@@ -121,10 +122,10 @@ class InferenceService:
         for lang, path in model_dict.items():
             if torch.cuda.is_available():
                 self.cuda = True
-                self.model[lang] = load_gpu_model(path)
+                self.models[lang] = load_gpu_model(path)
             else:
                 self.cuda = False
-                self.model[lang] = load_cpu_model(path)
+                self.models[lang] = load_cpu_model(path)
             self.dict_paths[lang] = "/".join(path.split('/')[:-1]) + '/dict.ltr.txt'
         
 

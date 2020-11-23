@@ -122,12 +122,12 @@ def file_data(chunk, language):
 
 if __name__ == "__main__":
     global recognition_client_mic, recognition_client_file
-    # recognition_client_mic = RecognitionClient()
-    # recognition_client_file = RecognitionClient()
-    # mic_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_mic))
-    # mic_client_thread.start()
-    # file_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_file))
-    # file_client_thread.start()
+    recognition_client_mic = RecognitionClient()
+    recognition_client_file = RecognitionClient()
+    mic_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_mic))
+    mic_client_thread.start()
+    file_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_file))
+    file_client_thread.start()
     socketio.run(app, host='0.0.0.0', port=9008)
         
 
