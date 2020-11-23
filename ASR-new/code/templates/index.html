@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  
+  <title>Wav2Vec Demo</title>
+  
+  <!-- Bootstrap core CSS -->
+  <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  
+  <style>
+    .btn-bs-file {
+      position: relative;
+      font-size: 16px;
+      width: 200px;
+    }
+    
+    .btn-bs-file input[type="file"] {
+      position: absolute;
+      top: -9999999;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      width: 0;
+      height: 0;
+      outline: none;
+      cursor: inherit;
+    }
+    
+    .row {
+      padding: 15px;
+      margin: 15px;
+      border: 2px black solid;
+    }
+    
+    /* .btn {
+      width: 200px;
+    } */
+  </style>
+  
+  <script type="text/javascript">
+    var reader; //GLOBAL File Reader object for demo purpose only
+    
+    /**
+    * Check for the various File API support.
+    */
+    function checkFileAPI() {
+      if (window.File && window.FileReader && window.FileList && window.Blob) {
+        reader = new FileReader();
+        return true;
+      } else {
+        alert('The File APIs are not fully supported by your browser. Fallback required.');
+        return false;
+      }
+    }
+    
+    /**
+    * read text input
+    */
+    function readText(filePath) {
+      var output = ""; //placeholder for text output
+      if (filePath.files && filePath.files[0]) {
+        reader.onload = function (e) {
+          output = e.target.result;
+          displayContents(output);
+        };//end onload()
+        reader.readAsText(filePath.files[0]);
+      }//end if html5 filelist support
+      else if (ActiveXObject && filePath) { //fallback to IE 6-8 support via ActiveX
+        try {
+          reader = new ActiveXObject("Scripting.FileSystemObject");
+          var file = reader.OpenTextFile(filePath, 1); //ActiveX File Object
+          output = file.ReadAll(); //text contents of file
+          file.Close(); //close file "input stream"
+          displayContents(output);
+        } catch (e) {
+          if (e.number == -2146827859) {
+            alert('Unable to access local files due to browser security settings. ' +
+            'To overcome this, go to Tools->Internet Options->Security->Custom Level. ' +
+            'Find the setting for "Initialize and script ActiveX controls not marked as safe" and change it to "Enable" or "Prompt"');
+          }
+        }
+      }
+      else { //this is where you could fallback to Java Applet, Flash or similar
+        return false;
+      }
+      return true;
+    }
+    
+    /**
+    * display content using a basic HTML replacement
+    */
+    function displayContents(txt) {
+      var el = document.getElementById('source');
+      el.innerHTML = txt; //display output in DOM
+    }   
+  </script>
+  
+</head>
+
+<body onload="checkFileAPI();">
+  
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Speech to Text</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+      aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+  </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="row" style="border: 0px;">
+    <div class="col-lg-12 text-center">
+      <h1 class="mt-5">
+        <div class="file-upload-wrapper">
+          
+        </div>
+      </h1>
+      
+      
+      
+      
+      
+      
+      <div class="col-sm-12">
+        
+        <div class="row">
+          <div class="col-sm-6">
+            <h5> Select Language </h5>
+          </div>
+          <div class="col-sm-6" >
+            <select class="form-control" id="ddlLanguage" onchange="getval(this);">
+              <option value='en' selected >English</option>
+              <option value='hi'>Hindi</option>
+              <option value='gu'>Gujarati</option>
+              <option value='ta'>Tamil</option>
+              <option value='te'>Telugu</option>
+              
+            </select>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-sm-6">
+            <label class="btn-bs-file btn btn-lg btn-primary">
+              Choose Audio File
+              <input type="file" id="rll" />
+            </label>
+          </div>
+          <div class="col-sm-6">
+            <audio id="rllly" controls>
+              <source src="" id="rlly" />
+            </audio>
+          </div>
+        </div>
+        
+        
+        <div class="row">
+          <div class="col-sm-6">
+            <label class="btn-bs-file btn btn-lg btn-primary">
+              Choose Text File
+              <input type="file" onchange='readText(this)' />
+            </label>
+          </div>
+          <div class="col-sm-6" id="source">
+            
+          </div>
+        </div>
+        
+        
+        <div class="row">
+          <div class="col-sm-6">
+            <button class="btn btn-primary" id="sub" style='width: 200px;'> Run Model</button>
+          </div>
+          <div class="col-sm-6" id="result">
+            
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-sm-6">
+            <div id="controls">
+              <button class="btn btn-primary" id="recordButton">Record</button>
+              <button class="btn btn-primary" id="pauseButton" hidden disabled>Pause</button>
+              <button class="btn btn-primary" id="stopButton" disabled>Stop</button>
+              <br>
+              <p id="message_record" style="display: none;">Now Recording ...</p>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <ul style="list-style-type:none;" class="list-group" id="recordingsList"></ul>
+          </div>
+          
+          
+        </div>
+      </div>
+      
+      <div id='loader' style='display: none;'>
+        <img src='/static/reload.gif' width='320px' height='320px'>
+      </div>
+      
+      
+      
+      <!-- <div id="formats">Format: start recording to see sample rate</div> -->
+      
+      
+      <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+      <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+      <script >
+        //webkitURL is deprecated but nevertheless
+        URL = window.URL || window.webkitURL;
+        
+        var gumStream; 						//stream from getUserMedia()
+        var rec; 							//Recorder.js object
+        var input; 							//MediaStreamAudioSourceNode we'll be recording
+        
+        // shim for AudioContext when it's not avb. 
+        var AudioContext = window.AudioContext || window.webkitAudioContext;
+        var audioContext //audio context to help us record
+        
+        var recordButton = document.getElementById("recordButton");
+        var stopButton = document.getElementById("stopButton");
+        var pauseButton = document.getElementById("pauseButton");
+        
+        //add events to those 2 buttons
+        recordButton.addEventListener("click", startRecording);
+        stopButton.addEventListener("click", stopRecording);
+        pauseButton.addEventListener("click", pauseRecording);
+        
+        var lang_local_element = document.getElementById("ddlLanguage");
+        var lang_local = lang_local_element.value;
+        
+        function getval(sel)
+        {
+          lang_local = sel.value;
+          console.log('Language changed to '+lang_local)
+        }
+        
+        function startRecording() {
+          console.log("recordButton clicked");
+          var x = document.getElementById("message_record");
+          x.style.display = 'block';
+          
+          /*
+          Simple constraints object, for more advanced audio features see
+          https://addpipe.com/blog/audio-constraints-getusermedia/
+          */
+          
+          var constraints = { audio: true, video:false }
+          
+          /*
+          Disable the record button until we get a success or fail from getUserMedia() 
+          */
+          
+          recordButton.disabled = true;
+          stopButton.disabled = false;
+          pauseButton.disabled = false
+          
+          /*
+          We're using the standard promise based getUserMedia() 
+          https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+          */
+          
+          navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+            console.log("getUserMedia() success, stream created, initializing Recorder.js ...");
+            
+            /*
+            create an audio context after getUserMedia is called
+            sampleRate might change after getUserMedia is called, like it does on macOS when recording through AirPods
+            the sampleRate defaults to the one set in your OS for your playback device
+            */
+            audioContext = new AudioContext();
+            
+            //update the format 
+            //document.getElementById("formats").innerHTML="Format: 1 channel pcm @ "+audioContext.sampleRate/1000+"kHz"
+            
+            /*  assign to gumStream for later use  */
+            gumStream = stream;
+            
+            /* use the stream */
+            input = audioContext.createMediaStreamSource(stream);
+            
+            /* 
+            Create the Recorder object and configure to record mono sound (1 channel)
+            Recording 2 channels  will double the file size
+            */
+            rec = new Recorder(input,{numChannels:1})
+            
+            //start the recording process
+            rec.record()
+            
+            console.log("Recording started");
+            
+          }).catch(function(err) {
+            //enable the record button if getUserMedia() fails
+            recordButton.disabled = false;
+            stopButton.disabled = true;
+            pauseButton.disabled = true
+          });
+        }
+        
+        
+        
+        
+        function pauseRecording(){
+          console.log("pauseButton clicked rec.recording=",rec.recording );
+          if (rec.recording){
+            //pause
+            rec.stop();
+            pauseButton.innerHTML="Resume";
+          }else{
+            //resume
+            rec.record()
+            pauseButton.innerHTML="Pause";
+            
+          }
+        }
+        
+        function stopRecording() {
+          console.log("stopButton clicked");
+          
+          //disable the stop button, enable the record too allow for new recordings
+          stopButton.disabled = true;
+          recordButton.disabled = false;
+          pauseButton.disabled = true;
+          
+          var x = document.getElementById("message_record");
+          x.style.display = 'none';
+          
+          //reset button just in case the recording is stopped while paused
+          pauseButton.innerHTML="Pause";
+          
+          //tell the recorder to stop the recording
+          rec.stop();
+          
+          //stop microphone access
+          gumStream.getAudioTracks()[0].stop();
+          
+          //create the wav blob and pass it on to createDownloadLink
+          rec.exportWAV(createDownloadLink);
+        }
+        
+        function createDownloadLink(blob) {
+          
+          var url = URL.createObjectURL(blob);
+          var au = document.createElement('audio');
+          var li = document.createElement('li');
+          var link = document.createElement('a');
+          link.className = 'btn btn-outline-secondary'
+          li.className= 'list-group-item';
+          const lineBreak = document.createElement('br');
+          
+          //name of .wav file to use during upload and download (without extendion)
+          var filename = new Date().toISOString();
+          
+          //add controls to the <audio> element
+            au.controls = true;
+            au.src = url;
+            
+            //save to disk link
+            link.href = url;
+            link.download = filename+".wav"; //download forces the browser to donwload the file using the  filename
+            link.innerHTML = "Download";
+            
+            //add the new audio element to li
+            li.appendChild(au);
+            li.appendChild(lineBreak)
+            
+            //add the filename to the li
+            //li.appendChild(document.createTextNode(filename+".wav "))
+            
+            //add the save to disk link to li
+            li.appendChild(link);
+            
+            //upload link
+            var upload = document.createElement('a');
+            //upload.href="#";
+            upload.innerHTML = "Run Model";
+            upload.className = 'btn btn-outline-secondary';
+            upload.addEventListener("click", function(event){
+              
+              var fd=new FormData();
+              fd.append("file",blob, 'test.wav');
+              
+              var element = document.getElementById("result");
+              element.innerText = "";
+              $.ajax({
+                type: 'POST',
+                url: 'http://34.70.114.226:8000/transcribe?lang='+lang_local,
+                data: fd,
+                contentType: false,
+                processData: false,
+                crossDomain: true,
+                beforeSend: function () {
+                  // Show image container
+                  $("#loader").show();
+                },
+                success: function (data, textStatus, jqXHR) {
+                  console.log(data);
+                  //alert('Stock updated successfully. Status: '+textStatus);
+                  try {
+                    var final_ = data['transcription']
+                    var text = ''
+                    var element = document.getElementById("result")
+                    console.log(final_[0])
+                    console.log(final_[0].length)
+                    if(final_.length >1){console.log('here 2')
+                    text = final_
+                    console.log(text)
+                    console.log('here')
+                    element.innerText = text
+                  }
+                  else{
+                    console.log('in second')
+                    element.innerText = final_
+                  }
+                  //console.log(final_[0]);
+                  //var element = document.getElementById("result")
+                  //element.innerText = final_[0];
+                }
+                catch (err) { }
+                $("#loader").hide();
+                //$("#result").text(data[final_[0]]);
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+                alert('update Stock error: ' + textStatus);
+                $("#loader").hide();
+              }
+            });
+            //   xhr.open("POST","upload.php",true);
+            //   xhr.send(fd);
+          })
+          li.appendChild(document.createTextNode("\t"))//add a space in between
+          li.appendChild(upload)//add the upload link to li
+          
+          //add the li element to the ol
+          recordingsList.appendChild(li);
+        }
+        
+      </script>
+      
+      <!-- Bootstrap core JavaScript -->
+      <script src="/static/vendor/jquery/jquery.js"></script>
+      <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      
+      
+      
+      <script>
+        var fd = new FormData();
+        
+        function handleFiles(event) {
+          console.log('eventlistener is calledd');
+          
+          var files = event.target.files;
+          localStorage.setItem('audio', JSON.stringify(files[0]))
+          console.log(files[0])
+          $("#rlly").attr("src", URL.createObjectURL(files[0]));
+          document.getElementById("rllly").load();
+          
+          fd = new FormData();
+          console.log("File types are:"+typeof(files[0]));
+          
+          fd.append("file", files[0]);
+          
+          
+          
+        }
+        
+        document.getElementById("rll").addEventListener("change", handleFiles, false);
+        
+        
+        $(document).ready(function () {
+          $("#sub").click(function () {
+            console.log('called');
+            console.log(...fd);
+            var element = document.getElementById("result")
+            element.innerText = ""
+            $.ajax({
+              type: 'POST',
+              url: 'http://34.70.114.226:8000/transcribe?lang='+lang_local,
+              data: fd,
+              contentType: false,
+              processData: false,
+              crossDomain: true,
+              beforeSend: function () {
+                // Show image container
+                $("#loader").show();
+              },
+              success: function (data, textStatus, jqXHR) {
+                console.log(data);
+                //alert('Stock updated successfully. Status: '+textStatus);
+                try {
+                  var final_ = data['transcription']
+                  var text = ''
+                  var element = document.getElementById("result")
+                  console.log(final_[0])
+                  console.log(final_[0].length)
+                  if(final_.length >1){console.log('here 2')
+                  text = final_
+                  console.log(text)
+                  console.log('here')
+                  element.innerText = text
+                }
+                else{
+                  console.log('in second')
+                  element.innerText = final_
+                }
+                //console.log(final_[0]);
+                //var element = document.getElementById("result")
+                //element.innerText = final_[0];
+              }
+              catch (err) { }
+              $("#loader").hide();
+              //$("#result").text(data[final_[0]]);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              alert('update Stock error: ' + textStatus);
+              $("#loader").hide();
+            }
+            
+          });
+        });
+      });
+      
+    </script>
+  </body>
+  
+  </html>
+  
