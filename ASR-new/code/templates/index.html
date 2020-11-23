@@ -19,6 +19,12 @@
       font-size: 16px;
       width: 200px;
     }
+    #close {
+      float:right;
+      display:inline-block;
+      padding:2px 5px;
+      background:#ccc;
+    }
     
     .btn-bs-file input[type="file"] {
       position: absolute;
@@ -359,6 +365,10 @@
           li.className= 'list-group-item';
           const lineBreak = document.createElement('br');
           
+          var closebut = document.createElement('span')
+          closebut.id = 'close'
+          closebut.innerHTML = 'x'
+          
           //name of .wav file to use during upload and download (without extendion)
           var filename = new Date().toISOString();
           
@@ -373,6 +383,10 @@
             
             //add the new audio element to li
             li.appendChild(au);
+            
+            // Close Button
+            li.appendChild(closebut)
+            
             li.appendChild(lineBreak)
             
             //add the filename to the li
@@ -531,7 +545,16 @@
         });
       });
       
+      
+      
+      
+      $(document).on('click','#close',function(){
+        this.parentNode.parentNode
+        .removeChild(this.parentNode);
+        return false;
+      })
     </script>
+    
   </body>
   
   </html>
