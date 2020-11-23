@@ -1,0 +1,8 @@
+{
+    "en" : "/home/harveen.chadha/deployed_models/en/english_v2.pt",
+    "hi" : "/home/harveen.chadha/deployed_models/hi/hindi_v2.pt",
+    "gu" : "/home/harveen.chadha/deployed_models/gu/gujarati.pt",
+    "ta" : "/home/harveen.chadha/deployed_models/ta/tamil.pt",
+    "te" : "/home/harveen.chadha/deployed_models/te/telugu.pt"
+
+}

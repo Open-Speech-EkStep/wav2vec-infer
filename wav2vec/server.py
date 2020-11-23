@@ -18,6 +18,7 @@ import torch
 from flask import Flask, request, jsonify
 import sys
 from flask_cors import CORS, cross_origin
+import json
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -187,18 +188,27 @@ def load_gpu_model(model_path):
     return torch.load(model_path,map_location=torch.device("cuda"))
 
 def load_cpu_model(model_path):
-    return torch.load(model_path,map_location=torch.device("cpu"))
+        return torch.load(model_path,map_location=torch.device("cpu"))
 
+
+#import wav
+
+import cgi
+import contextlib
+import wave
+
+import os
+import subprocess
 
 @app.route('/transcribe', methods=['POST'])
 @cross_origin()
 def parse_transcription():
     if request.method == 'POST':
         res = {}
-        if 'file' not in request.files:
-            res['status'] = "error"
-            res['message'] = "audio file should be passed for the transcription"
-            return jsonify(res)
+        language = request.args.get("lang")
+
+        model_path = model_dict[language]
+        
         file = request.files['file']
         filename = file.filename
         _, file_extension = os.path.splitext(filename)
@@ -207,45 +217,54 @@ def parse_transcription():
             res['status'] = "error"
             res['message'] = "{} is not supported format.".format(file_extension)
             return jsonify(res)
-        
-        with NamedTemporaryFile(suffix=file_extension) as tmp_saved_audio_file:
+       
+        filename_final = ''
+        with NamedTemporaryFile(suffix=file_extension,delete=False) as tmp_saved_audio_file:
             file.save(tmp_saved_audio_file.name)
-            logging.info('Transcribing file...')
-            result = ''
-            if cuda:
-                gpu_model = load_gpu_model(model_path)
-                result = get_results( tmp_saved_audio_file , dict_path,cuda,model=gpu_model)
-            else:
-                cpu_model = load_cpu_model(model_path)
-                result = get_results( tmp_saved_audio_file , dict_path,cuda,model=cpu_model)
+            filename_final = tmp_saved_audio_file.name
+        filename_local = filename_final.split('/')[-1][:-4]
+        filename_new = '/tmp/'+filename_local+'_16.wav'
+        delete = True
+        
+        subprocess.call(["sox {} -r {} -b 16 -c 1 {}".format(filename_final, str(16000), filename_new)], shell=True)
 
-            logging.info('File transcribed')
-            res['status'] = "OK"
-            res['transcription'] = result
-            return jsonify(res)
-            #return result
+        dict_path = "/".join(model_path.split('/')[:-1]) + '/dict.ltr.txt'
 
+        if cuda:
+            gpu_model = load_gpu_model(model_path)
+            result = get_results( filename_new , dict_path,cuda,model=gpu_model)
+        else:
+            cpu_model = load_cpu_model(model_path)
+            result = get_results( filename_new , dict_path,cuda,model=cpu_model)
 
+        if delete:
+            cmd = 'rm -f {}'.format(filename_final)
+            cmd2 = 'rm -f {}'.format(filename_new)
+            os.system(cmd)
+            os.system(cmd2)
+
+        logging.info('File transcribed')
+        res['status'] = "OK"
+        res['transcription'] = result
+        return jsonify(res)
+ 
 
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Run')
-    parser.add_argument('-m', '--model', type=str, help="Model path")
-    parser.add_argument('-d', '--dict', type=str, help="Dict path")
-    #parser.add_argument('-w', '--wav', type=str, help= "Wav path")
+    parser.add_argument('-m', '--model-path', type=str, required=True, help="Model path")
     parser.add_argument('-c', '--cuda',default=False, type=bool, help="CUDA path")
     args_local = parser.parse_args()
-    #print(args_local.cuda)
-    global model_path, dict_path, wav_path, cuda
+    global model_dict, cuda
+    
+    with open(args_local.model_path) as f:
+        model_dict = json.load(f)
 
-    model_path = args_local.model
-    dict_path = args_local.dict
-    #wav_path = args_local.wav
+    
+
     cuda = args_local.cuda
     print(cuda) 
     logging.info('Server initialised')
     app.run(host='0.0.0.0', port=8000, debug=True, use_reloader=False)
-    #result = parse_transcription(args_local.model, args_local.dict, args_local.wav, args_local.cuda)
-    #print(result)
 

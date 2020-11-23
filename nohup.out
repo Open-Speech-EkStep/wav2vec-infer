@@ -1,0 +1,21 @@
+ * Serving Flask app "server" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://0.0.0.0:6006/ (Press CTRL+C to quit)
+False
+ * Serving Flask app "server" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+/opt/conda/envs/fairseq/lib/python3.7/site-packages/torch/cuda/__init__.py:52: UserWarning: CUDA initialization: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx (Triggered internally at  /pytorch/c10/cuda/CUDAFunctions.cpp:100.)
+  return torch._C._cuda_getDeviceCount() > 0
+INFO:werkzeug: * Running on http://0.0.0.0:8000/ (Press CTRL+C to quit)
+124.253.94.0 - - [23/Nov/2020 11:56:46] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:124.253.94.0 - - [23/Nov/2020 11:56:58] "[37mPOST /transcribe?lang=en HTTP/1.1[0m" 200 -
+124.253.94.0 - - [23/Nov/2020 11:57:00] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:124.253.94.0 - - [23/Nov/2020 11:57:11] "[37mPOST /transcribe?lang=hi HTTP/1.1[0m" 200 -
+INFO:werkzeug:124.253.94.0 - - [23/Nov/2020 11:57:24] "[37mPOST /transcribe?lang=en HTTP/1.1[0m" 200 -
+INFO:werkzeug:124.253.94.0 - - [23/Nov/2020 11:57:39] "[37mPOST /transcribe?lang=ta HTTP/1.1[0m" 200 -
