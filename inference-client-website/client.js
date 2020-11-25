@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, "static")));
 
 const PROTO_PATH =
   __dirname +
-  (process.env.PROTO_PATH || "./audio_to_text.proto");
+  (process.env.PROTO_PATH || "/audio_to_text.proto");
 const protoLoader = require("@grpc/proto-loader");
 
 let packageDefinition = protoLoader.loadSync(PROTO_PATH, {
