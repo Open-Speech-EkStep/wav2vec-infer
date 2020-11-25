@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package recognize;
+
+service Recognize {
+   rpc recognize_audio(stream Message) returns (stream Response) {}
+}
+
+message Message {
+  string message = 1;
+  bytes audio = 2;
+  string user = 3;
+  string mic_flag = 4;
+  string language = 5;
+}
+
+message Response {
+    string message = 1;
+    string type = 2;
+    string user = 3;
+    string mic_flag = 4;
+    string language = 5;
+}
