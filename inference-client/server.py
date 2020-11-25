@@ -12,7 +12,7 @@ from audio_grpc_client import RecognitionClient
 import time
 # creates a Flask application, named app
 app = Flask(__name__)
-socketio = SocketIO(app,cors_allowed_origins="*")
+socketio = SocketIO(app,cors_allowed_origins="*",resource="ssocket.io")
 client_buffers = {}
 client_transcriptions = {}
 
@@ -52,6 +52,7 @@ def test_disconnect():
 @socketio.on('end')
 def end_event(json):
     global client_buffers
+    sid = request.sid
     if sid in client_buffers:
         del client_buffers[sid]
 

@@ -264,7 +264,7 @@
         var current_lang = 'en';
 
         $(document).ready(function () {
-            const socketio = io({path:'/ekstep/wav2vec/demo/socket.io'});
+            const socketio = io({path:'/ekstep/wav2vec/demo/ssocket.io'});
             socket = socketio.on('connect', function () {
                 start = true;
             });
