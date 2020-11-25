@@ -51,6 +51,10 @@ function main() {
       delete clientTranscription[socket.id];
     });
 
+    socket.on("end", function (response) {
+      delete clientBuffers[socket.id];
+    });
+
     socket.on("disconnect", () => {
       delete clientBuffers[socket.id];
       delete idDict[socket.id];

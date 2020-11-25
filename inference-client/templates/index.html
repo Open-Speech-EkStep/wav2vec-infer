@@ -261,15 +261,16 @@
     </center>
     <script>
         var start = false, socket;
-        var current_lang = 'en';
+        var current_lang = 'en', selected_lang = 'en';
 
         $(document).ready(function () {
             const socketio = io({path:'/ekstep/wav2vec/demo/ssocket.io'});
             socket = socketio.on('connect', function () {
                 start = true;
             });
-            socket.on('response', function (data) {
-                document.getElementById('output').textContent = data;
+            socket.on('response', function (data, language) {
+                if(selected_lang === language)
+                    document.getElementById('output').textContent = data;
             });
 
             socket.on('unidentified', function (data) {
@@ -347,13 +348,13 @@
                 state = "ON";
                 image.src = "static/stop.webp";
                 socket.emit("start", "");
+                selected_lang = current_lang;
                 startRecording(image);
             } else if (state === "ON") {
-                state = "OFF";
-                image.src = "static/mic.webp";
-                transcribeText();
+                stopRecording()
             }
         }
+
 
         function startRecording(image) {
             let constraints = { audio: true, video: false }
@@ -404,14 +405,22 @@
             });
         }
 
-        function transcribeText() {
+        function endProcess() {
             socket.emit("end", "");
             recordAudio.stopRecording();
             speechEvents.stop();
         }
 
+        function stopRecording(){
+            let image = document.getElementById("mic_image");
+            state = "OFF";
+            image.src = "static/mic.webp";
+            endProcess();
+        }
+
         function getval(sel){
             current_lang = sel.value;
+            stopRecording();
         }
     </script>
 </body>

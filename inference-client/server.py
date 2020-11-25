@@ -97,7 +97,7 @@ def mic_data(chunk, speaking, language):
     if response.mic_flag == "append":
         client_transcriptions[sid] = transcription      
       
-    emit('response', transcription, room=sid)
+    emit('response', transcription, response.language, room=sid)
 
 id_dict = []
 
