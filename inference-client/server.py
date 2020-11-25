@@ -51,8 +51,9 @@ def test_disconnect():
 
 @socketio.on('end')
 def end_event(json):
-    #delete_globals(request.sid)
-    pass
+    global client_buffers
+    if sid in client_buffers:
+        del client_buffers[sid]
 
 @socketio.on('start')
 def start_event(json):
