@@ -92,15 +92,15 @@
                     }
                 }                
             }
-            document.getElementById("audio_file").addEventListener("change", handleFiles, false);
-            document.getElementById("choose_all").addEventListener("change",(event)=>{
-                let aud = document.getElementById("audio_file");
-                if(event.target.checked){
-                    aud.webkitdirectory = true;
-                } else {
-                    aud.webkitdirectory = false;
-                }
-            } ,false);
+            // document.getElementById("audio_file").addEventListener("change", handleFiles, false);
+            // document.getElementById("choose_all").addEventListener("change",(event)=>{
+            //     let aud = document.getElementById("audio_file");
+            //     if(event.target.checked){
+            //         aud.webkitdirectory = true;
+            //     } else {
+            //         aud.webkitdirectory = false;
+            //     }
+            // } ,false);
         });
 
         function readText(filePath, text_id) {
