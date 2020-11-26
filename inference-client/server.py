@@ -15,6 +15,7 @@ app = Flask(__name__)
 socketio = SocketIO(app,cors_allowed_origins="*",resource="ssocket.io")
 client_buffers = {}
 client_transcriptions = {}
+client_curr_langs= {}
 
 def make_message(message,audio, id, mic_flag = "continue", language = 'en'):
     return Message(
@@ -39,11 +40,13 @@ def index():
         return render_template('index.html')
 
 def delete_globals(sid):
-    global client_buffers, client_transcriptions
+    global client_buffers, client_transcriptions, client_curr_langs
     if sid in client_buffers:
         del client_buffers[sid]
     if sid in client_transcriptions:
         del client_transcriptions[sid]
+    if sid in client_curr_langs:
+        del client_curr_langs[sid]
 
 @socketio.on('disconnect')
 def test_disconnect():
@@ -64,8 +67,9 @@ mic_ids = []
 
 @socketio.on('mic_data')
 def mic_data(chunk, speaking, language):
-    global client_buffers
+    global client_buffers, client_curr_langs
     sid = request.sid
+    client_curr_langs[sid] = language
     mic_flag = "replace"
     if(sid not in client_buffers):
         client_buffers[sid] = chunk
@@ -74,11 +78,12 @@ def mic_data(chunk, speaking, language):
     buffer = client_buffers[sid]
 
     if (not speaking):# or (len(client_buffers[sid]) >= 102400):
-        del client_buffers[sid]
+        if sid in client_buffers:
+            del client_buffers[sid]
         mic_flag = "append"
 
     msg = make_message("mic",buffer, sid, mic_flag, language= language)
-    print(sid, "send msg")
+    print(sid, "message sent to grpc")
     msg_id = str(int(time.time()*1000.0))+str(sid)
     response = recognition_client_mic.recognize(msg, msg_id)
     message = json.loads(response.message)
@@ -88,16 +93,20 @@ def mic_data(chunk, speaking, language):
     mic_ids.append(id)
     is_success = message["success"]
     if not is_success:
-        emit('unidentified', "Sentence not recognized by model", room=sid)
+        # emit('unidentified', "Sentence not recognized by model", room=response.user)
         return
-    emit('unidentified', "", room=sid)
-    if sid not in client_transcriptions: client_transcriptions[sid] = ""
-    print(sid, message["transcription"])
-    transcription = client_transcriptions[sid] +" "+message["transcription"]
+    # emit('unidentified', "", room=response.user)
+    if response.user not in client_transcriptions: client_transcriptions[response.user] = ""
+    print(response.user, message["transcription"])
+    if client_curr_langs[response.user] != response.language:
+        if response.user in client_transcriptions:
+            del client_transcriptions[response.user]
+        return
+    transcription = client_transcriptions[response.user] +" "+message["transcription"]
     if response.mic_flag == "append":
-        client_transcriptions[sid] = transcription      
+        client_transcriptions[response.user] = transcription      
       
-    emit('response', transcription, response.language, room=sid)
+    emit('response', {"transcription":transcription, "language":response.language}, room=response.user)
 
 id_dict = []
 

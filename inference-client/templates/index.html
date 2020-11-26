@@ -269,8 +269,8 @@
                 start = true;
             });
             socket.on('response', function (data, language) {
-                if(selected_lang === language)
-                    document.getElementById('output').textContent = data;
+                // if(selected_lang === language)
+                document.getElementById('output').textContent = data;
             });
 
             socket.on('unidentified', function (data) {
