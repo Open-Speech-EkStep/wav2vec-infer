@@ -1,21 +1,1735 @@
- * Serving Flask app "server" (lazy loading)
- * Environment: production
-   WARNING: This is a development server. Do not use it in a production deployment.
-   Use a production WSGI server instead.
- * Debug mode: off
- * Running on http://0.0.0.0:6006/ (Press CTRL+C to quit)
-False
- * Serving Flask app "server" (lazy loading)
- * Environment: production
-   WARNING: This is a development server. Do not use it in a production deployment.
-   Use a production WSGI server instead.
- * Debug mode: on
-/opt/conda/envs/fairseq/lib/python3.7/site-packages/torch/cuda/__init__.py:52: UserWarning: CUDA initialization: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx (Triggered internally at  /pytorch/c10/cuda/CUDAFunctions.cpp:100.)
+Model Loaded Successfully
+GRPC Server! Listening in port 55102
+result {'status': 'OK', 'transcription': 'telo'}
+24d31550885649e69e16d57934f5c3de responded
+result {'status': 'OK', 'transcription': 'el kn i low her lok'}
+24d31550885649e69e16d57934f5c3de responded
+result {'status': 'OK', 'transcription': 'तुम्हारा नाम'}
+24d31550885649e69e16d57934f5c3de responded
+result {'status': 'OK', 'transcription': 'तुम्हारा नाम क्या है'}
+24d31550885649e69e16d57934f5c3de responded
+result {'status': 'OK', 'transcription': 'इ कमेटी द्वारा'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'इकमेटी द्वारा निश्चित की हुई समय था'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'इनकमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'इकमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को प्र'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'इनकमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को प्रस्तुत करता हूँ'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'इनकमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को प्रस्तुत करता हूँ और निवेदन करता हूँ'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'इनकमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को प्रस्तुत करता हूँ और निवेदन करता हूँ कि इस पर विचार की'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'इनकमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को प्स्त करता हूऔर निवेदन करता हूँ कि इस पर विचार किया जाए'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'इनकमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को त कतहू और निेन करतहू स र विचार किया जाए'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'इनकमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'इनकमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'इनकमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को ँपरारकिया जा'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'इनकमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को त  हूँऔर  करतहूँ क  पर विचार किया जाए'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'इनकमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को ँ हूँ कि स पर विचार किया जा'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'इनकमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को  हूँऔर तहूँ कि  पर विचार किया जा'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'इकमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को प्रस्तत करत हूँऔर न करत हूँ कि इस पर विचार किया जाए'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'इकमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को प्सतत क हूँऔर  कतहूँ कि इस पर विचार किया जाए'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'डॉ'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'डॉ अंबेट करने की ्री मे'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'अंबेट करने की त्री मेनततो लगनकर'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'डॉक्टर अंबेट करने की त्री मेन तो लगन खर्च कीहै शायद'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'डॉक्टर अंबेट करने की त्री मेनतो लगन खर्च कीहै शायद सदन को पता'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'डॉक्टर अंबेट करने की त्री मेनतो लगन खर्च की है शायद सदन को पता हो कि'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'डॉक्र अंबेट करने की त्री मेन तो लगन खर्च की है शायद सदन को पता हो कि उसके द्वारा'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'डॉक्टर अंबेट करने की त्री मेनतो लगनखर्च की है शायद सदन को पता हो कि उसके द्वारा नोने7ा सदस्य'}
+eff4215c26c747a1b19ce937d5195773 responded
+result {'status': 'OK', 'transcription': 'rushed topatima'}
+ae6037b0b2e241e499f6b15b572b77bc responded
+result {'status': 'OK', 'transcription': 'rushe to patima hodey sir'}
+ae6037b0b2e241e499f6b15b572b77bc responded
+result {'status': 'OK', 'transcription': 'rash to patimahodey sir ma'}
+ae6037b0b2e241e499f6b15b572b77bc responded
+result {'status': 'OK', 'transcription': 'rush  patimaholay sir me softing committee do are a'}
+ae6037b0b2e241e499f6b15b572b77bc responded
+result {'status': 'OK', 'transcription': 'rush to patimahotey sir me drafting committee do arand mis chitky who is somt'}
+ae6037b0b2e241e499f6b15b572b77bc responded
+result {'status': 'OK', 'transcription': 'rush patim over there sir the drafting committee darand mis chitky who is sometet ankiroplaago'}
+ae6037b0b2e241e499f6b15b572b77bc responded
+result {'status': 'OK', 'transcription': 'rush tpatim over there sir the drafting committee doread miss chitky whois some tet hankiro prak ac'}
+ae6037b0b2e241e499f6b15b572b77bc responded
+result {'status': 'OK', 'transcription': 'rush topatimavethere sir the drafting committee doarand his chitky who is some thet hankiro prak ackl rush'}
+ae6037b0b2e241e499f6b15b572b77bc responded
+result {'status': 'OK', 'transcription': 'rush patimovothere sir thy drafting committee doar and his chitki who is some at hankio rak ack rush upathimup'}
+ae6037b0b2e241e499f6b15b572b77bc responded
+result {'status': 'OK', 'transcription': 'होर'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'हो सर'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'होगे सर मजरॉफ्टिंग कमेटीज'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'हो सर मैड्राफ्टिंग कमेटी द्वारा निश्चित की हुई थी'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'ोसरमरॉफटिं कमेटी द्वारा निश्चित की हुई संविधान की रोपरी'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'सरमरॉफटिं कमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'ोसरमै ज्रॉफटिं कमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को प्रस्तुत करता हूँ'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'ोलसरमै ज्रॉफटिन कमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को प्रस्तुत करता हूँ'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'और निवेदन करताहू'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'और निवेदन करता हूँ कि इस पर विचार की'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'और निवेदन करता हूँ कि इस पर विचार किया जाए'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'और निवेदन करता हूँ कि इस पर विचार किया जाए'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'राष्ट्र'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोरेसर'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोरेसर म सदन में हू'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोरेसर मई सदन में उपस्थित उन्लोगों में'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोरेसर मई सदन में उपस्थित उन लोगों में सेकूँ'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोरेस मई सदन में उपस्थित न लोगों में से कू जो चाहते हैं कि'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोरेस मई सदन में उपस्थित नलोगों में से कू जो जानते हैं कि इस संविधान का मसोदा'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोरेसर मई सदन में उपस्थित न लोगों में से एकू जो जानते हैं कि इस संविधान का मशोदा तैयार करने में'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोरेस मई सदन में उपस्थित न लोगों में से कू जो जानते हैं कि इस संविधान का मसोदा तैयार करने में'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': ''}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'रॉक्टर अमबेट'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'रक्टर अंबेट करने की त्री मेंर'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'रॉक्टर अंबेट करने की त्री मेरत लगनखर्च की है'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'रॉक्टर अंबेट करने की त्री मेरत लगनखर्च की है शायद'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'रॉक्टर अंबेट करने की त्री में रहता हूँ लगनखर्च की है शायद सदन को पता हूँ'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'राक्टर अंबेट करने की त्री में रहता हँ लगनखर्च की है शायद सदन को पता हो कि उसके'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'रॉक्टर अंबेट करने की त्री मे रता लगनखर्च की है शायद सदन को पता होँ कि उसके द्वारा'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'रॉक्टर अंबेट करने की त्री मे रहता लगनखर्च की है शायद सदन को पता हो कि उसके द्वारा'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'वन'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'वन'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'वयू'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'वीपयूो'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'वजीपयू'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'पनफलस वसाइट'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'मनोनीसाथ'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'मनोनसात सदस्यों में से'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'मसा सदस्यों में से एक ने'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': 'मनोन सा सदस्यों में से एक ने इसलिफा दे दिया'}
+058cff2f35294250b8f0f220bd9437fa responded
+result {'status': 'OK', 'transcription': ''}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महौल है'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदय सर'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदय सर डरा'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति मोहोदय सर मडरॉफ्टिंग कमेटी द्वारा निश'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदय सर मड्रॉफ्टिंग कमेटी द्वारा निश्चित की हुई संविधान'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदय सर मड्रॉफ्टिंग कमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदय सर मेड्रॉफ्टिंग कमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को प्रस्तुत'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदयसर मैड्रॉफ्टिंग कमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को प्रस्तुत करता हूँ'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदयसर मड्रॉफ्टिंग कमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को प्रस्तुत करता हूँ और निवेदन करता हूँ'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदय सर मड्रॉफ्टिंग कमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को प्रस्तुत करता हूँ और निवेदन करता हूँ'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'इश्वर में चार किया'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'इश्वर मेंचार किया जाए'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'इश्वर में चार किया जाए'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'श्वर वेंचार किया जाए'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'श्वर वेंचार किया जाए'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'इश्वर वेंचार किया जाए'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'इश्वर वेंचार किया जाए'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'इश्वर वें चार किया जाए'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'इश्वर में चार किया जाए'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'इश्वर वें चार किया जाए'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'इश्वर वेंचार किया जाए'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': ''}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'डॉक्टर मबे'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'डॉक्टर अबेट करने की त्री में'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'डॉक्टर अंबेट करने की त्री मेनतो लगनखर्च की'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'डॉक्टर अंबेट करने की त्री मेनत लगनखर्च की है शायद'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'डॉक्टर अंबेट करने की त्री मेनतो लगनखर्च की है शायद सदनो पता हू'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'डॉक्टर अंबेट करने की त्री मेनतर लगनखर्च की है शायद सदनो पता हो कि उसके'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'डॉक्टर अंबेट करने की त्री मेनत लगनखर्च की है शायद सदनो पता हो कि उसके द्वारा'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'डॉक्टर अंबेट करने की त्री मेनत लगनखर्च की है शायद सदनो पता होकि उसके द्वारा मनोनी सा सदस्य'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'डॉक्टर अंबेट करने की त्री मैनत लगनखर्च की है शाय सदन पता हो कि उसके द्वारा मनोनी सात सदस्यों में से एक ने'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'डॉक्टर अंबेट करने की त्री मेहनतऔ लगनखर्च की है शाय सदन पता हो कि उसके द्वारा मनोनी सात सदस्यों में से एक ने सलिफा दे दिया'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'डॉ्टर अबेट करने की फ्री मेनत लगनखर्च की है शाय सदन पता हो कि उसके द्वारा मनोनी सात सदस्यों में से एक ने इस्लीफा दे दिया और उसकी'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'डॉक्टर अंबेट करने की फ्री मेनतऔ लगनखर्च की है शाय सदन पता हो कि उसके द्वारा मनोनी सात सदस्यों में से एक ने इस्लीफा दे दिया और उसकी जगह किसी'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'डॉक्टर अबेट करने की फ्री मेनतऔ लगनखर्च की है शाय सदन पता हो कि उसके द्वारा मनोनी सात सदस्यों में से एक ने स्लीफा दे दिया और उसकी जगह किसी और को नहीं लिया'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'डॉ्टर अंबेट करने की फ्री मेहनतऔ लगनखर्च की है शायद सदन ो पता हो कि उसके द्वारा मनोनी सात सदस्यों में से एक ने इस्लीफा दे दिया और उसकी जगह किसी और को नहीं लिया गया'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'डॉक्टर अबेट करने की त्री मेनतऔ लगनखर्च की है शायद सदन को पता हो कि उसके द्वारा मनोनी सात सदस्यों में से एक ने स्लीफा दे दिया और उसकी जगह किसी और को नहीं लिया गया'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'डॉक्टर अबेट करने की त्री मेनतऔ लगनखर्च की है शायद सदन को पता हो कि उसके द्वारा मनोनी सात सदस्यों में से एक ने स्लीफा दे दिया और उसकी जगह किसी और को नहीं लिया गया  द'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'व्स टैक्स'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'व्स एक्स्प्लोबलाइजेशन'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'व्स एक्सप्लोबलाइजेशनअमेरिका में'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'व्स एक्सप्लोबलाइजेशनअमेरिका में'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'वर्स एक्सप्लोबलाइजेशनअमेरिका मेंजलरी'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': '्स एक्सप्लोबलाइजेशन अमेरिका में की जगह खाली रही और'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': '्स एक्सपलोमलाइजेशन अमेरिका में की जगह  खाली रह और एक और सदस्य है'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'व्स एक्सपलोमलाइजेशन अमेरिका में की जगहखलीरहऔर कर सदस है'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': '्स एक्सलोमलाइजेशनअमेरिका मेंजगहरदछ े'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': '्स एक्सलो्मलाइजेशनअमेरिका में की जगखलीरहऔर करसदस कुछकामों मेर'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'वर्स एक्सलोर्मलाइजेशन अमेरिका में तोउनकी जगह ही खाली रही और एक र सदस्य है आपने कुछ कामों में राज के कामों में व्यस्त रह'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': '्स एक्सनोर्मलाइजेशन अमेरिका में नकी जगह ीखाली रही और एक र सदस्य है पने कुकामोंमेराज के काम में वस्तरहसि'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': '्स एक्सनोर्मलाइजेशन अमेरिका में तोउनकी जगह ही खाली रही और एक और सदस्य है आपने कुछ कामों मेराज के काम में वस्तरहल कीजह'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'स एक्सलोर्मलाइजेशन अमेरिका में तोउनकी जगह ही खाली रही और एक और सदस्य है आपने कुछ कामों में राज्य के काम में व्यस्तरहसलिएनकीजह ीरी'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'स एक्सलोर्मलाइजेशन अमेरिका में ोउनकी जगह ी खाली रही और एक र सदस्य है आपने कुछ कामों मे राज के काम में व्यस्तरहसलउकीह ी'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': ''}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'एयार दो सला'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'एयार दो सदस्य है'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'ए या दो सदस्य ै दिल्ली के बाहर से'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'एक या दो सदस्यह दिल्ली के बाहर से और'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'एक या दो सदस्य दिल्ली के बाहर से और शायद सेहद की वजाह'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'एक या दो सदस्य दिल्ली के बाहर से और शायद सेहद की वजह से'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'एकया दो सदस्य दिल्ली के बाहर से और शायद सेहद की वजह से शामिलन हो सके'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'एकया दो सदस्य दिल्ली के बाहर से और शायद सेहत की वजह से शामिलन हो सके'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'इस'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'इसलिए आखिर में ह'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'इसि आखिर में हुआ यूक'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'इसलि आखिर में हुआ यूके'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': ''}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': ''}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'ीमसूरा'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'मसूा तैयार करने का'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'मसूरा तैयार करने का सारा भारआ'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'मसूा तैयार करने का साराभारा पा'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'मसूदा तैयार करने का सारा भारा पडा'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'मसूा तैयार करने का सारा भारा पडा'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'मसोा तैयार करने का सारा भारा पडा'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'मसोा तैयार करने का सारा भारा पड़ा'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'ककर कासाराभारा प'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'ककरने कासार'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'मसोा तयार करने का सार भारमझे कोई'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'आगे जब कूई उसके'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'आगे जब कोई उसकेमा'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'आगे जब कोई उसकेमाउसके समय ाहि'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'आगे जब कोई उसकेमासकेसय हि'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'आगे जब कोई उसकेास'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'आगे जब कोई उसकेाउसके सय ह अॉ ंिलटी नीं है'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'आगे जब कोई उसकेाउसके सय हि अभी ॉ ें टिलटी नहीं हैक'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'आगे जब कोई उसकेाउसके समय हि अभी ॉ ेंिलिटी नहीं है'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': ''}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'दर'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'दर'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'दर'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'दल'}
+69893f7523964f998b39510aed105039 responded
+result {'status': 'OK', 'transcription': 'र'}
+6a5d50628fdd44a29b1a4921079229bb responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति माहौल'}
+6a5d50628fdd44a29b1a4921079229bb responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोलय सर'}
+6a5d50628fdd44a29b1a4921079229bb responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोद सर'}
+6a5d50628fdd44a29b1a4921079229bb responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदय सर फट कमेटी द्वारा निश्चित की'}
+6a5d50628fdd44a29b1a4921079229bb responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदसर मरफ कमेटी द्वारा निश्चित की हुई संविधान की रू'}
+6a5d50628fdd44a29b1a4921079229bb responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोद सर  कमेटी द्वारा निश्चित की हुई संविधान की रूपरीखा को'}
+6a5d50628fdd44a29b1a4921079229bb responded
+result {'status': 'OK', 'transcription': 'प्रस्तुत करता'}
+6a5d50628fdd44a29b1a4921079229bb responded
+result {'status': 'OK', 'transcription': 'प्रस्तुत करता हूँ फिर'}
+6a5d50628fdd44a29b1a4921079229bb responded
+result {'status': 'OK', 'transcription': 'हो गए'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'हो गए सर'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'हो गएसर'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'हो गए सर मटी'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'हो गसर मटी दवारानिशचित की ह'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'हो ग सर कमटी दवारानशचित की हु संवधानी'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'ो गएसरमटि कमटी द्वारा निश्चित की हुई संविधान की रूपरेखा को'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'सरटि कमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'एसरटि कमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा कोपरस्तुत करता हूँ'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'हो ग सरमट कमटी दवारा निश्चित की हुई संविधान की रूपरेखा कोस्तुत करत हूँ और'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'हो ग सर मटि कमटी दवारा निश्चित की हुई संविधान की रूपरेखा कोपस्तुत करता हूँ और निवनकरता हूँ'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'हो ग सर मटि कमटी दवारा निश्चित की हुई संविधान की रूपरेखा को पस्तुत करता हूँ और निवेदन करता हूँ कि स पर वचा'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'हो ग सरमट कमटी दवारा निशचित की हुई संविधान की रूपरेखा कोपस्तुत करता हूँ और निवेन रता हूँ किसपरविचार किा जाए'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'हो गए सरमटि कमेटी द्वारा निश्चित की हुई संविधान की रूपरेखा को प्रस्तुत करता हूँ और निवेदन करता हूँ कि सपर विचार किया जाए'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'रा'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रवधि महोदेश'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदेसर'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदेसर मई सदन्य'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदेसर मई सदन मय उपस्थित पूरो'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति मोहोदेसर मई सदन मय उपस्थित उर्लोगो में सेख'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति मोहोदेसर मई सदन मय उपस्थित उर्लोगो में से एकू जो जा'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति मोहोदेसर मई सदन मे उपस्थित उर्लोगों में से एकू जो जानते हैं कि'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदेसर मई सदन मे उपस्थित पूरलोगो मे से एकू जो जानते हैं कि समिदान काम'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदेसर मई सदन मे उपस्थित उर्लोगूमे से एकू जो जानते हैं कि समिदान का मशोदा तैयार करें'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति मोहोदेसर मई सदन मय उपस्थित उर्लोगू मे से एकू जो जानते हैं कि सविदान का मशोदा तैयार करने में'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदेसर मई सदन मय उपस्थित पूरलोगूमे से एकू जो जानते हैं कि सविदान का मशोदा तैयार करने में'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदेसर मई सदन मय उपस्थित उर्लोभूमे से एकू जो जानते हैं कि सविदान का मशोदा तैयार करने में'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति मोहोेसर मई सदन मय उपस्थित उर्लोगोमे से ू जो जनते हैं कि सविदान का मशोदा तैयार करने में'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति मोहोेसर मई सदन मय उपस्थित उर्लोगो मे से ू  जते हैं कि सदान का मशोदा तैयार करने में'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति मोहवेसर मई सदन मय उपस्थित उर्लोगो में से सान का मोदा तैयार करने में'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति मोहवेसर मई सदन मय उपस्थित उर्लोग में से कसान का मोदा तैयार करने में'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति मोहोवेसर मई सदन मे उपस्थित उर्लोो में से सान का मोदा तैयार करने में'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति मोहोदेसर मई सदन मे उपस्थित उर्लोगो में से  सदान का मशोदा तैयार करने मेंक'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति मोहोदेसर मई सदन मय उपस्थित उर्लोगों में से सदान का मशोदा तैयार करने में'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति मोहोदेसर मई सदन मे उपस्थित उर्लोगो में से सदान का मोदा तैयार करने मेंत हो कि उसके द्वा'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदेशर मई सदन मय उपस्थित उर्लोगो में से सधान का मशोदा तैयार करने मेंपत हो कि उसके द्वारा'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदेसर मई सदन य उपस्थित उर्लोगों में से सधान का मशोदा तैयार करने में को पता हो कि उसके द्वारा मनोलि साथ सदस् मेंसे'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदेसर मई सदन य उपस्थित उर्लोगो में से सधान का मशोदा तैयार करने में को पता हो कि उसके द्वारा मनोलि साथ सदस्य'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदेसर मई सदन य उपस्थित उर्लोगं में सेसधान का मशोदा तैयार करने मेंन को पता हो कि उसके द्वारा मनोलि साथ सदस्यों में से   दिया'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदेसर मई सदन य उपस्थित उर्लोगो में से सधान का मोा तैयार करने मेंन को पता हो कि उसके द्वारा मनोलि साथ सदस्यों में से एकने इस्लिफा दे दि'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदेसर मई सदन य उपस्थित उर्लोगो में सेजतेै क सधान का मोा तैयार करने मेंन को पता हो कि उसके द्वारा मनोनि साथ सदस्यों में से एकने इस्लिफा दे दिया'}
+97aabef93d6a4ce38e992fcab27e70a8 responded
+result {'status': 'OK', 'transcription': 'राष्ट्रपति महोदेसर मई सदन य उपस्थित उर्लोगो में से  सधान का मसोदा तैयार करने मेंन को पता हो कि उसके द्वारा मनोनि साथ सदस्यों में से एकने इस्लिफा दे दिया और'}Model Loaded Successfully
+GRPC Server! Listening in port 55102
+result {'status': 'OK', 'transcription': 'elo an'}
+7a5fc34322c546c889fe8e72e9896986 responded
+result {'status': 'OK', 'transcription': 'ए'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर का'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखाा'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था बड़ी देर बाद'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था बड़ी देर बाद उसने जानवरा'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था बड़ी देर बाद उसने जानवर का पीछा किया'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था बड़ी देर बाद उसने जानवर का पीछा किया लेकिन अफसोस'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था बड़ी देर बाद उसने जानवर का पीछा किया लेकिन अफसोस वो भी उसके हाथ'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था बड़ी देर बाद उसने  जानवर का पीछा किया लेकिन अफसोस वो भी उसके हाथ उसे निकल गया'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था बड़ी देर बाद उसने  जानवर का पीछा किया लेकिन अफसोसवो भी उसके हाथ उसे निकल गया'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था बड़ी देर बाद उसने  जानवर का पीछा किया लेकिन अफसोसवो भी उसके हाथ उसे निकल गया शी बहुत'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था बड़ी देर बाद उसने  जानवर का पीछा किया लेकिन अफसोवो भी उसके हाथ उसे निकल गया शी अब बहुत थक चुका था'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था बड़ी देर बाद उसने  जानवर का पीछा किया लेकिन अफसोसवो भी उसके हाथ उसे निकल गया शी बबहुत थक चुका था'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था बड़ी देर बाद उसने  जानवर का पीछा किया लेकिन अफसोवो भी उसके हाथ से निकल गया शी बबहुत थक चुका था'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था बड़ी देर बाद उसने जानवर का पीछा किया लेकिन अफसोवो भी उसके हाथ से निकल गया शी ब बहुत थक चुका थाको'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था बड़ी देर बाद उसने जानवर का पीछा किया लेकिन अफसोसो भी उसके हाथ से निकल गया शी  बहुत थक चुका था'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था बड़ी देर बाद उसने  जानवर का पीछा किया लेकिन अफसोसो भी उसके हाथ से निकल गया शी बहुत थक चुका था मलने'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था बड़ी देर बाद उसनेजानवर का पीछा किया लेकिन ोोी उसके हाथ से निकल गयाबहुत क चुका थामले'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था बड़ीदर बाद उसनेानवर का पीछा किया लेकिन ोोभी उसके हाथ से निकल गयाबहुत क चुका थाक मिलने के'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था ीदेर बाद उसनेानव का पीछा किया लेकिन ोोी उके हाथ से निकल गयाब  चुका थाक मिलने के'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था  ाउानवका पीछाकियािन ो उके हाथसे निकल गया ुका थ मिलने के'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा था नका पीाकियानउके हासे निकल गया का थ मिलने के'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा थाीनिकल गन मिलने के'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा थाकल मिलने के'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा थानकल मिलने के'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'एक शेर काफी समय से भूखा थाकल मिलने के'}
+7a961185d752480dbb6a7f559b609a48 responded
+result {'status': 'OK', 'transcription': 'दाट पर्टिकुलर पार्ट'}
+7ea11647d4ac469c9ae855afbb16bc45 responded
+result {'status': 'OK', 'transcription': 'दट परटिकुलर पार्ट ऑ गोल्डंड दट'}
+7ea11647d4ac469c9ae855afbb16bc45 responded
+result {'status': 'OK', 'transcription': 'दट पर्टिकुलर पार्ट  गोल्डंड  कटिन्यू'}
+7ea11647d4ac469c9ae855afbb16bc45 responded
+result {'status': 'OK', 'transcription': 'दट परटिकुलर पार्ट गोल्डंड  किन्यू एक समय की बात है'}
+7ea11647d4ac469c9ae855afbb16bc45 responded
+result {'status': 'OK', 'transcription': 'दट परटिकुलर पार्ट गोल्डंड  कन्यूएक समय की बात है एक शेर'}
+7ea11647d4ac469c9ae855afbb16bc45 responded
+result {'status': 'OK', 'transcription': 'दट परटिकुलर पार्ट गोल्डंड  न्ू एक समय की बात है एक शे काफी समय'}
+7ea11647d4ac469c9ae855afbb16bc45 responded
+result {'status': 'OK', 'transcription': 'पीछा किया'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'पीछा किया लेकिन अफ सोच'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'पीछा किया लेकिन अफ सोस वो भी उसके'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'पीछा किया लेकिन अफसोच वो भी उसके हाथों से निकल गया'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'छा कियालेकिन अफसोवह भी उसके हाथों से निकल गया'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'पछा किया लेकिन अफसो वो भी उसके हाथों से निकल गया'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'पीछा किया लेकिन अफसोस वो भी उसके हाथों से निकल गया शिर अब बहुत  चुका था'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'पीछा किया लेकिन अफसोस वो भी उसके हाथों से निकल गया शिर अब बहुत  चुका था'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'पीछा किया लेकिन अफसोस वो भी उसके हाथों से निकल गया शिर अब बहुत  चुका था'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'पीछा किया लेकिन अफसोस वो भी उसके हाथों से निकल गया शिर अब बहुत  चुका था'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'पीछा किया लेकिन अफ सोस वो भी उसके हाथों से निकल गया शीर अब बहुत  चुका था'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'पीछा किया लेकिन अफसोस वो भी उसके हाथों से निकल गया शीर अब बहुत  चुका था'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'पीछा किया लेकिन अफसोस वो भी उसके हाथों से निकल गया शीर अब बहुत  चुका था'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'ये सो'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'ये सो दो जसटक'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'ये सो दोसटकपट कोर्ट सो'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'ये सो द सो जसट कमपारट कोर्ट ो'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसो सो जसकमपारट कोर्ट टा'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'ये सो सो स कपट कोर्टटा'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'ये सो ो सकपट कोर्ट ोरकटटा'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसो सो सपट कोर्ट'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोोपटकोर्टटाोप्लेोडड'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोसो पटकोर्ट टटाप्लेडो ऐडड'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोोपटकोर्ट टाप्े ऐंड डट'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोोर्टट'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोोरटाोट'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोसोोर'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोसोर'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोसो र'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोो रो'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोो ोराट'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोो ोा'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'यसोसो'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'यसोसो'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोसो'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोो'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोो'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोो'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोो'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोो'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोो'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोो'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोो'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोोम'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोो'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोोम'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोोम'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोो'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोोम'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोोम'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोोम'}
+c8f7af4f69194bbb9bb11ad7ac992472 responded
+result {'status': 'OK', 'transcription': 'येसोो म'}/home/sreejithv/inference/miniconda3/envs/fairseq/lib/python3.7/site-packages/torch/cuda/__init__.py:52: UserWarning: CUDA initialization: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx (Triggered internally at  /pytorch/c10/cuda/CUDAFunctions.cpp:100.)
   return torch._C._cuda_getDeviceCount() > 0
-INFO:werkzeug: * Running on http://0.0.0.0:8000/ (Press CTRL+C to quit)
-124.253.94.0 - - [23/Nov/2020 11:56:46] "[37mGET / HTTP/1.1[0m" 200 -
-INFO:werkzeug:124.253.94.0 - - [23/Nov/2020 11:56:58] "[37mPOST /transcribe?lang=en HTTP/1.1[0m" 200 -
-124.253.94.0 - - [23/Nov/2020 11:57:00] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-INFO:werkzeug:124.253.94.0 - - [23/Nov/2020 11:57:11] "[37mPOST /transcribe?lang=hi HTTP/1.1[0m" 200 -
-INFO:werkzeug:124.253.94.0 - - [23/Nov/2020 11:57:24] "[37mPOST /transcribe?lang=en HTTP/1.1[0m" 200 -
-INFO:werkzeug:124.253.94.0 - - [23/Nov/2020 11:57:39] "[37mPOST /transcribe?lang=ta HTTP/1.1[0m" 200 -
+Model Loaded Successfully
+GRPC Server! Listening in port 55102
+result {'status': 'OK', 'transcription': 'a look'}
+76a6f8f00a2b4f53b7434ef6feea90aa responded
+result {'status': 'OK', 'transcription': 'elo an looked'}
+76a6f8f00a2b4f53b7434ef6feea90aa responded
+result {'status': 'OK', 'transcription': 'hello'}
+44cd2bd27f3243848b99f01a07c5c4a0 responded
+result {'status': 'OK', 'transcription': 'hello how are you'}
+44cd2bd27f3243848b99f01a07c5c4a0 responded
+result {'status': 'OK', 'transcription': 'hello how are you good morning'}
+44cd2bd27f3243848b99f01a07c5c4a0 responded
+result {'status': 'OK', 'transcription': 'तुम्हारा नाम'}
+44cd2bd27f3243848b99f01a07c5c4a0 responded
+result {'status': 'OK', 'transcription': 'तुम्हारा नाम क्या है'}
+44cd2bd27f3243848b99f01a07c5c4a0 responded
+result {'status': 'OK', 'transcription': 'a'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'ah hello good morning'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'ah hello good morning vev du vecta'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'ah hello good morning wave to vector inferencsov'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'a hallo good morning wev do vector in forein service engine chse'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'तुम्हारा नाम'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'तुम्हारा नाम क्या है'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'तुमने उसे पसंद कर लिया'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'तुमने उसे पसंद कर लिया और उसने तुम्हें'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'तुमने उसे पसंद कर लिया और उसने तुम्हें और इस लव'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'तुमने उसे पसंद कर लिया और उसने तुम्हें और इस लव फोर्स साइड को तो मोहब्बत'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'तुमने उसे पसंद कर लिया और उसने तुम्हें और इस लव फोर्ससाइड को तो मोहब्बत कह रहे हो तो'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'तुमने उसे पसंद कर लिया और उसने तुम्हें और इस लवड फोर्स साइड को तो मोहब्बत कह रहे हो तो हो सकता है तुम गलत'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'तुमने उसे पसंद कर लिया और उसने तुम्हें और इस लवट फोर्स साइड को तो मोहब्बत कह रहे हो तो हो सकता है तुम गलत क्योंकि'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'तुमने उसे पसंद कर लिया और उसने तुम्हें और इस लव फोर्स साइड को तो मोहब्बत कह रहे हो तो हो सकता है तुम गलतक्योंकि र पहली नजर में तो हमें'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'तुमने उसे पसंद कर लिया और उसने तुम्हें और इस लव फोर्ससाइड को तो मोहब्बत कह रहे हो तो हो सकता है तुम गलतक्योंकि र पहली नजर में तो हमें एंटीक चीज़ भी प'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'तुमने उसे पसंद कर लिया और उसने तुम्हें और इस लव फोर्ससाइड को तो मोहब्बत कह रहे हो तो हो सकता है तुम गलतक्योंकि र पहली नजर में तो हमें एंटी चीज़ भी पसंद आ जाती है पर हम स'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'तुमने उसे पसंद कर लिया और उसने तुम्हें और इस लवड फोर्ससाइड को तो मोहब्बत कह रहे हो तो हो सकता है तुम गलत क्योंकि र पहली नजर में तो हमें एंटी चीज़ भी पसंद आ जाती है पर हम उसे घर में रखते है दिखा'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'तुमने उसे पसंद कर लिया और उसने तुम्हें और इस लवड फोर्ससाइड को तो मोहब्बत कह रहे हो तो हो सकता है तुम गलत क्योंकि यर पहली नजर में तो हमें एंटी चीज़ भी पसंद आ जाती है पर हम उसे घर में रखते हैं दिखावे के'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'बस क्योंकि देर'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'बस क्योंकि देर रात तक तुम दोनों ढे'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'बस क्योंकि देर रात तक तुम दोनों ढेर सारी बातें करते हो'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'बस क्योंकि देर रात तक तुम दोनों ढेर सारी बातें करते हो और इसे तुम मोहब्बत च'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'बस क्योंकि देर रात तक तुम दोनों ढेर सारी बातें करते हो और इसे तुम मोहब्बत समझते हो तो'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'बस क्योंकि देर रात तक तुम दोनों ढेर सारी बातें करते हो और इसे तुम मोहब्बत समझते हो तो हो सकता है तुम गलत'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'बस क्योंकि देर रात तक तुम दोनों ढेर सारी बातें करते हो और इसे तुम मोहब्बत समझते हो तो हो सकता है तुम गलत क्योंकि'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'बस क्योंकि देर रात तक तुम दोनों ढेर सारी बातें करते हो और इसे तुम मोहब्बत समझते हो तो हो सकता है तुम गलत क्ोंकि यार अकेले पनके माे'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'बस क्योंकि देर रात तक तुम दोनों ढेर सारी बातें करते हो और इसे तुम मोहब्बत समझते हो तो हो सकता है तुम गलतक्योंकि यार अकेले पनके मारे तो दो अनजानमुसा'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'बस क्योंकि देर रात तक तुम दोनों ढेर सारी बातें करते हो और इसे तु मोहब्बत समझते हो तो हो सकता है तुम गलत क्योंकि यार अकेले पन के मारे तो दो अनजान मसाफिर भी एक दूसरे से बात क'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'बस क्योंकि देर रात तक तुम दोनों ढेर सारी बातें करते हो और इसे तुम मोहब्बत समझते हो तो हो सकता है तुम गलतकोंकि या अकेलेपनके मारे तो दो अनजान मसाफिर भी एक दूसरे से बात कर लेते'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'अर अगर किसी'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'अर अगर किसी लडकी को देखकर व'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'अर अगर किसी लड़की को देखके वो तुम्हारा हाथ पकड़ ले'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'अर अगर किसी लड़की को देखके वो तुम्हारा हाथ पकड़ लेती है और किसी लड़के को े'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'अर अगर किसी लडकी को देखके वह तुम्हारा हाथ पकड लेती है और किसी लडके को देखकर तुम उसका'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'अरे अगर किसी लड़की को देखके वो तुम्हारा हाथ पकड़ लेती है और किसी लड़के को देखके तुम उसका भरिश'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'अर अगर किसी लड़की को देखके वो तुम्हारा हाथ पकड़ लेती है और किसी लड़के को देखके तुम उसका भरिस ूट जैलिसी को तो'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'अर अगर किसी लड़की को देखके वो तुम्हारा हाथ पकड़ लेती है और किसी लड़के को देखके तुम उसका भरइस खूट जैलिसी को तु मोहब्बत कह रहे हो तो'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'अर अगर किसी लड़की को देखके वो तुम्हारा हाथ पकड़ लेती है और किसी लड़के को देखके तुम उसका भर इस खूट जैलिसी को तु मोहब्बत कह रहे हो तो हो सकता है तुम'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'अर अगर किसी लड़की को देखके वो तुम्हारा हाथ पकड़ लेती है और किसी लड़के को देखके तुम उसका भर इस खूट जैलिसी को तु मोहब्बत कह रहे हो तो हो सकता है तुम'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'परिंदो को पकडा'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'परिंदो को पकडा जाता है पिंजरों में कया'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'परिंदों को पकडा जाता है पिंजरों में कैत करने के लिए ना आजाद'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'कपरिंदो को पकड़ा जाता है पिंजरों में कैत करने के लिए न आजाद करने के लिए नहीं'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'बस'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'बस क्योंकि आप तुम दोनों'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'बस क्योंकि आप तुम दोनों एक दूसरे की बातों को'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'बस क्योंकि आप तुम दोनों एक दूसरे की बातों को समझ पा रहे हो'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'बस क्योंकि आप तुम दोनों एक दूसरे की बातों को समझ पा रहे हो और इसे तुम'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'बस क्योंकि आप तुम दोनों एक दूसरे की बातों को समझ पा रहे हो और इसे तुम मोहब्बत कहते हो तो हो सकते'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'बस क्योंकि आप तुम दोनों एक दूसरे की बातों को समझ पा रहे हो और इसे तुम मोहब्बत कहते हो तो हो सकता है बिलकु त'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'क्योंकि यआज'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'क्योंकि याद रखो'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'दोमूखिया बिखारे भी'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'दो भूखिे बिखारे भी एक दूसरी ी'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'दो भूखे बिखारी भी एक दूसरे की बुक समझ सकते हैं पर'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'दो भूखे बिखारी भी एक दूसरे की बुक समझ सकते हैं पर मिटा नहीं सकता'}
+471200c0ad3e4324a644e9b483df0c46 responded
+result {'status': 'OK', 'transcription': 'दो भूखे बिखारी भी एक दूसरे की बुक समझ सकते हैं पर मिटा नहीं सकता'}Model Loaded Successfully
+GRPC Server! Listening in port 55102
+result {'status': 'OK', 'transcription': 'hallo'}
+8e29f9a028a14145a2f02836c33958a9 responded
+result {'status': 'OK', 'transcription': 'hallo hallo'}
+8e29f9a028a14145a2f02836c33958a9 responded
+result {'status': 'OK', 'transcription': 'a'}
+8ffa7e248a44401a82996e8dc08c384b responded
+result {'status': 'OK', 'transcription': 'ah hello good morning'}
+8ffa7e248a44401a82996e8dc08c384b responded
+result {'status': 'OK', 'transcription': 'ah hello good morning juce language'}
+8ffa7e248a44401a82996e8dc08c384b responded
+result {'status': 'OK', 'transcription': 'a hello good morning juse language beb tuvek'}
+8ffa7e248a44401a82996e8dc08c384b responded
+result {'status': 'OK', 'transcription': 'a hello good morning juwse language babe to vek in french serv'}
+8ffa7e248a44401a82996e8dc08c384b responded
+result {'status': 'OK', 'transcription': 'a hello good morning juse language beb too vek in french service'}
+8ffa7e248a44401a82996e8dc08c384b responded
+result {'status': 'OK', 'transcription': 'ँतुम्हारा'}
+8ffa7e248a44401a82996e8dc08c384b responded
+result {'status': 'OK', 'transcription': 'तुम्हारा नाम क्या है'}
+8ffa7e248a44401a82996e8dc08c384b responded
+result {'status': 'OK', 'transcription': 'तुम्हारा नाम क्या है'}
+8ffa7e248a44401a82996e8dc08c384b responded
+result {'status': 'OK', 'transcription': 'elu'}
+97e0f34eaac644aa8865e02af4d11273 responded
+result {'status': 'OK', 'transcription': 'hello good morning waved'}
+97e0f34eaac644aa8865e02af4d11273 responded
+result {'status': 'OK', 'transcription': 'hello good morning wehave to wakened fran service'}
+97e0f34eaac644aa8865e02af4d11273 responded
+result {'status': 'OK', 'transcription': 'hello good morning we have to waken foren service engine jue'}
+97e0f34eaac644aa8865e02af4d11273 responded
+result {'status': 'OK', 'transcription': 'hello good morning wehave to waken foren service injan juce language'}
+97e0f34eaac644aa8865e02af4d11273 responded
+result {'status': 'OK', 'transcription': 'hello good morning weave to waken foren service engin juwse language english'}
+97e0f34eaac644aa8865e02af4d11273 responded
+result {'status': 'OK', 'transcription': "hellow good morning we've to waken foren service engine juice language english output"}
+97e0f34eaac644aa8865e02af4d11273 responded
+result {'status': 'OK', 'transcription': "hellow good morning we've to waken foren service engine juice language english output"}
+97e0f34eaac644aa8865e02af4d11273 responded
+result {'status': 'OK', 'transcription': 'तुमा'}
+97e0f34eaac644aa8865e02af4d11273 responded
+result {'status': 'OK', 'transcription': 'तुम्हारा नाम क्या है'}
+97e0f34eaac644aa8865e02af4d11273 responded
+result {'status': 'OK', 'transcription': 'तुम्हारा नाम क्या है'}
+97e0f34eaac644aa8865e02af4d11273 responded
+result {'status': 'OK', 'transcription': 'inl'}
+5a6600a5ae6a46ffbd309b755ebcdc64 responded
+result {'status': 'OK', 'transcription': 'hello good morning'}
+5a6600a5ae6a46ffbd309b755ebcdc64 responded
+result {'status': 'OK', 'transcription': 'bave to wick'}
+5a6600a5ae6a46ffbd309b755ebcdc64 responded
+result {'status': 'OK', 'transcription': 'bertovik in frenc service'}
+5a6600a5ae6a46ffbd309b755ebcdc64 responded
+result {'status': 'OK', 'transcription': 'beve towick in frenc service'}
+5a6600a5ae6a46ffbd309b755ebcdc64 responded
+result {'status': 'OK', 'transcription': 'chose language'}
+5a6600a5ae6a46ffbd309b755ebcdc64 responded
+result {'status': 'OK', 'transcription': 'choose language nor lang'}
+5a6600a5ae6a46ffbd309b755ebcdc64 responded
+result {'status': 'OK', 'transcription': 'chuse language no language mo'}
+5a6600a5ae6a46ffbd309b755ebcdc64 responded
+result {'status': 'OK', 'transcription': 'chose language no language model present'}
+5a6600a5ae6a46ffbd309b755ebcdc64 responded
+result {'status': 'OK', 'transcription': 'तुमहारा ना'}
+5a6600a5ae6a46ffbd309b755ebcdc64 responded
+result {'status': 'OK', 'transcription': 'तुम्हारा नाम क्या है'}
+5a6600a5ae6a46ffbd309b755ebcdc64 responded
+result {'status': 'OK', 'transcription': 'तुम्हारा नाम क्या है'}
+5a6600a5ae6a46ffbd309b755ebcdc64 responded
+result {'status': 'OK', 'transcription': 'i'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'by law my nam is'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'bylaw my name is hira amado'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'hallo my name is yera ama developer'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'of evtuvik'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'we have too vague inference'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'ovtovik in foreign service and'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'oevto vik in foren service engin'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'तुम्हारा'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'तुम्हारा नाम क्या है'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'तुम्हारा नाम क्या है'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'तुम्हारा'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'तुम्हारा नाम क्या है'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'तुम्हारा नाम क्या है मेरा नाम'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'तुम्हारा नाम क्या है मेरा नाम श्रीजित है'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'तुम्हारा नाम क्या है मेरा नाम श्ीजित है'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'a what are you'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'ar you doing'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'watar'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'orderd malga'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'amfin'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'ramfin hulget ugag'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': ''}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': ''}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'सूपरो'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'सुप्रभात धन्यवाद'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': 'सुप्रभाद धन्यवाद'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': "i'm not getting any"}
+577b203dc2c74832a625b339a462e821 responded
+result {'status': 'OK', 'transcription': 'am not getting any response bac'}
+577b203dc2c74832a625b339a462e821 responded
+result {'status': 'OK', 'transcription': "i'm not getting any response bac"}
+577b203dc2c74832a625b339a462e821 responded
+result {'status': 'OK', 'transcription': 'or noraudin'}
+577b203dc2c74832a625b339a462e821 responded
+result {'status': 'OK', 'transcription': 'or no oliting e moliting litele'}
+577b203dc2c74832a625b339a462e821 responded
+result {'status': 'OK', 'transcription': 'or no oliding er molleting littele bittle yars'}
+577b203dc2c74832a625b339a462e821 responded
+result {'status': 'OK', 'transcription': 'or no olding er molleting littlile bittle yars so'}
+577b203dc2c74832a625b339a462e821 responded
+result {'status': 'OK', 'transcription': 'wot and'}
+577b203dc2c74832a625b339a462e821 responded
+result {'status': 'OK', 'transcription': 'and the na more to him'}
+577b203dc2c74832a625b339a462e821 responded
+result {'status': 'OK', 'transcription': ''}
+577b203dc2c74832a625b339a462e821 responded
+result {'status': 'OK', 'transcription': 'एंद न मोर'}
+577b203dc2c74832a625b339a462e821 responded
+result {'status': 'OK', 'transcription': 'एंदनो मोर'}
+577b203dc2c74832a625b339a462e821 responded
+result {'status': 'OK', 'transcription': 'के'}
+577b203dc2c74832a625b339a462e821 responded
+result {'status': 'OK', 'transcription': 'के की'}
+577b203dc2c74832a625b339a462e821 responded
+result {'status': 'OK', 'transcription': 'ए सेकंड ह'}
+577b203dc2c74832a625b339a462e821 responded
+result {'status': 'OK', 'transcription': ''}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': 'o dont'}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': 'lold hallowa'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'lows hadawev waken to fa'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'lows halo wep towaken to fre in franc alv'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'lo hallo wep to wagon to fre in frenc service sojoy'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'lo hallo wep to wakento frin in friend service sojoyed not talking with'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': "lo hallwep to wagontofmy in frend service sojoyd not talking with us i don't know why"}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': "lo hallowep to wagon to my infirencal vice sojoyd not talking with us i don't know why then i moved"}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'सुजाय बोला'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'सुझाई बोला बो नहीं बोला'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'सुझाई बोला बो नहीं बोला इन्शुरेंस बोला कुछह'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'सुजाई बोला बो नहीं बोला इनफुरेंस बोला कुछ'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'सुझाई बोला बो नहीं बोला इन्शुरेंस बोला कुछ'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'सुझाई बोला बो नहीं बोला इंशुरेंस बोला कुछ'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'सुझाई बोला बो नहीं बोला इंशुरेंस बोला कुछ हि'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'सुझाई बोला बो नहीं बोला इंसुरेंस बोला कुछहि'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'सुझाई बोला बो नहीं बोला इंसुरेंस बोला कुछह'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'सुझाई बोला बो नहीं बोला इंसुरेंस बोला कुछ ह'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'सुझाई बोला बो नहीं बोला इंसुरेंस बोला कुछ हि'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'सुझाई बोला बो नहीं बोला इंसुरेंस बोला कुछह'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'सुझाई बोला बो नहीं बोला इंसुरेंस बोला कुछ'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'सुझाई बोला बो नहीं बोला इंसुरेंस बोला कुछ ह'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'bora'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'but a dealer han a made a'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'but a deala an a mada ma be not'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'but a dela an a mad a ma re nood towards ar dee'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'but i be  an i made a mame man od toward i sar dealeri i chafen the oe'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'but i belean i made a mame nnod toward us ar de letel i tet in the oter far'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': ''}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': ''}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': 'wo a  o'}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': 'otet'}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': 'यस'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'स बट'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'स बहट इस नॉट केटिंग'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'स वहट इस नॉट गेटिंग द एमट गेट'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'स बट इस नॉट गेटिंग दट एमट गेटिंग दिसी ुगन'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'स बट इस नॉट गेटिंग दट एमट गेटिंग दिसी ुसब'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'स वट इस नॉट गेटिंग दट एमट गेटिंग दिसीुगनसबवर्किंग साइन दट'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'स बट इस नॉट गेटिंग दटएमट गेटिंग दिसीुनसबवर्किंग साइन दटरिज ि'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'स बट इस नॉट गेटिंग दट एमट गेटिंग दिसीुनसब वर्किंग साइन दटरिजल ि'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'पहे'}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': 'ओ'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'पल'}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': 'ओछे'}
+519366f4a2324ce89f698603219cb932 responded
+result {'status': 'OK', 'transcription': 'पल'}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': ''}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': 'न'}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': 'ुत'}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': 'ु'}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': ''}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': ''}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': ''}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': ''}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': ''}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': ''}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': ''}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': ''}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': ''}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': ''}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': ''}
+064d3514f6884a918ed5297a911e14de responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'मॉडल हवेस पा'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'मॉडल रिस्पॉन्स क्यों नहीं दे रहा है'}
+8c268f1184814deb9b5e99a6372280bc responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'ouncle'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'ono e w'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'la ewen'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'an wa a w'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'an t lillem'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'and'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'nalittle'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'memer'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'e randrbee'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'e ranebabeb i'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'raneb me bi le'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'raneb me i le'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'on erb me go le r'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'on or o me gi lnem eo'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'an erb my go inem r oa fetherf'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'on erb my g winem er oalthe fether for th the mi'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'ेा'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'औरफो'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'औरपरो'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'ब'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': ''}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'टोपी'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'टोपी रे'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'on o'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'note'}
+0a54a69075c448e2be048f71b21eed2c responded
+result {'status': 'OK', 'transcription': 'howsa'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': "how's a weather like at conca"}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': "how's a weather like at colcutta"}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'a skilel'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'a skilful adition  skil'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'a skilloledi skillolonisatres'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'a skill olti skill i will nonby satuseit rer'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'a skill olteskill ewill only satueii gregor a'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'el an'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'l l howis'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'l  house over the lake at'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'l l howse te weather lake at monbay'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'l l house te weather like at mombay'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'खूब जमे गे'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'खूब जमेगा रंग जब मिल बैठे'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'खूब जमेगा रंग जब मिल बैठेंगे तीन यार'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'खूब जमेगा रंग जब मिल बैठेंगे तीन यार हम'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'खूब जमेगा रंग जब मिल बैठेंगे तीन यार हम श्री जीतर हीरा'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'खूब जमेगा रंग जब मिल बैठेंगे तीन यार हम श्री जीतर हीरा'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'खूब जमेगा रंग जब मिल बैठेंगे तीन यार हम श्री जीतर हीरा'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': ''}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': ''}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': ''}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'अभी'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'अभी अच्छा दिरस सो'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'अभी अच्छा देर सो अभी मैट्राइक'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'अभी अच्छा देर सो अभी मैं ट्राइक करता हूँ तो आईती मुझे'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'अभी अच्छा देर सो अभी मैं ट्राइक करता हूँ त आईथी मुझे लग रहा है मतलबसब लोग'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'अभी अच्छा देर सो अभी मैं ट्राइक करता हूँ तो आईथी मुझे लगरहे मतलबसब लोग न'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'अभी अच्छा देर सो अभी मैं ट्राइक करता हूं ईथी मुझे'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'अभी अच्छा देरसो अभी मैं ट्राइक करताहूँथीुझे मतलबस लोगओपन करके बैठ र है तो कुछ प्रॉब्लम हो रहाेरे को'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'अभी अच्छा देरसो अभी मैं ट्राइक करताहूँथीझतलबस लोगओपन करके बैठै तो कुछ परॉब्लम हो रहाेरे ो कुछ देी नहीं रहा ै'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'अभी अच्छा दरसो अभी मैं ट्राइक करता हूंथझहछ ही रहा'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'अभी अच्छा देरसो अभी मैं ट्राइक करता हूंईझेह ह'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'अभी अच्छा देर सो अभी मैं ट्राइ करता हू आ झ रह'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'अभी अच्छा देर सो अभी मैं ट्राइ करता हूं झह रहा'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'अभी अच्छा देर सो अभी मैं ट्राइ करता हूं झ नह रहा'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'अभी अच्छा देरसो अभी मैं ट्राइ करता हूं झह रहा'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'अभी अच्छा दरसो अभी मैं ट्राइ करता हूं झ रहै'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'अभी अच्छा दरसो अभी मैं ट्राइ करता हूं  नही रहा ा तो मझे अचछ'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'अभी अच्छा दरसो अभी मैं ट्राइ करता हूं ही नहीं रहा हत च'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': ''}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'नऊ ये'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'नऊ ये ट्रांसक्रिप्शन'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'नउ ये ट्रांसक्रिप्शन  रेडयूसिग'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'नउ ये ट्रांसक्रिप्शन  रिड्यूसिं स कसी'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'नउ ये ट्रांसक्रिप्शन  रिड्यूसिंस कैनसीद'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'olia'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'eerly at litley waltl'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'eagerly at liley wat'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'eagerly at liley wat'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': "so i didn't a lile"}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'so i didn a the clothes on mykesop'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'so i didn a the clotes on maksup'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'e teens'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'but they entod ol clothes of my'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'but theyvn sot ol clothes of mine and still given me'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'but ten ot o clothes of mine an still given me if yo stip bas domin wor lo'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'bu tesnt o od clothes of mine can still give me if you stip pas tomen mo longer icod e'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'a thaents or two clothes of mine can stell givi me if you stim past domim or longer ecut the et eclimit kabats'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'a thasenc or two clothes of mine can stell givi me if you stip pas domin mor loge ecat the et eclimit cabats of pich garbled'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'a thaen or to clothes of mine can stell givi me if you stip pas domin mor loge i cat the et eclimit cabats of puts garbled giberishmadomo'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'pu tanol to clothes of mie can stell giv me if you stip as domen mo loge e cat the et eclimit cabatsom puts gurbled giberish midomo a a it is happeni'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': "tano to clothes of mie an tey'll giv me if you sti bas domen mologe e cat te e eclimit cabat som puts gurbled jibelish rilomo a a it's is happening but how a"}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': "titlo to clotes of mine an stel giv me if yo stebas domen mologe e cat te e eclimit cabats om puts gurbled jibelishmolomo a a it's is happening but o a may no now the reaso"}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': "thenlo o clotes of mie an stell givme  yo steba domenbologe ecat te e eclimit cabats of puth gurbled jibelishmodomo aa it's is happening but ow e me don now the reasonty"}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'wegante'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'we contesssted the limit giha'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'we contestet te limit giha benjov'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'we contestet te limit giha benjof'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'so'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'son t'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'som giv me'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'we do'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'we d ra te yo'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'dim'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'કેમ છોો'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'gamed tole madama'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'કેમ છો માજામાં'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'gamd tole madama'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'કેમ છો માજામાં'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'and al hal'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'or he law he law'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'the strange'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'the stay listening lin a'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'నేను'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'నేను నేను ప్రేమిస్తున్నాను'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'the stay listening i no i a no cambell tillwos'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'the stay listening ni ni ha not come bill till wor sar'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'alor'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'alo hallo an anlo alo'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'నేను నేను ప్రేమిస్తున్నాను'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'an t roobr'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'an will bring you a law'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'tanwho bring you a law or you'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'yo at amittable what yo alrd'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'youad amitable wat ardeoe theaday'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'youad amitable wat yo ardy orde theotay'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'hell'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'hello con hello'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'hallo con hallo mis'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'hello o hello  still running'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'फामल का है'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'फानल का है'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': ''}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'लंच'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'లంచే సావా'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'लंच सावा'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'లంచే సావ'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': "i'll travel"}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'i will travel to the mountains'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': "i'll travel to the mountains this decem"}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': "i'll travel to the mountains this december"}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': ''}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'oh pretty go'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'oh pretty good'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'disclose the'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'disclose that e once'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'disclosed it e once cluted and irep'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': 'disclose that he once cluted and i will fly up to the'}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': "disclose that aone's clotherd and i will fly up to the e went"}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': "disclose that aone's clotherd and i will fly up to thit yo contined"}
+69c605a7ef2e43a9870576b7f4a160be responded
+result {'status': 'OK', 'transcription': ''}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'hell hado'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'hellor hadol'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'your isto'}
+e355595e69b64adf8818dde9017c0f81 responded
+result {'status': 'OK', 'transcription': 'had'}
+73a6227aefc84f3cb80743af2dc30e78 responded
+result {'status': 'OK', 'transcription': 'hallo'}
+73a6227aefc84f3cb80743af2dc30e78 responded
+result {'status': 'OK', 'transcription': 'back to et'}
+73a6227aefc84f3cb80743af2dc30e78 responded
+result {'status': 'OK', 'transcription': 'back to at inter'}
+73a6227aefc84f3cb80743af2dc30e78 responded
+result {'status': 'OK', 'transcription': 'ab'}
+73a6227aefc84f3cb80743af2dc30e78 responded
+result {'status': 'OK', 'transcription': 'a big ga he wal ra'}
+73a6227aefc84f3cb80743af2dc30e78 responded
+result {'status': 'OK', 'transcription': 'a bik ga he will ran meris uncle doldy'}
+73a6227aefc84f3cb80743af2dc30e78 responded
+result {'status': 'OK', 'transcription': 'ab ga he will ra merisancle dote magilerabite'}
+73a6227aefc84f3cb80743af2dc30e78 responded
+result {'status': 'OK', 'transcription': 'erisive on me'}
+0efa4e1c311d441ebf03a1650faeaa2a responded
+result {'status': 'OK', 'transcription': 'as if only the interpreter'}
+0efa4e1c311d441ebf03a1650faeaa2a responded
+result {'status': 'OK', 'transcription': 'joby madus'}
+0efa4e1c311d441ebf03a1650faeaa2a responded
+result {'status': 'OK', 'transcription': "germin miras ad horrert i don't non i"}
+0efa4e1c311d441ebf03a1650faeaa2a responded
+result {'status': 'OK', 'transcription': "germin menas had horrot i don't no lit yak you ish to her"}
+0efa4e1c311d441ebf03a1650faeaa2a responded
+result {'status': 'OK', 'transcription': "germin minas had horro i don't no lit yak you ish to her missus scaler bill"}
+0efa4e1c311d441ebf03a1650faeaa2a responded
+result {'status': 'OK', 'transcription': 'repanin'}
+881df1ce7dde4402b03ed94a862fc442 responded
+result {'status': 'OK', 'transcription': 'ebanindi'}
+881df1ce7dde4402b03ed94a862fc442 responded
+result {'status': 'OK', 'transcription': 'letuals and inten'}
+881df1ce7dde4402b03ed94a862fc442 responded
+result {'status': 'OK', 'transcription': 'le tos anything the close fit'}
+881df1ce7dde4402b03ed94a862fc442 responded
+result {'status': 'OK', 'transcription': 'red cos anything bat los tet tat wut feov wen'}
+881df1ce7dde4402b03ed94a862fc442 responded
+result {'status': 'OK', 'transcription': "i wouldn't o like"}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'i would like to go to the mountains'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'i would like to go to the mountains this december'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'i would like to go to the mountains this december and to the seas'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'i would like to go to the mountains this december and to the seas in genural'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'it  he'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'he got one con'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'he got oncon the i'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'montayai'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': "but aya it it's still givin"}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': "but aya it it's still giving me when you ga"}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': "but aya it it's still giving me when ugays have opened the tabs"}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': "but aya it it's still giving me  when you giys have opened tha tabs exsecond my hindo"}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': ''}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'खूब जमेगा रंग'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'खूब जमेगा रंग जब मिल बैठेंगे तीन'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'खूब जमेगा रंग जब मिल बैठेंगे तीन यार आप'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'खूब जमेगा रंग जब मिल बैठेंगे तीन यार आप में और बैकफाईक'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'खूब जमेगा रंग जब मिल बैठेंगे तीन यार आप में और बैकफाईक'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': ''}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': ''}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'ट किविट करेंटी'}
+881df1ce7dde4402b03ed94a862fc442 responded
+result {'status': 'OK', 'transcription': 'इटकिवेट करेंकी'}
+881df1ce7dde4402b03ed94a862fc442 responded
+result {'status': 'OK', 'transcription': 'माइट वि ेस्टरीन बट'}
+881df1ce7dde4402b03ed94a862fc442 responded
+result {'status': 'OK', 'transcription': 'माटवि ेस्टरी'}
+881df1ce7dde4402b03ed94a862fc442 responded
+result {'status': 'OK', 'transcription': 'माट वीेस्टरीन ब'}
+881df1ce7dde4402b03ed94a862fc442 responded
+result {'status': 'OK', 'transcription': 'माट वी तेस्टरीन बब्कुल'}
+881df1ce7dde4402b03ed94a862fc442 responded
+result {'status': 'OK', 'transcription': 'माइटवीेस्टरी बबकु'}
+881df1ce7dde4402b03ed94a862fc442 responded
+result {'status': 'OK', 'transcription': 'माइडवीेस्टरीन ब्ु'}
+881df1ce7dde4402b03ed94a862fc442 responded
+result {'status': 'OK', 'transcription': 'माइडवी ेस्टरीन बल्कुल सा'}
+881df1ce7dde4402b03ed94a862fc442 responded
+result {'status': 'OK', 'transcription': 'ऐसे ही'}
+881df1ce7dde4402b03ed94a862fc442 responded
+result {'status': 'OK', 'transcription': 'हेललो'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'हेल्लोस जॉक'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'हेल्लोस जॉ कैसे हुआ'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'हेल्लोस जॉ कैसे हुआ कहां हुआ'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'हेल्लोस जॉई कैसे हुआ कहां हुआ क्या कर रहे होआ'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'हेल्लोस जॉई कैसे हुआ प कहां हुआ आप क्या कर रहे हो आप क्यों कर रहे हो'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'हेल्लो जॉई कैसे हुआ आप कहां हु आप क्या कर रहे हो आप क्यों कर रहे हो आप'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'मर गया'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'मर गया साहदी ी'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'मर गया सायद नईनी नई नी नीया'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'मर गया साद नईनी नई न नी ार चल रहा है'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'लेकिन एक'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'लेकिन एक लीमिट के बाद ये'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'लेकिन एक लिमिट के बाद ये क्लीनअप हो जा रहा है'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'लेकिन एक लिमिट के बाद यह क्लीनअप हो जा रहा है सेंटें'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'लेकिन एक लिमिट के बाद यह क्लीनअप हो जा रहा है सेंटेंस उसके बाद'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'लेकिन एक लिमिट के बाद यह क्लीनअप हो जा रहा है सेंटेंस उसके बाद'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'लोकिन'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'लेकिन ठीक है अभी तो मुझे'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'लेकिन ठीक है अभी तो मुझे प्रॉपर दे रहा सर भी'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'लेकिन ठीक है अभी तो मुझे प्रॉपर दे रहा थर भी'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'ऊपर दे रहे है'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'पर देरहा  सरीजीक्यू'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'पर देरहा जीतयू राइट ना'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'ा प'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'ओके'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और मेल होगा'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और मेरा हमाइक भी उपनी है'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और मेर  माइक भी ऊपनी है भीठीक है मतलब'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और मेरा माइ ी ओपनी है भी ठीक है मतलब आप बोलो मेरा माइको'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और मेरे को माइक भी ऊपनी है भी ठीक है मतलब आप बोलो मेरा मैइकूपनी रहने दो'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'होपन र'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'हओपन रखो नरा'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'ओपन रखो नट्राइट'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'हओपन रखो नट्राइटहिंदी'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'वरवर'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'वराइट'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'ूलै'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': '्वेज'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'लैंग्वेू लैंग्ेज'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'हैलो'}
+b9f70c8fbbe54c10997db1402bb75f74 responded
+result {'status': 'OK', 'transcription': 'तनलो'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'हैलो कैसे हो'}
+b9f70c8fbbe54c10997db1402bb75f74 responded
+result {'status': 'OK', 'transcription': 'फरलो'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'पलो कैसे हो'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'लो कैसे हो आप लोग'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'हैलो कैसे हो आप लोग'}
+b9f70c8fbbe54c10997db1402bb75f74 responded
+result {'status': 'OK', 'transcription': 'पलो कैसे हो आप लोग'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'लो कैसे हो आप लोग'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'क्या'}
+b9f70c8fbbe54c10997db1402bb75f74 responded
+result {'status': 'OK', 'transcription': ''}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'क्या कर रहे हं'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'क्या कर रहे हो'}
+b9f70c8fbbe54c10997db1402bb75f74 responded
+result {'status': 'OK', 'transcription': 'क्या कर रहे हो'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'क्या कर रहे हो'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'क क्या कर रहे हो आज'}
+b9f70c8fbbe54c10997db1402bb75f74 responded
+result {'status': 'OK', 'transcription': 'क्या कर रहे हो आज'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'का क्या कर रहे हो आज मौसम बेका'}
+b9f70c8fbbe54c10997db1402bb75f74 responded
+result {'status': 'OK', 'transcription': 'क्या कर रहे हो आज मौसम बेक'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'का क्या कर रहे हो आज मौसम बेकार है'}
+b9f70c8fbbe54c10997db1402bb75f74 responded
+result {'status': 'OK', 'transcription': 'आज म'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'क्या कर रहे हो आज मौसम बेकार है'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'आज मौसम बेकार है'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'आज मौसम बेकार है'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'यहाँ भी'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'यहाँ भी'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'यहां भी'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'यहाँ भी'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'हो'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'oque'}
+b9f70c8fbbe54c10997db1402bb75f74 responded
+result {'status': 'OK', 'transcription': 'ओके'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'ओके इसा'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'o k its a rinin'}
+b9f70c8fbbe54c10997db1402bb75f74 responded
+result {'status': 'OK', 'transcription': 'ओके इारनिंग है'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': "oh k it's raining heavily to day"}
+b9f70c8fbbe54c10997db1402bb75f74 responded
+result {'status': 'OK', 'transcription': 'ओके इारनिंग हेवीरीट'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'ओके इारीनिंग हे विली टुडे'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'oh k its araining heavily to day'}
+b9f70c8fbbe54c10997db1402bb75f74 responded
+result {'status': 'OK', 'transcription': 'ओके इारनिंग हेवीरी टुडे'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'ओके ारीनिंग हे विली टुडे'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'ste looking'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'te looking pretty b'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'looking pretty decent'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'but ither'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'but if there be a chegelem the jo'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'buty there be a chegl am the joop an'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'buty there be a chegel an the job an teo w'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'but if there be a cheterlem the joop an tao wor bropertanslate with'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहा हैमतल जो'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'buti there be a thigerlem the joop an teo wor broper translated mitarle meri giv im'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'buty there be a thigertem the job can ti wor broper transelated bitterly mer tok him ra mike beontop'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'buti there bea thigerdem the job cal ti wo brober transilated mitterly mery tok him  ra mike beonto i'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे है मतलब जो आप कहरहे हो वह प्रॉपर ट्रांस'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे है मतलब जो आप कह रहे हो वह प्रॉपर ट्रांसलेट भी कर रहे हैं मेरे क्योंकि मेरा माइक'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'buti there be a thege dem the joop cil til wo broertranselate miterlemery giv ime a mike beonde a wer te we be'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'buti therel be a theger an the job il to wor bropertanselat miterlemery govimi a mike beondo a may there mey be retirld menasle wi he'}
+c95a0a2ab23143bab9d4eb70a0a51a0e responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे है मतलब जो आप कह रहे हो वह प्रॉपर ट्रांसलेट भी कर रहे हैं मेरे क्योंकि मेरा माइक बीन था'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे है मतलब जो आप कह रहे हो वह प्रॉपर ट्रांसलेट भी कर रहे हैं मेरे क्योंकि मेरा माइक बीॉन था और'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे है मतल जो आप कह रहे हो वह प्रॉपर ट्रांसलेट भी कर रहे हैं मेरे क्योंकि मेरा माइक बॉन था और मैंने श्री इसी बा ने निरेश को भी देख दिया'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे है मतल जो आप क रहे हो वह प्रॉपर ट्रांसलेट भी कर रहे हैं मेरे क्योंकि मेरा माइक बॉन था और मैंने श्री इसी बा ने निरेश को भी देख लिया आज'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे है मतब जो आप कह रहे हो वह प्रॉपर ट्रांसलेट भी कर रहे हैं मेरे क्योंकि मेरा माइक बॉन था और मैंने श्री इसी बा ने निरेश को भी देख लिया आज'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे  मो जो आप कहर रहे हो वह प्रॉपर ट्रांसलेट भी कर रहे हैं मेरे क्योंकि मेरा माइक बीॉन था और मैंने श्री इसी बाने निरेश को भी देख दिया आज ट्राइ टू ज'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे  मो जो आप कह रहे हो वह प्रॉपर ट्रांसलेट भी कर रहे हैं मेरे क्योंकि मेरा माइक बन था और मैंने श्री इसी बाने निरेश को भी देख लिया आज ट्राइ टू जॉ'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे  मो जो आप कह रहे हो वह प्रॉपर ट्रांसलेट भी कर रहे है मेरे क्योंकि मेरा माइक बन था और मैंने श्री इसी बाने निरेश को भी देख लिया आज टराइ टू ज'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे  ो जो आप कह रहे हो वह प्रॉपर ट्रांसलेट भी कर रहे है मेरे क्योंकि मेरा माइक बन थ और मैंने श्री इसी बाने निरेश को भी देख लिया आज  ट्राइ टू जॉ'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे  तो जो आप कह रहे हो वह प्रॉपर ट्रांसलेट भी कर रहे है मेरे क्योंकि मेरा माइक बन थ और मैंने श्री इसी बाने निरेश को भी देख दिया आज  ट्राइ टू जॉ'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे तो जो आप कहरहे हो वह प्रॉपर ट्रांसलेट भी कर रहे है मेरे क्योंकि मेरा माइक बन थ और मैंने श्री इसी बाने निरेश को भी देख दिया आज  ट्राइ टू जॉ'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे तो जो आप कहरहे हो वह प्रॉपर ट्रांसलेट भी कर रहे है मेरेक्ोंकि मेरा माइक न और मैंने श्री इसी बाने निरेश को भी देख दिया आज  ट्राइ टू ज'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे तो जो आप कहरहे हो वह प्रॉपर ट्रांसलेट भी कर रहे है मेरे क्ोंकि मेरा माइक बन और मैंने श्री इसी बा ने निरेश को भी देख दिया आज ट्राइ टूफ'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे हतो जो आप करहे हो वह प्रॉपर ट्रांसलेट भी कर रहे है मेरे क्ोंकि मेरा माइक बन और मैंने श्री इसी बाने निरेश को भी देख दिया आज टराइ टू'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे तो जो आप करहे हो वह प्रॉपर ट्रांसलेट भी कर रहे है मेरे क्ोंकि मेरा माइक बन और मैंने श्री इसी बाने निरेश को भी देख दिया आज टराइ टू'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे तो जो आप करहे हो वह प्रॉपर ट्रांसलेट भी कर रहे हैमेरेक्ोंकि मेरा माइक और मैंने श्री इसी बाने निरेश को भी देख दिया आज टराट'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे तो जो आप करहे हो वह प्रॉपर ट्रांसलेटभी कर रहे हैमक्ोंकि मेरा माइक और मैंने श्री इसी बाने निरेश को भी देख दिया आज टरा'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे तो जो आप करहे हो वह प्रॉपर ट्रांसलेटकर हैो मेरा मा और मैंने श्री इसी बाने निरेश को भी देख दिया आज ा'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे तो जो आप कहरहे हो वह प्रॉपर ट्रांसलेटीकर ेहैोक मेरा माइ और मैंने श्री इसी बाने निरेश को भी देख दिया आज ा'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे तो जो आप कहरहे हो वह प्रॉपर ट्रांसलेटीकर े हैोकि मेरा माइ और मैंने श्रीइसी बाने निरेश को भी देख दिया आज ा'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे तो जो आप करहे हो वह प्रॉपर ट्रांसलेटकर ेहै मेरा माइ और मैंने श्रीइसी बाने निरेश को भी देख दिया आज'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे तो जो आप करहे हो वह प्रॉपर ट्रांसलेटरह मरा मा और मैंने श्रीइसी बाने निरेश को भी देख दिया आज'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे तो जो आप करहे हो वह प्रॉपरट्रांसलेट मरा म और मैंने श्री इसी बाने निरेश को भी देख दिया ज'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे  मतो जो आप करहे हो वह प्रॉपरट्रांसलेटरहै मेरा माऔर मैंने श्री इसी बा ने निरेश को भी देख दिया ज'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे  मतो जो आप करहे हो वह प्रॉपरट्रांसलेटरहै मरा म और मैंने शरीइसी बाने निरेश को भी देख दिया ज'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे मतो जो आप करहे हो वह प्रॉपरट्रांसले मरा म और मैंने श्री इसी बा ने निरेश को भी देख दिया आज'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे  मतो जो आप कहरहे हो वह प्रॉपरट्रांसलेहै मरा माऔर मैंने श्री इसी बा े निरेश को भी देख दिया ज'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे  मतो जो आप करहे हो वह प्रॉपरट्रांसले र और मैंने श्री इसी बा े निरेश को भी देख दिया आज'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे मतो जो आप कहरहे हो ह्ट्ांसलेरऔर मैंने श्री इसी बाे निरेश को भी देख दिया आज'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे मतो जो आप कहरहे हो हट्ांसलेरऔर मैने शरी इसी बा े निरेश को भी देख दिया ज'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे  मतो जो आप कहरहे हो हप्परट्ांसले मेरा मऔर मैने शरीइसी बा े निरेश को भी देख दिया'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे मतो जो आप कहरहे हो ्ट्ांसलेरऔर मैने शरीइसी बा े निरेश को भी देख दिया ज'}
+6c3f56bef71648f7b81ab4e8224d8e24 responded
+result {'status': 'OK', 'transcription': 'और इधर भी अच्छा कर रहे मतो जो आप कहरहे हो ालेऔर मैने शरी इसी बाे निरेश को भी देख दिया ज'}

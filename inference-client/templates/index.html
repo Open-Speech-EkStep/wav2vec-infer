@@ -270,6 +270,7 @@
             });
             socket.on('response', function (data, language) {
                 // if(selected_lang === language)
+                console.log(data)
                 document.getElementById('output').textContent = data;
             });
 
@@ -420,7 +421,10 @@
 
         function getval(sel){
             current_lang = sel.value;
-            stopRecording();
+            if(state === "ON") {
+              stopRecording();
+              //socket.emit("disconnect", "") 
+              }
         }
     </script>
 </body>

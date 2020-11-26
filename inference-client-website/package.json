@@ -16,6 +16,6 @@
     "@grpc/proto-loader": "^0.1.0",
     "lodash": "^4.16.0",
     "socket.io": "^2.3.0"
-},
+  },
   "devDependencies": {}
 }
