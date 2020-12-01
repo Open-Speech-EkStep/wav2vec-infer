@@ -29,7 +29,7 @@ def make_message(message,audio, id, mic_flag = "continue", language = 'en'):
     )
 
 def send_to_zoom(sid, url, seq, transcription):
-    x = requests.post("{}&seq={}".format(url,seq), data = transcription, headers={
+    x = requests.post("{}&seq={}&lang={}-IN".format(url,seq,client_curr_langs[sid]), data = transcription.encode('utf-8'), headers={
         'Content-Type':'text/plain'
     })
     print("zoom_response",sid, x.text)
@@ -73,9 +73,9 @@ def end_event(json):
 def zoom_url_event(url):
     global client_zoom_url
     sid = request.sid
-    print("zoom_url",sid,"added")
-    client_zoom_url[sid] = {"url":url, "seq":1}
-    print(client_zoom_url)
+    #print("zoom_url",sid,"added")
+    #client_zoom_url[sid] = {"url":url, "seq":1}
+    #print(client_zoom_url)
 
 @socketio.on('start')
 def start_event(json):
@@ -128,16 +128,16 @@ def mic_data(chunk, speaking, language, url):
     if response.mic_flag == "append":
         client_transcriptions[response.user] = transcription      
       
-    #emit('response', {"language": response.language, "transcription":transcription}, room=sid)
-    print(client_zoom_url, response.user)
-    if response.user in client_zoom_url:
-        #print(client_zoom_url, response.user)
-        values = client_zoom_url[response.user]
-        url = values["url"]
-        seq = values["seq"]
-        # values["seq"] = seq+1
-        # client_zoom_url = values
-        send_to_zoom(response.user,url,seq, transcription)
+    	#emit('response', {"language": response.language, "transcription":transcription}, room=sid)
+    	#print(client_zoom_url, response.user)
+        if response.user in client_zoom_url:
+            values = client_zoom_url[response.user]
+            url = values["url"]
+            seq = values["seq"]
+            # values["seq"] = seq+1
+            # client_zoom_url = values
+            print(response.user, seq)
+            send_to_zoom(response.user,url,seq, transcription)
     emit('response', transcription, room=response.user)    
 id_dict = []
 
