@@ -94,7 +94,7 @@ def mic_data(chunk, speaking, language):
         client_buffers[sid] = client_buffers[sid]+b''+chunk[100:]
     buffer = client_buffers[sid]
 
-    if (not speaking):# or (len(client_buffers[sid]) >= 102400):
+    if (not speaking) or (len(client_buffers[sid]) >= 102400):
         if sid in client_buffers:
             del client_buffers[sid]
         mic_flag = "append"
@@ -124,16 +124,16 @@ def mic_data(chunk, speaking, language):
         client_transcriptions[response.user] = transcription      
       
     #emit('response', {"language": response.language, "transcription":transcription}, room=sid)
-    if sid in client_zoom_url:
+
+    if response.user in client_zoom_url:
         global client_zoom_url
-        values = client_zoom_url[sid]
+        values = client_zoom_url[response.user]
         url = values["url"]
         seq = values["seq"]
         values["seq"] = seq+1
         client_zoom_url = values
-        send_to_zoom(sid,url,seq, transcription)
-    emit('response', transcription, room=sid)
-    
+        send_to_zoom(response.user,url,seq, transcription)
+    emit('response', transcription, room=response.user)    
 id_dict = []
 
 @socketio.on('file_data')
