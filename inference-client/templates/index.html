@@ -143,6 +143,7 @@
             var el = document.getElementById(text_id);
             el.innerHTML = txt; //display output in DOM
         }  
+        
     </script>
 </head>
 
@@ -169,6 +170,13 @@
                                 <option value='te'>Telugu</option>
                               </select>
                             <br />
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" id="zoom_url" class="form-control" placeholder="Enter zoom live transcript url"/>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary" id="add_url" onclick="addZoomUrl()">Add url</button>
+                            <br/>
                         </div>
                         <div class="col-sm-12">
                             <img src="static/mic.webp" id="mic_image" onclick="toggle()" height="100" width="100" /><br />
@@ -282,6 +290,12 @@
                 // console.log("called");
                 document.getElementById('file_upload_output').innerHTML += " " + data;
             });
+
+            function addZoomUrl(){
+                let zoom_url_el = document.getElementById("zoom_url");
+                let url = zoom_url_el.textContent.trim();
+                socket.emit('zoom_url', url);
+            }
 
             var file = {};
             var slice_size = 1000 * 1024;
@@ -423,8 +437,7 @@
             current_lang = sel.value;
             if(state === "ON") {
               stopRecording();
-              //socket.emit("disconnect", "") 
-              }
+            }
         }
     </script>
 </body>

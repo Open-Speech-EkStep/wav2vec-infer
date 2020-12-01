@@ -10,12 +10,14 @@ from audio_to_text_pb2 import Message
 from flask_socketio import SocketIO, emit
 from audio_grpc_client import RecognitionClient
 import time
+import requests
 # creates a Flask application, named app
 app = Flask(__name__)
 socketio = SocketIO(app,cors_allowed_origins="*",resource="ssocket.io")
 client_buffers = {}
 client_transcriptions = {}
 client_curr_langs= {}
+client_zoom_url = {}
 
 def make_message(message,audio, id, mic_flag = "continue", language = 'en'):
     return Message(
@@ -25,6 +27,12 @@ def make_message(message,audio, id, mic_flag = "continue", language = 'en'):
         mic_flag=mic_flag,
         language=language
     )
+
+def send_to_zoom(sid, url, seq, transcription):
+    x = requests.post("{}&seq={}".format(url,seq), data = transcription, headers={
+        'Content-Type':'text/plain'
+    })
+    print(sid, x.text)
 
 def _run_client(address, recognition_client):
     with grpc.insecure_channel("localhost:55102") as channel:
@@ -40,13 +48,15 @@ def index():
         return render_template('index.html')
 
 def delete_globals(sid):
-    global client_buffers, client_transcriptions, client_curr_langs
+    global client_buffers, client_transcriptions, client_curr_langs, client_zoom_url
     if sid in client_buffers:
         del client_buffers[sid]
     if sid in client_transcriptions:
         del client_transcriptions[sid]
     if sid in client_curr_langs:
         del client_curr_langs[sid]
+    if sid in client_zoom_url:
+        del client_zoom_url[sid]
 
 @socketio.on('disconnect')
 def test_disconnect():
@@ -58,6 +68,13 @@ def end_event(json):
     sid = request.sid
     if sid in client_buffers:
         del client_buffers[sid]
+
+@socketio.on('zoom_url')
+def zoom_url_event(url):
+    global client_zoom_url
+    sid = request.sid
+    client_zoom_url[sid] = {"url":url, "seq":1}
+        
 
 @socketio.on('start')
 def start_event(json):
@@ -107,6 +124,14 @@ def mic_data(chunk, speaking, language):
         client_transcriptions[response.user] = transcription      
       
     #emit('response', {"language": response.language, "transcription":transcription}, room=sid)
+    if sid in client_zoom_url:
+        global client_zoom_url
+        values = client_zoom_url[sid]
+        url = values["url"]
+        seq = values["seq"]
+        values["seq"] = seq+1
+        client_zoom_url = values
+        send_to_zoom(sid,url,seq, transcription)
     emit('response', transcription, room=sid)
     
 id_dict = []
@@ -134,10 +159,10 @@ def file_data(chunk, language):
 
 if __name__ == "__main__":
     global recognition_client_mic, recognition_client_file
-    recognition_client_mic = RecognitionClient()
+    # recognition_client_mic = RecognitionClient()
    #recognition_client_file = RecognitionClient()
-    mic_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_mic))
-    mic_client_thread.start()
+    # mic_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_mic))
+    # mic_client_thread.start()
    #file_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_file))
    #file_client_thread.start()
     socketio.run(app, host='0.0.0.0', port=9008)
