@@ -143,9 +143,10 @@
             var el = document.getElementById(text_id);
             el.innerHTML = txt; //display output in DOM
         }  
+        var url = "";
    function addZoomUrl(){
                 let zoom_url_el = document.getElementById("zoom_url");
-                let url = zoom_url_el.textContent.trim();
+                url = zoom_url_el.value.trim();
                 socket.emit('zoom_url', url);
             }      
     </script>
@@ -397,13 +398,13 @@
                             if(send_on_pause){
                                 send_on_pause = false;
                                 console.log("emitted false")
-                                socket.emit('mic_data', blob, false, current_lang);
+                                socket.emit('mic_data', blob, false, current_lang, url);
                             }
                             return;
                         }
                         console.log("emitted");
                         send_on_pause = true;
-                        socket.emit('mic_data', blob, sendData, current_lang);
+                        socket.emit('mic_data', blob, sendData, current_lang, url);
                     }
                 });
 

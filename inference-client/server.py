@@ -84,9 +84,13 @@ def start_event(json):
 mic_ids = []
 
 @socketio.on('mic_data')
-def mic_data(chunk, speaking, language):
+def mic_data(chunk, speaking, language, url):
     global client_buffers, client_curr_langs, client_zoom_url
     sid = request.sid
+    if sid in client_zoom_url:
+        client_zoom_url[sid]["seq"]+=1
+    else:
+        client_zoom_url[sid] = {"url":url, "seq":1}
     client_curr_langs[sid] = language
     mic_flag = "replace"
     if(sid not in client_buffers):
@@ -131,8 +135,8 @@ def mic_data(chunk, speaking, language):
         values = client_zoom_url[response.user]
         url = values["url"]
         seq = values["seq"]
-        values["seq"] = seq+1
-        client_zoom_url = values
+        # values["seq"] = seq+1
+        # client_zoom_url = values
         send_to_zoom(response.user,url,seq, transcription)
     emit('response', transcription, room=response.user)    
 id_dict = []
