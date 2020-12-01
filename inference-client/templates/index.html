@@ -143,7 +143,11 @@
             var el = document.getElementById(text_id);
             el.innerHTML = txt; //display output in DOM
         }  
-        
+   function addZoomUrl(){
+                let zoom_url_el = document.getElementById("zoom_url");
+                let url = zoom_url_el.textContent.trim();
+                socket.emit('zoom_url', url);
+            }      
     </script>
 </head>
 
@@ -291,11 +295,11 @@
                 document.getElementById('file_upload_output').innerHTML += " " + data;
             });
 
-            function addZoomUrl(){
-                let zoom_url_el = document.getElementById("zoom_url");
-                let url = zoom_url_el.textContent.trim();
-                socket.emit('zoom_url', url);
-            }
+//            function addZoomUrl(){
+//                let zoom_url_el = document.getElementById("zoom_url");
+//                let url = zoom_url_el.textContent.trim();
+//                socket.emit('zoom_url', url);
+//            }
 
             var file = {};
             var slice_size = 1000 * 1024;

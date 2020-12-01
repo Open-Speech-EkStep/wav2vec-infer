@@ -32,7 +32,7 @@ def send_to_zoom(sid, url, seq, transcription):
     x = requests.post("{}&seq={}".format(url,seq), data = transcription, headers={
         'Content-Type':'text/plain'
     })
-    print(sid, x.text)
+    print("zoom_response",sid, x.text)
 
 def _run_client(address, recognition_client):
     with grpc.insecure_channel("localhost:55102") as channel:
@@ -73,8 +73,9 @@ def end_event(json):
 def zoom_url_event(url):
     global client_zoom_url
     sid = request.sid
+    print("zoom_url",sid,"added")
     client_zoom_url[sid] = {"url":url, "seq":1}
-        
+    print(client_zoom_url)
 
 @socketio.on('start')
 def start_event(json):
@@ -84,7 +85,7 @@ mic_ids = []
 
 @socketio.on('mic_data')
 def mic_data(chunk, speaking, language):
-    global client_buffers, client_curr_langs
+    global client_buffers, client_curr_langs, client_zoom_url
     sid = request.sid
     client_curr_langs[sid] = language
     mic_flag = "replace"
@@ -124,9 +125,9 @@ def mic_data(chunk, speaking, language):
         client_transcriptions[response.user] = transcription      
       
     #emit('response', {"language": response.language, "transcription":transcription}, room=sid)
-
+    print(client_zoom_url, response.user)
     if response.user in client_zoom_url:
-        global client_zoom_url
+        #print(client_zoom_url, response.user)
         values = client_zoom_url[response.user]
         url = values["url"]
         seq = values["seq"]
@@ -159,12 +160,12 @@ def file_data(chunk, language):
 
 if __name__ == "__main__":
     global recognition_client_mic, recognition_client_file
-    # recognition_client_mic = RecognitionClient()
-   #recognition_client_file = RecognitionClient()
-    # mic_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_mic))
-    # mic_client_thread.start()
-   #file_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_file))
-   #file_client_thread.start()
+    recognition_client_mic = RecognitionClient()
+    #recognition_client_file = RecognitionClient()
+    mic_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_mic))
+    mic_client_thread.start()
+    #file_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_file))
+    #file_client_thread.start()
     socketio.run(app, host='0.0.0.0', port=9008)
         
 
