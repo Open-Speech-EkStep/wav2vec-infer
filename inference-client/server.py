@@ -102,21 +102,24 @@ def mic_data(chunk, language, speaking):
     global client_buffers, client_curr_langs
     sid = request.sid
 
-    # client_curr_langs[sid] = language
-    # if sid not in client_buffers:
-    #     client_buffers[sid] = chunk
-    # else:
-    #     client_buffers[sid] = client_buffers[sid] + b'' + chunk
-    # buffer = client_buffers[sid]
-    #
-    # if ((not speaking) or (len(client_buffers[sid]) >= 102400)) and sid in client_buffers:
-    #     del client_buffers[sid]
-    #     write_wave_to_file("file-{}.wav".format(int(time.time() * 1000)), buffer)
-
     msg = make_message(chunk, sid, speaking, language)
     print(sid, "message sent to grpc")
     msg_id = str(int(time.time() * 1000.0)) + str(sid)
     response = recognition_client_mic.recognize(msg, msg_id)
+    msg_id = str(int(time.time() * 1000.0)) + str(sid)
+    response = recognition_client_mic.recognize(msg, msg_id)
+    message = json.loads(response.transcription)
+    id = message["id"]
+    if id in mic_ids:
+        return
+    mic_ids.append(id)
+    is_success = message["success"]
+    if not is_success:
+        # emit('unidentified', "Sentence not recognized by model", room=response.user)
+        return
+    # emit('unidentified', "", room=response.user)
+    
+    emit('response', message['transcription'], room=response.user)
     print(response)
 
 
