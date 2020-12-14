@@ -4,20 +4,27 @@ package recognize;
 
 service Recognize {
    rpc recognize_audio(stream Message) returns (stream Response) {}
+   rpc disconnect(Info) returns (DisconnectResponse) {}
 }
 
 message Message {
-  string message = 1;
-  bytes audio = 2;
-  string user = 3;
-  string mic_flag = 4;
-  string language = 5;
+  bytes audio = 1;
+  string user = 2;
+  string language = 3;
+  bool speaking = 4;
+}
+
+message Info {
+   string user = 1;
+}
+
+message DisconnectResponse {
+   string user = 1;
 }
 
 message Response {
-    string message = 1;
-    string type = 2;
-    string user = 3;
-    string mic_flag = 4;
-    string language = 5;
+    string transcription = 1;
+    string user = 2;
+    string language = 3;
+    string action = 4;
 }

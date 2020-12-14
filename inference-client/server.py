@@ -1,7 +1,6 @@
 # set the project root directory as the static folder, you can set others.
 import json
 import os
-import threading
 import time
 import wave
 
@@ -10,7 +9,6 @@ from flask import Flask, request
 from flask import render_template
 from flask_socketio import SocketIO, emit
 
-from audio_grpc_client import RecognitionClient
 from audio_to_text_pb2 import Message
 from audio_to_text_pb2_grpc import RecognizeStub
 
@@ -23,13 +21,13 @@ client_curr_langs = {}
 client_zoom_url = {}
 
 
-def make_message(message, audio, id, mic_flag="continue", language='en'):
+def make_message(audio, user, speaking, language='en'):
+    print(user, speaking, language)
     return Message(
-        message=message,
         audio=audio,
-        user=str(id),
-        mic_flag=mic_flag,
-        language=language
+        user=str(user),
+        language=language,
+        speaking=speaking
     )
 
 
@@ -102,17 +100,23 @@ mic_ids = []
 def mic_data(chunk, language, speaking):
     global client_buffers, client_curr_langs
     sid = request.sid
-    client_curr_langs[sid] = language
 
-    if sid not in client_buffers:
-        client_buffers[sid] = chunk
-    else:
-        client_buffers[sid] = client_buffers[sid] + b'' + chunk
-    buffer = client_buffers[sid]
+    # client_curr_langs[sid] = language
+    # if sid not in client_buffers:
+    #     client_buffers[sid] = chunk
+    # else:
+    #     client_buffers[sid] = client_buffers[sid] + b'' + chunk
+    # buffer = client_buffers[sid]
+    #
+    # if ((not speaking) or (len(client_buffers[sid]) >= 102400)) and sid in client_buffers:
+    #     del client_buffers[sid]
+    #     write_wave_to_file("file-{}.wav".format(int(time.time() * 1000)), buffer)
 
-    if ((not speaking) or (len(client_buffers[sid]) >= 102400)) and sid in client_buffers:
-        del client_buffers[sid]
-        write_wave_to_file("file-{}.wav".format(int(time.time() * 1000)), buffer)
+    msg = make_message(chunk, sid, speaking, language)
+    print(sid, "message sent to grpc")
+    msg_id = str(int(time.time() * 1000.0)) + str(sid)
+    response = recognition_client_mic.recognize(msg, msg_id)
+    print(response)
 
 
 @socketio.on('mic_data_s')
