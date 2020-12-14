@@ -277,7 +277,7 @@
         var current_lang = 'en', selected_lang = 'en';
 
         $(document).ready(function () {
-            const socketio = io({path:'/ekstep/wav2vec/demo/ssocket.io'});
+            const socketio = io({path:'/ssocket.io'});
             socket = socketio.on('connect', function () {
                 start = true;
             });
@@ -355,8 +355,8 @@
         });
 
         var state = "OFF";
-        let recordAudio = null;
         let speechEvents = null;
+        let input, processor, context, globalStream, AudioContext;
 
         function toggle() {
             if (!start) {
@@ -375,59 +375,132 @@
             }
         }
 
+        function downSampleBuffer(buffer, sampleRate, outSampleRate) {
+            if (outSampleRate == sampleRate) {
+                return buffer;
+            }
+            if (outSampleRate > sampleRate) {
+                throw "down-sampling rate show be smaller than original sample rate";
+            }
+            var sampleRateRatio = sampleRate / outSampleRate;
+            var newLength = Math.round(buffer.length / sampleRateRatio);
+            var result = new Int16Array(newLength);
+            var offsetResult = 0;
+            var offsetBuffer = 0;
+            while (offsetResult < result.length) {
+                var nextOffsetBuffer = Math.round((offsetResult + 1) * sampleRateRatio);
+                var accum = 0, count = 0;
+                for (var i = offsetBuffer; i < nextOffsetBuffer && i < buffer.length; i++) {
+                    accum += buffer[i];
+                    count++;
+                }
+
+                result[offsetResult] = Math.min(1, accum / count) * 0x7FFF;
+                offsetResult++;
+                offsetBuffer = nextOffsetBuffer;
+            }
+            return result.buffer;
+        }
+
+        let localBuffer = [], isSpeaking = false;
+
+        function appendBuffer(buffer1, buffer2) {
+          const buffer = new ArrayBuffer(buffer1.byteLength + buffer2.byteLength);
+          var tmp = new Uint8Array(buffer);
+          tmp.set(new Uint8Array(buffer1), 0);
+          tmp.set(new Uint8Array(buffer2), buffer1.byteLength);
+          return buffer;
+        };
 
         function startRecording(image) {
             let constraints = { audio: true, video: false }
             document.getElementById('output').textContent = "";
-            // document.getElementById('unidentified').innerHTML = "";
             let sendData = false;
             navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
-                var options = {};
+                globalStream = stream;
+                AudioContext = window.AudioContext || window.webkitAudioContext;
+                context = new AudioContext({
+                  latencyHint: 'interactive',
+                });
+
+                let options = {audioContext: context};
                 speechEvents = hark(stream, options);
-                let send_on_pause = false;
-                recordAudio = RecordRTC(stream, {
-                    type: 'audio',
-                    mimeType: 'audio/wav',
-                    sampleRate: 44100,
-                    desiredSampRate: 16000,
-                    recorderType: StereoAudioRecorder,
-                    numberOfAudioChannels: 1,
-                    timeSlice: 1000,
-                    ondataavailable: function (blob) {
-                        if (!sendData) {
-                            if(send_on_pause){
-                                send_on_pause = false;
-                                console.log("emitted false")
-                                socket.emit('mic_data', blob, false, current_lang, url);
-                            }
-                            return;
-                        }
-                        console.log("emitted");
-                        send_on_pause = true;
-                        socket.emit('mic_data', blob, sendData, current_lang, url);
+
+                speechEvents.on('speaking', function() {
+                  isSpeaking = true;
+                  console.log('speaking');
+                });
+
+                speechEvents.on('stopped_speaking', function() {
+                  console.log('stopped_speaking');
+                  isSpeaking = false;
+                });
+
+                processor = context.createScriptProcessor(16384, 1, 1);
+                input = context.createMediaStreamSource(stream);
+
+                processor.connect(context.destination);
+                context.resume();
+                input.connect(processor);
+                let sentOnce=false;
+                processor.onaudioprocess = function (e) {
+                  var data_44100 = e.inputBuffer.getChannelData(0);
+                  var data_16000 = downSampleBuffer(data_44100, 44100, 16000);
+                  if(isSpeaking){
+                    sentOnce = false;
+
+                    if(localBuffer.length > 0){
+                        data_16000 = appendBuffer(localBuffer[localBuffer.length-1], data_16000)
                     }
-                });
-
-                speechEvents.on('speaking', function () {
-                    console.log('speaking');
-                    sendData = true;
-                });
-
-                speechEvents.on('stopped_speaking', function () {
-                    console.log('stopped_speaking');
-                    sendData = false;
-                });
-
-                recordAudio.startRecording();
+                    console.log("emitted", data_16000);
+                    socket.emit('mic_data', data_16000, current_lang,true);
+                    localBuffer = [];
+                  } else {
+                    if(!sentOnce){
+                        sentOnce= true;
+                        socket.emit('mic_data', data_16000, current_lang,false);
+                        console.log("emitted last");
+                    } else {
+                        /*let maxLength = 3;
+                        let buffLength = localBuffer.length;
+                        if(buffLength > maxLength){
+                            let temp = [];
+                            for(let i=maxLength;i>0;i++){
+                                temp.push(localBuffer[buffLength - maxLength]);
+                            }
+                            localBuffer = temp;
+                        } else {
+                            localBuffer.push(data_16000)
+                        }*/
+                        localBuffer.push(data_16000)
+                        //console.log(localBuffer);
+                    }
+                  }
+                };
             }).catch(function (err) {
                 image.src = "static/mic.webp";
                 state = "OFF";
             });
         }
 
+        function stopIt(){
+            let track = globalStream.getTracks()[0];
+            track.stop();
+
+            input.disconnect(processor);
+            processor.disconnect(context.destination);
+            context.close().then(function () {
+                input = null;
+                processor = null;
+                context = null;
+                AudioContext = null;
+            });
+        }
+
+
         function endProcess() {
             socket.emit("end", "");
-            recordAudio.stopRecording();
+            stopIt();
             speechEvents.stop();
         }
 
