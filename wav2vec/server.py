@@ -368,7 +368,7 @@ if __name__ == "__main__":
     print(args_lm)
     print('heere')
     #print(args_lm.lexicon)
-    print('heere 2')
+    print('heere 2 in kenlm')
     target_dict = Dictionary.load(dict_path)
     generator = W2lKenLMDecoder(args_lm, target_dict)
 
