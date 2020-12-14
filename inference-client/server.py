@@ -11,10 +11,11 @@ from flask_socketio import SocketIO, emit
 
 from audio_to_text_pb2 import Message
 from audio_to_text_pb2_grpc import RecognizeStub
-
+import threading
+from audio_grpc_client import RecognitionClient
 # creates a Flask application, named app
 app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins="*", resource="ssocket.io")
+socketio = SocketIO(app, cors_allowed_origins="*")
 client_buffers = {}
 client_transcriptions = {}
 client_curr_langs = {}
@@ -140,7 +141,7 @@ def mic_data_s(chunk, speaking, language, url):
             del client_buffers[sid]
         mic_flag = "append"
 
-    msg = make_message("mic", buffer, sid, mic_flag, language=language)
+    msg = make_message("mic", buffer, sid, mic_flag, language)
     print(sid, "message sent to grpc")
     msg_id = str(int(time.time() * 1000.0)) + str(sid)
     response = recognition_client_mic.recognize(msg, msg_id)
@@ -173,13 +174,13 @@ def mic_data_s(chunk, speaking, language, url):
             # values["seq"] = seq+1
             # client_zoom_url = values
             print(response.user, seq)
-            send_to_zoom(response.user, url, seq, transcription)
+            #send_to_zoom(response.user, url, seq, transcription)
     emit('response', transcription, room=response.user)
 
 
 id_dict = []
 
-
+"""
 @socketio.on('file_data')
 def file_data(chunk, language):
     global id_dict
@@ -199,11 +200,11 @@ def file_data(chunk, language):
     transcription = message["transcription"]
     print(sid, "emitted res")
     emit('file_upload_response', transcription, room=sid)
-
+"""
 
 if __name__ == "__main__":
     global recognition_client_mic, recognition_client_file
-    # recognition_client_mic = RecognitionClient()
-    # mic_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_mic))
-    # mic_client_thread.start()
+    recognition_client_mic = RecognitionClient()
+    mic_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_mic))
+    mic_client_thread.start()
     socketio.run(app, host='0.0.0.0', port=9008)

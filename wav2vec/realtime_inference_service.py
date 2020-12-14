@@ -8,12 +8,13 @@ import grpc
 
 from audio_to_text_pb2 import Response
 from audio_to_text_pb2_grpc import add_RecognizeServicer_to_server, RecognizeServicer
+from inference_service import W2lDecoder, W2lViterbiDecoder, Wav2VecCtc, InferenceService
 
 
 class RecognizeAudioServicer(RecognizeServicer):
     def __init__(self):
         cwd = os.getcwd()
-        # self.inference = InferenceService(cwd + "/model_dict.json")
+        self.inference = InferenceService(cwd + "/model_dict.json")
         print('Model Loaded Successfully')
         self.count = 0
         # self.file_names = {}
