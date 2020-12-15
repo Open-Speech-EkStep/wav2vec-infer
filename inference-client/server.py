@@ -90,6 +90,10 @@ def end_event():
 def test_disconnect():
     event_client.emit_disconnect(request.sid)
 
+@socket_io.on('connect')
+def connect():
+    emit('id', request.sid, room=request.sid)
+
 
 @app.route("/")
 def index():

@@ -96,6 +96,9 @@
             socket.on('response', function (data, language) {
                 document.getElementById('output').textContent = data;
             });
+            socket.on('id', function(id){
+                console.log("Your id is "+id)
+            })
         });
 
         function getval(sel){

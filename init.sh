@@ -5,7 +5,7 @@ cd ..
 apt-get update -y
 apt-get install liblzma-dev libbz2-dev libzstd-dev libsndfile1-dev libopenblas-dev libfftw3-dev libgflags-dev libgoogle-glog-dev -y
 apt install build-essential cmake libboost-system-dev libboost-thread-dev libboost-program-options-dev libboost-test-dev libeigen3-dev zlib1g-dev libbz2-dev liblzma-dev -y
-apt install git -y
+apt install git netcat -y
 
 git clone https://github.com/kpu/kenlm.git
 cd kenlm

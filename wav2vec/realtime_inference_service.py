@@ -12,6 +12,8 @@ from inference_service import InferenceService, Wav2VecCtc, W2lViterbiDecoder, W
 class RecognizeAudioServicer(RecognizeServicer):
     def __init__(self):
         cwd = os.getcwd()
+        if not os.path.exists(cwd+"/utterances"):
+            os.system('mkdir utterances')
         self.inference = InferenceService(cwd + "/model_dict.json")
         print('Model Loaded Successfully')
         self.count = 0
@@ -22,8 +24,8 @@ class RecognizeAudioServicer(RecognizeServicer):
         for data in request_iterator:
             self.count += 1
             print(data.user, "received")
-            buffer, append_result = self.preprocess(data)
-            transcription = self.transcribe(buffer, data.user + str(self.count), data.language, data.user, append_result)
+            buffer, append_result, local_file_name = self.preprocess(data)
+            transcription = self.transcribe(buffer, str(self.count), data, append_result, local_file_name)
             yield Response(transcription=transcription, user=data.user, action=str(append_result),
                            language=data.language)
 
@@ -57,6 +59,7 @@ class RecognizeAudioServicer(RecognizeServicer):
         return EventResponse(user=request.user, message="reset done")
 
     def preprocess(self, data):
+        local_file_name = None
         append_result = False
         if data.user in self.client_buffers:
             self.client_buffers[data.user] += data.audio
@@ -67,9 +70,10 @@ class RecognizeAudioServicer(RecognizeServicer):
         if not data.speaking:
             del self.client_buffers[data.user]
             append_result = True
-            self.write_wave_to_file(str(int(time.time()*1000))+".wav" , buffer)
+            local_file_name = "utterances/{}__{}__{}.wav".format(data.user,str(int(time.time()*1000)), data.language)
+            self.write_wave_to_file(local_file_name, buffer)
 
-        return buffer, append_result
+        return buffer, append_result, local_file_name
 
     def write_wave_to_file(self, file_name, audio):
         with wave.open(file_name, 'wb') as file:
@@ -79,10 +83,12 @@ class RecognizeAudioServicer(RecognizeServicer):
             file.writeframes(audio)
         return os.path.join(os.getcwd(), file_name)
 
-    def transcribe(self, buffer, index, language, user, append_result):
+    def transcribe(self, buffer, count, data, append_result, local_file_name):
+        index = data.user + count
+        user = data.user
         file_name = self.write_wave_to_file(index + ".wav", buffer)
         #result = {"transcription":"hello", 'status':'OK'}
-        result = self.inference.get_inference(file_name, language)
+        result = self.inference.get_inference(file_name, data.language)
         if user not in self.client_transcription:
             self.client_transcription[user] = ""
         if append_result:
@@ -92,6 +98,9 @@ class RecognizeAudioServicer(RecognizeServicer):
         else:
             result['transcription'] = (self.client_transcription[user] + " " + result['transcription']).lstrip()
         result["id"] = index
+        if local_file_name is not None:
+            with open(local_file_name.replace(".wav",".txt"), 'w') as local_file:
+                local_file.write(result['transcription'])
         os.remove(file_name)
         if result['status'] != "OK":
             result["success"] = False
