@@ -62,6 +62,12 @@ class EventClient:
 
   def emit_start(self, sid):
     self.stub.start(Info(user=sid))
+  
+  def emit_end(self, sid):
+    self.stub.end(Info(user=sid))
+
+  def emit_language_reset(self, sid):
+    self.stub.language_reset(Info(user=sid))
 
   def set_stub(self, stub):
     self.stub = stub

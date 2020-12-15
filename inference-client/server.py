@@ -77,10 +77,13 @@ def mic_data(chunk, language, speaking):
 def start_event():
     event_client.emit_start(request.sid)
 
+@socket_io.on('language_reset')
+def language_reset():
+    event_client.emit_language_reset(request.sid)
 
 @socket_io.on('end')
 def end_event():
-    event_client.emit_disconnect(request.sid)
+    event_client.emit_end(request.sid)
 
 
 @socket_io.on('disconnect')

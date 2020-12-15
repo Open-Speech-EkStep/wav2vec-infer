@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x13\x61udio_to_text.proto\x12\trecognize\"J\n\x07Message\x12\r\n\x05\x61udio\x18\x01 \x01(\x0c\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x10\n\x08language\x18\x03 \x01(\t\x12\x10\n\x08speaking\x18\x04 \x01(\x08\"\x14\n\x04Info\x12\x0c\n\x04user\x18\x01 \x01(\t\".\n\rEventResponse\x12\x0c\n\x04user\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\"Q\n\x08Response\x12\x15\n\rtranscription\x18\x01 \x01(\t\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x10\n\x08language\x18\x03 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x04 \x01(\t2\xbe\x01\n\tRecognize\x12@\n\x0frecognize_audio\x12\x12.recognize.Message\x1a\x13.recognize.Response\"\x00(\x01\x30\x01\x12\x39\n\ndisconnect\x12\x0f.recognize.Info\x1a\x18.recognize.EventResponse\"\x00\x12\x34\n\x05start\x12\x0f.recognize.Info\x1a\x18.recognize.EventResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x13\x61udio_to_text.proto\x12\trecognize\"J\n\x07Message\x12\r\n\x05\x61udio\x18\x01 \x01(\x0c\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x10\n\x08language\x18\x03 \x01(\t\x12\x10\n\x08speaking\x18\x04 \x01(\x08\"\x14\n\x04Info\x12\x0c\n\x04user\x18\x01 \x01(\t\".\n\rEventResponse\x12\x0c\n\x04user\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\"Q\n\x08Response\x12\x15\n\rtranscription\x18\x01 \x01(\t\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x10\n\x08language\x18\x03 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x04 \x01(\t2\xb1\x02\n\tRecognize\x12@\n\x0frecognize_audio\x12\x12.recognize.Message\x1a\x13.recognize.Response\"\x00(\x01\x30\x01\x12\x39\n\ndisconnect\x12\x0f.recognize.Info\x1a\x18.recognize.EventResponse\"\x00\x12\x34\n\x05start\x12\x0f.recognize.Info\x1a\x18.recognize.EventResponse\"\x00\x12\x32\n\x03\x65nd\x12\x0f.recognize.Info\x1a\x18.recognize.EventResponse\"\x00\x12=\n\x0elanguage_reset\x12\x0f.recognize.Info\x1a\x18.recognize.EventResponse\"\x00\x62\x06proto3'
 )
 
 
@@ -245,7 +245,7 @@ _RECOGNIZE = _descriptor.ServiceDescriptor(
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
   serialized_start=264,
-  serialized_end=454,
+  serialized_end=569,
   methods=[
   _descriptor.MethodDescriptor(
     name='recognize_audio',
@@ -271,6 +271,26 @@ _RECOGNIZE = _descriptor.ServiceDescriptor(
     name='start',
     full_name='recognize.Recognize.start',
     index=2,
+    containing_service=None,
+    input_type=_INFO,
+    output_type=_EVENTRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='end',
+    full_name='recognize.Recognize.end',
+    index=3,
+    containing_service=None,
+    input_type=_INFO,
+    output_type=_EVENTRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='language_reset',
+    full_name='recognize.Recognize.language_reset',
+    index=4,
     containing_service=None,
     input_type=_INFO,
     output_type=_EVENTRESPONSE,

@@ -27,12 +27,18 @@ class RecognizeAudioServicer(RecognizeServicer):
             yield Response(transcription=transcription, user=data.user, action=str(append_result),
                            language=data.language)
 
-    def clear_states(self, user):
+    def clear_buffers(self, user):
         if user in self.client_buffers:
             del self.client_buffers[user]
-        
+
+    def clear_transcriptions(self, user):
         if user in self.client_transcription:
             del self.client_transcription[user]
+
+    def clear_states(self, user):
+        self.clear_buffers(user)
+        self.clear_transcriptions(user)
+        
 
     def disconnect(self, request, context):
         self.clear_states(request.user)
@@ -41,6 +47,14 @@ class RecognizeAudioServicer(RecognizeServicer):
     def start(self, request, context):
         self.clear_states(request.user)
         return EventResponse(user=request.user, message="started")
+
+    def end(self, request, context):
+        self.clear_buffers(request.user)
+        return EventResponse(user=request.user, message="ended")
+
+    def language_reset(self, request, context):
+        self.clear_states(request.user)
+        return EventResponse(user=request.user, message="reset done")
 
     def preprocess(self, data):
         append_result = False

@@ -6,6 +6,8 @@ service Recognize {
    rpc recognize_audio(stream Message) returns (stream Response) {}
    rpc disconnect(Info) returns (EventResponse) {}
    rpc start(Info) returns (EventResponse) {}
+   rpc end(Info) returns (EventResponse) {}
+   rpc language_reset(Info) returns (EventResponse) {}
 }
 
 message Message {

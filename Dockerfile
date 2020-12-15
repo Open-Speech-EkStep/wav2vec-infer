@@ -18,6 +18,8 @@ COPY generate_model_dict.py .
 
 COPY init.sh .
 
+COPY deployed_models/ deployed_models/
+
 RUN sh init.sh
 
 EXPOSE 9008

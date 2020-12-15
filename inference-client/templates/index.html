@@ -34,31 +34,10 @@
             text-align: center;
         }
 
-        .btn-bs-file {
-            position: relative;
-            font-size: 16px;
-            width: 200px;
-        }
-
-        .btn-bs-file input[type="file"] {
-            position: absolute;
-            top: -9999999;
-            filter: alpha(opacity=0);
-            opacity: 0;
-            width: 0;
-            height: 0;
-            outline: none;
-            cursor: inherit;
-        }
-
         .row {
             padding: 15px;
             margin: 15px;
             border: 1px black solid;
-        }
-
-        .btn {
-            width: 200px;
         }
     </style>
 </head>
@@ -107,7 +86,7 @@
         let state = "OFF";
         let speechEvents = null;
         let input, processor, context, globalStream, AudioContext;
-        let localBuffer = [], isSpeaking = false;
+        let localBuffer = null, isSpeaking = false;
 
         $(document).ready(function () {
             const socketIO = io();
@@ -124,10 +103,9 @@
             if(state === "ON") {
               stopRecording();
             } else {
-              socket.emit("end");
+              socket.emit("language_reset");
             }
         }
-
 
         function toggle() {
             if (!start) {
@@ -219,30 +197,19 @@
                   if(isSpeaking){
                     sentOnce = false;
 
-                    if(localBuffer.length > 0){
-                        data_16000 = appendBuffer(localBuffer[localBuffer.length-1], data_16000)
+                    if(localBuffer !== undefined && localBuffer !== null){
+                        data_16000 = appendBuffer(localBuffer, data_16000)
                     }
                     console.log("emitted", data_16000);
                     socket.emit('mic_data', data_16000, current_lang,true);
-                    localBuffer = [];
+                    localBuffer = null;
                   } else {
                     if(!sentOnce){
                         sentOnce= true;
                         socket.emit('mic_data', data_16000, current_lang,false);
                         console.log("emitted last");
                     } else {
-                        /*let maxLength = 3;
-                        let buffLength = localBuffer.length;
-                        if(buffLength > maxLength){
-                            let temp = [];
-                            for(let i=maxLength;i>0;i++){
-                                temp.push(localBuffer[buffLength - maxLength]);
-                            }
-                            localBuffer = temp;
-                        } else {
-                            localBuffer.push(data_16000)
-                        }*/
-                        localBuffer.push(data_16000)
+                        localBuffer = data_16000;
                     }
                   }
                 };
@@ -250,6 +217,19 @@
                 image.src = "static/mic.webp";
                 state = "OFF";
             });
+        }
+
+        function stopRecording(){
+            let image = document.getElementById("mic_image");
+            state = "OFF";
+            image.src = "static/mic.webp";
+            endProcess();
+        }
+
+        function endProcess() {
+            socket.emit("end");
+            stopIt();
+            speechEvents.stop();
         }
 
         function stopIt(){
@@ -264,19 +244,6 @@
                 context = null;
                 AudioContext = null;
             });
-        }
-
-        function endProcess() {
-            socket.emit("end");
-            stopIt();
-            speechEvents.stop();
-        }
-
-        function stopRecording(){
-            let image = document.getElementById("mic_image");
-            state = "OFF";
-            image.src = "static/mic.webp";
-            endProcess();
         }
     </script>
 </body>

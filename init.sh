@@ -22,7 +22,5 @@ cd wav2letter/bindings/python
 pip install -e .
 
 cd ../../../..
-mkdir deployed_models
-gsutil -m cp -r gs://ekstepspeechrecognition-dev/deployed_models deployed_models/
 
 python generate_model_dict.py
