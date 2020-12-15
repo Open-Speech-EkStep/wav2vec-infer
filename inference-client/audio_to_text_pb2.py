@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x13\x61udio_to_text.proto\x12\trecognize\"J\n\x07Message\x12\r\n\x05\x61udio\x18\x01 \x01(\x0c\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x10\n\x08language\x18\x03 \x01(\t\x12\x10\n\x08speaking\x18\x04 \x01(\x08\"\x14\n\x04Info\x12\x0c\n\x04user\x18\x01 \x01(\t\"\"\n\x12\x44isconnectResponse\x12\x0c\n\x04user\x18\x01 \x01(\t\"Q\n\x08Response\x12\x15\n\rtranscription\x18\x01 \x01(\t\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x10\n\x08language\x18\x03 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x04 \x01(\t2\x8d\x01\n\tRecognize\x12@\n\x0frecognize_audio\x12\x12.recognize.Message\x1a\x13.recognize.Response\"\x00(\x01\x30\x01\x12>\n\ndisconnect\x12\x0f.recognize.Info\x1a\x1d.recognize.DisconnectResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x13\x61udio_to_text.proto\x12\trecognize\"J\n\x07Message\x12\r\n\x05\x61udio\x18\x01 \x01(\x0c\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x10\n\x08language\x18\x03 \x01(\t\x12\x10\n\x08speaking\x18\x04 \x01(\x08\"\x14\n\x04Info\x12\x0c\n\x04user\x18\x01 \x01(\t\".\n\rEventResponse\x12\x0c\n\x04user\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\"Q\n\x08Response\x12\x15\n\rtranscription\x18\x01 \x01(\t\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x10\n\x08language\x18\x03 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x04 \x01(\t2\xbe\x01\n\tRecognize\x12@\n\x0frecognize_audio\x12\x12.recognize.Message\x1a\x13.recognize.Response\"\x00(\x01\x30\x01\x12\x39\n\ndisconnect\x12\x0f.recognize.Info\x1a\x18.recognize.EventResponse\"\x00\x12\x34\n\x05start\x12\x0f.recognize.Info\x1a\x18.recognize.EventResponse\"\x00\x62\x06proto3'
 )
 
 
@@ -110,17 +110,24 @@ _INFO = _descriptor.Descriptor(
 )
 
 
-_DISCONNECTRESPONSE = _descriptor.Descriptor(
-  name='DisconnectResponse',
-  full_name='recognize.DisconnectResponse',
+_EVENTRESPONSE = _descriptor.Descriptor(
+  name='EventResponse',
+  full_name='recognize.EventResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='user', full_name='recognize.DisconnectResponse.user', index=0,
+      name='user', full_name='recognize.EventResponse.user', index=0,
       number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='message', full_name='recognize.EventResponse.message', index=1,
+      number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -138,7 +145,7 @@ _DISCONNECTRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=132,
-  serialized_end=166,
+  serialized_end=178,
 )
 
 
@@ -190,13 +197,13 @@ _RESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=168,
-  serialized_end=249,
+  serialized_start=180,
+  serialized_end=261,
 )
 
 DESCRIPTOR.message_types_by_name['Message'] = _MESSAGE
 DESCRIPTOR.message_types_by_name['Info'] = _INFO
-DESCRIPTOR.message_types_by_name['DisconnectResponse'] = _DISCONNECTRESPONSE
+DESCRIPTOR.message_types_by_name['EventResponse'] = _EVENTRESPONSE
 DESCRIPTOR.message_types_by_name['Response'] = _RESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -214,12 +221,12 @@ Info = _reflection.GeneratedProtocolMessageType('Info', (_message.Message,), {
   })
 _sym_db.RegisterMessage(Info)
 
-DisconnectResponse = _reflection.GeneratedProtocolMessageType('DisconnectResponse', (_message.Message,), {
-  'DESCRIPTOR' : _DISCONNECTRESPONSE,
+EventResponse = _reflection.GeneratedProtocolMessageType('EventResponse', (_message.Message,), {
+  'DESCRIPTOR' : _EVENTRESPONSE,
   '__module__' : 'audio_to_text_pb2'
-  # @@protoc_insertion_point(class_scope:recognize.DisconnectResponse)
+  # @@protoc_insertion_point(class_scope:recognize.EventResponse)
   })
-_sym_db.RegisterMessage(DisconnectResponse)
+_sym_db.RegisterMessage(EventResponse)
 
 Response = _reflection.GeneratedProtocolMessageType('Response', (_message.Message,), {
   'DESCRIPTOR' : _RESPONSE,
@@ -237,8 +244,8 @@ _RECOGNIZE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=252,
-  serialized_end=393,
+  serialized_start=264,
+  serialized_end=454,
   methods=[
   _descriptor.MethodDescriptor(
     name='recognize_audio',
@@ -256,7 +263,17 @@ _RECOGNIZE = _descriptor.ServiceDescriptor(
     index=1,
     containing_service=None,
     input_type=_INFO,
-    output_type=_DISCONNECTRESPONSE,
+    output_type=_EVENTRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='start',
+    full_name='recognize.Recognize.start',
+    index=2,
+    containing_service=None,
+    input_type=_INFO,
+    output_type=_EVENTRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

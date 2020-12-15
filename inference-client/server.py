@@ -10,7 +10,7 @@ from flask import Flask, request
 from flask import render_template
 from flask_socketio import SocketIO, emit
 
-from audio_grpc_client import RecognitionClient
+from audio_grpc_client import StreamRecognitionClient, EventClient
 from audio_to_text_pb2 import Message
 from audio_to_text_pb2_grpc import RecognizeStub
 
@@ -19,10 +19,11 @@ app = Flask(__name__)
 socket_io = SocketIO(app, cors_allowed_origins="*")
 
 
-def _run_client(address, recognition_client):
+def _run_client(address, recognition_client, event_client):
     with grpc.insecure_channel(address) as channel:
         print("connected to grpc")
         stub = RecognizeStub(channel)
+        event_client.set_stub(stub)
         responses = stub.recognize_audio(recognition_client)
         for resp in responses:
             recognition_client.add_response(resp)
@@ -74,17 +75,17 @@ def mic_data(chunk, language, speaking):
 
 @socket_io.on('start')
 def start_event():
-    pass
+    event_client.emit_start(request.sid)
 
 
 @socket_io.on('end')
 def end_event():
-    pass
+    event_client.emit_disconnect(request.sid)
 
 
 @socket_io.on('disconnect')
 def test_disconnect():
-    pass
+    event_client.emit_disconnect(request.sid)
 
 
 @app.route("/")
@@ -93,7 +94,9 @@ def index():
 
 
 if __name__ == "__main__":
-    recognition_client_mic = RecognitionClient()
-    mic_client_thread = threading.Thread(target=_run_client, args=('localhost:55102', recognition_client_mic))
+    recognition_client_mic = StreamRecognitionClient()
+    event_client = EventClient()
+    address="localhost:55102"
+    mic_client_thread = threading.Thread(target=_run_client, args=(address, recognition_client_mic, event_client))
     mic_client_thread.start()
     socket_io.run(app, host='0.0.0.0', port=9008)

@@ -22,7 +22,12 @@ class RecognizeStub(object):
         self.disconnect = channel.unary_unary(
                 '/recognize.Recognize/disconnect',
                 request_serializer=audio__to__text__pb2.Info.SerializeToString,
-                response_deserializer=audio__to__text__pb2.DisconnectResponse.FromString,
+                response_deserializer=audio__to__text__pb2.EventResponse.FromString,
+                )
+        self.start = channel.unary_unary(
+                '/recognize.Recognize/start',
+                request_serializer=audio__to__text__pb2.Info.SerializeToString,
+                response_deserializer=audio__to__text__pb2.EventResponse.FromString,
                 )
 
 
@@ -41,6 +46,12 @@ class RecognizeServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def start(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_RecognizeServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -52,7 +63,12 @@ def add_RecognizeServicer_to_server(servicer, server):
             'disconnect': grpc.unary_unary_rpc_method_handler(
                     servicer.disconnect,
                     request_deserializer=audio__to__text__pb2.Info.FromString,
-                    response_serializer=audio__to__text__pb2.DisconnectResponse.SerializeToString,
+                    response_serializer=audio__to__text__pb2.EventResponse.SerializeToString,
+            ),
+            'start': grpc.unary_unary_rpc_method_handler(
+                    servicer.start,
+                    request_deserializer=audio__to__text__pb2.Info.FromString,
+                    response_serializer=audio__to__text__pb2.EventResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -94,6 +110,23 @@ class Recognize(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/recognize.Recognize/disconnect',
             audio__to__text__pb2.Info.SerializeToString,
-            audio__to__text__pb2.DisconnectResponse.FromString,
+            audio__to__text__pb2.EventResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def start(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/recognize.Recognize/start',
+            audio__to__text__pb2.Info.SerializeToString,
+            audio__to__text__pb2.EventResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

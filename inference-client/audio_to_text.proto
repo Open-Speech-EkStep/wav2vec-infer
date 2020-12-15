@@ -4,7 +4,8 @@ package recognize;
 
 service Recognize {
    rpc recognize_audio(stream Message) returns (stream Response) {}
-   rpc disconnect(Info) returns (DisconnectResponse) {}
+   rpc disconnect(Info) returns (EventResponse) {}
+   rpc start(Info) returns (EventResponse) {}
 }
 
 message Message {
@@ -18,8 +19,9 @@ message Info {
    string user = 1;
 }
 
-message DisconnectResponse {
+message EventResponse {
    string user = 1;
+   string message = 2;
 }
 
 message Response {

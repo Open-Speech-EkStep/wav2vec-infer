@@ -11,8 +11,7 @@ language_code_dict = {
 
 model_dict = {}
 main_folder = 'deployed_models'
-curr_dir = os.getcwd()
-
+curr_dir = "/workspaces/wav2vec-infer"
 for folder in os.listdir(main_folder):
     try:
         path = "{0}/{1}/{2}/{2}.pt".format(curr_dir,main_folder,folder)

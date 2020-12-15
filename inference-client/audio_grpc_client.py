@@ -1,7 +1,8 @@
 import collections
 import threading
+from audio_to_text_pb2 import Info
 
-class RecognitionClient(object):
+class StreamRecognitionClient(object):
   def __init__(self):
     self._stop_event = threading.Event()
     self._request_condition = threading.Condition()
@@ -50,3 +51,17 @@ class RecognitionClient(object):
         self._response_condition.wait()
         if id in self._responses:
           return self._responses[id]
+
+
+class EventClient:
+  def __init__(self):
+    self.stub = None
+
+  def emit_disconnect(self, sid):
+    self.stub.disconnect(Info(user=sid))
+
+  def emit_start(self, sid):
+    self.stub.start(Info(user=sid))
+
+  def set_stub(self, stub):
+    self.stub = stub
