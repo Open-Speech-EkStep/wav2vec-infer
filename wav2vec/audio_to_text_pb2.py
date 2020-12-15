@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x13\x61udio_to_text.proto\x12\trecognize\"J\n\x07Message\x12\r\n\x05\x61udio\x18\x01 \x01(\x0c\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x10\n\x08language\x18\x03 \x01(\t\x12\x10\n\x08speaking\x18\x04 \x01(\t\"\x14\n\x04Info\x12\x0c\n\x04user\x18\x01 \x01(\t\"\"\n\x12\x44isconnectResponse\x12\x0c\n\x04user\x18\x01 \x01(\t\"Q\n\x08Response\x12\x15\n\rtranscription\x18\x01 \x01(\t\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x10\n\x08language\x18\x03 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x04 \x01(\t2\x8d\x01\n\tRecognize\x12@\n\x0frecognize_audio\x12\x12.recognize.Message\x1a\x13.recognize.Response\"\x00(\x01\x30\x01\x12>\n\ndisconnect\x12\x0f.recognize.Info\x1a\x1d.recognize.DisconnectResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x13\x61udio_to_text.proto\x12\trecognize\"J\n\x07Message\x12\r\n\x05\x61udio\x18\x01 \x01(\x0c\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x10\n\x08language\x18\x03 \x01(\t\x12\x10\n\x08speaking\x18\x04 \x01(\x08\"\x14\n\x04Info\x12\x0c\n\x04user\x18\x01 \x01(\t\"\"\n\x12\x44isconnectResponse\x12\x0c\n\x04user\x18\x01 \x01(\t\"Q\n\x08Response\x12\x15\n\rtranscription\x18\x01 \x01(\t\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x10\n\x08language\x18\x03 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x04 \x01(\t2\x8d\x01\n\tRecognize\x12@\n\x0frecognize_audio\x12\x12.recognize.Message\x1a\x13.recognize.Response\"\x00(\x01\x30\x01\x12>\n\ndisconnect\x12\x0f.recognize.Info\x1a\x1d.recognize.DisconnectResponse\"\x00\x62\x06proto3'
 )
 
 
@@ -56,8 +56,8 @@ _MESSAGE = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='speaking', full_name='recognize.Message.speaking', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      number=4, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),

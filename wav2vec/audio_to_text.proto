@@ -11,7 +11,7 @@ message Message {
   bytes audio = 1;
   string user = 2;
   string language = 3;
-  string speaking = 4;
+  bool speaking = 4;
 }
 
 message Info {
