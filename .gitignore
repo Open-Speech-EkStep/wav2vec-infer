@@ -1,4 +1,4 @@
-inference-client-website/
+inference-client-website/node_modules/
 .devcontainer/
 inference-client/audios/
 **/__pycache__/*

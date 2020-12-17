@@ -73,7 +73,47 @@
                             <br />
                         </div>
                         <div class="col-sm-12">
-                            <textarea id="output" placeholder="Output" readonly></textarea>
+                            <textarea id="output" placeholder="Output" rows="6" readonly></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <center>
+                                <p>Hindi Sample</p>
+                                <p>(Harveen Chadha)</p>
+                            </center>
+                            <audio controls>
+                                <source src="hindi2.wav"/>
+                            </audio>
+                        </div>
+                        <div class="col-sm-4">
+                            <center>
+                                <p>Tamil Sample</p>
+                                <p>(Kandan Muthukumar)</p>
+                            </center>
+                            <audio controls>
+                                <source src="tamil.wav"/>
+                            </audio>
+                        </div>
+                        <div class="col-sm-4">
+                            <center>
+                                <p>Gujarati Sample</p>
+                                <p>(Bijal Bharat Kumar Parekh)</p>
+                            </center>
+                            <audio controls>
+                                <source src="gujarati.wav"/>
+                            </audio>
+                        </div>
+                        <div class="col-sm-12">
+                            <center>
+                                <center>
+                                    <p>Hindi Sample</p>
+                                    <p>(Rajat Singhal)</p>
+                                </center>
+                                <audio controls>
+                                    <source src="hindi.m4a"/>
+                                </audio>
+                            </center>
                         </div>
                     </div>
                 </div>
@@ -85,7 +125,7 @@
         let current_lang = 'en', selected_lang = 'en';
         let state = "OFF";
         let speechEvents = null;
-        let input, processor, context, globalStream, AudioContext;
+        let input, processor, context, globalStream, audioContext;
         let localBuffer = null, isSpeaking = false;
 
         $(document).ready(function () {
@@ -169,8 +209,8 @@
             let sendData = false;
             navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
                 globalStream = stream;
-                AudioContext = window.AudioContext || window.webkitAudioContext;
-                context = new AudioContext({
+                audioContext = window.AudioContext || window.webkitAudioContext;
+                context = new audioContext({
                   latencyHint: 'interactive',
                 });
 
@@ -245,7 +285,7 @@
                 input = null;
                 processor = null;
                 context = null;
-                AudioContext = null;
+                audioContext = null;
             });
         }
     </script>
