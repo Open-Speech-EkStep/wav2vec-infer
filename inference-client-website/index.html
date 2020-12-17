@@ -89,7 +89,7 @@
         let localBuffer = null, isSpeaking = false;
 
         $(document).ready(function () {
-            const socketIO = io();
+            const socketIO = io({ path: window.location.pathname+"socket.io"});
             socket = socketIO.on('connect', function () {
                 start = true;
             });

@@ -17,6 +17,6 @@ os.system("nohup python monitor_and_upload_to_bucket.py &")
 
 print("Started monitor")
 
-os.system("nohup python inference-client/server.py &")
+os.system("nohup npm start --prefix inference-client-website/ &")
 
 print("Started client server...")
