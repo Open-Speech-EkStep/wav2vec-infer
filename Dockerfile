@@ -16,11 +16,17 @@ COPY inference-client/ inference-client/
 
 COPY generate_model_dict.py .
 
+COPY monitor_and_upload_to_bucket.py .
+
+COPY upload_to_google.py .
+
+COPY start_inference_service.py .
+
 COPY init.sh .
 
-COPY deployed_models/ deployed_models/
+# RUN sh init.sh
 
-RUN sh init.sh
+COPY deployed_models/ deployed_models/
 
 EXPOSE 9008
 

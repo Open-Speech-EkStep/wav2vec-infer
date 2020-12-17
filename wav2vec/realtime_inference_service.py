@@ -23,7 +23,6 @@ class RecognizeAudioServicer(RecognizeServicer):
     def recognize_audio(self, request_iterator, context):
         for data in request_iterator:
             self.count += 1
-            print(data.user, "received")
             buffer, append_result, local_file_name = self.preprocess(data)
             transcription = self.transcribe(buffer, str(self.count), data, append_result, local_file_name)
             yield Response(transcription=transcription, user=data.user, action=str(append_result),
@@ -67,12 +66,12 @@ class RecognizeAudioServicer(RecognizeServicer):
             self.client_buffers[data.user] = data.audio
 
         buffer = self.client_buffers[data.user]
+        print("when", len(buffer))
         if not data.speaking:
             del self.client_buffers[data.user]
             append_result = True
             local_file_name = "utterances/{}__{}__{}.wav".format(data.user,str(int(time.time()*1000)), data.language)
             self.write_wave_to_file(local_file_name, buffer)
-
         return buffer, append_result, local_file_name
 
     def write_wave_to_file(self, file_name, audio):
@@ -89,18 +88,19 @@ class RecognizeAudioServicer(RecognizeServicer):
         file_name = self.write_wave_to_file(index + ".wav", buffer)
         #result = {"transcription":"hello", 'status':'OK'}
         result = self.inference.get_inference(file_name, data.language)
+        print("then", len(buffer))
         if user not in self.client_transcription:
             self.client_transcription[user] = ""
+        transcription = (self.client_transcription[user] + " " + result['transcription']).lstrip()
+        result['transcription'] = transcription
         if append_result:
-            transcription = (self.client_transcription[user] + " " + result['transcription']).lstrip()
             self.client_transcription[user] = transcription
-            result['transcription'] = transcription
-        else:
-            result['transcription'] = (self.client_transcription[user] + " " + result['transcription']).lstrip()
+            print("appended")
+            if local_file_name is not None:
+                with open(local_file_name.replace(".wav",".txt"), 'w') as local_file:
+                    local_file.write(result['transcription'])
         result["id"] = index
-        if local_file_name is not None:
-            with open(local_file_name.replace(".wav",".txt"), 'w') as local_file:
-                local_file.write(result['transcription'])
+        
         os.remove(file_name)
         if result['status'] != "OK":
             result["success"] = False
