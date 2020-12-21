@@ -126,6 +126,7 @@
         let speechEvents = null;
         let input, processor, context, globalStream, audioContext;
         let localBuffer = null, isSpeaking = false;
+        let timeout_ = null, state_end = false;
 
         $(document).ready(function () {
             const socketIO = io({ path: window.location.pathname+"socket.io"});
@@ -162,6 +163,8 @@
                 selected_lang = current_lang;
                 startRecording(image);
             } else if (state === "ON") {
+                if(timeout_ !== null)
+                    clearTimeout(timeout_);
                 stopRecording()
             }
         }
@@ -193,6 +196,13 @@
             return result.buffer;
         }
 
+        function timeout(){
+            let timeout = setTimeout(function(){
+                stopRecording()
+            }, 120000);
+            return timeout;
+        }
+
 
         function appendBuffer(buffer1, buffer2) {
           const buffer = new ArrayBuffer(buffer1.byteLength + buffer2.byteLength);
@@ -201,8 +211,8 @@
           tmp.set(new Uint8Array(buffer2), buffer1.byteLength);
           return buffer;
         };
-
         function startRecording(image) {
+            timeout_ = timeout();
             let constraints = { audio: true, video: false }
             document.getElementById('output').textContent = "";
             let sendData = false;
@@ -234,30 +244,43 @@
                 input.connect(processor);
                 let sentOnce = true;
                 processor.onaudioprocess = function (e) {
-                  var data_44100 = e.inputBuffer.getChannelData(0);
-                  var data_16000 = downSampleBuffer(data_44100, 44100, 16000);
-                  if(isSpeaking){
-                    sentOnce = false;
+                    if(state === "ON"){
+                        state_end = false;
+                        var data_44100 = e.inputBuffer.getChannelData(0);
+                        var data_16000 = downSampleBuffer(data_44100, 44100, 16000);
+                        if(isSpeaking){
+                            sentOnce = false;
 
-                    if(localBuffer !== undefined && localBuffer !== null){
-                        data_16000 = appendBuffer(localBuffer, data_16000)
-                    }
-                    console.log("emitted", data_16000);
-                    socket.emit('mic_data', data_16000, current_lang,true);
-                    localBuffer = null;
-                  } else {
-                    if(!sentOnce){
-                        sentOnce= true;
-                        socket.emit('mic_data', data_16000, current_lang,false);
-                        console.log("emitted last");
+                            if(localBuffer !== undefined && localBuffer !== null){
+                                data_16000 = appendBuffer(localBuffer, data_16000)
+                            }
+                            console.log("emitted", data_16000);
+                            socket.emit('mic_data', data_16000, current_lang,true);
+                            localBuffer = null;
+                        } else {
+                            if(!sentOnce){
+                                sentOnce= true;
+                                socket.emit('mic_data', data_16000, current_lang,false);
+                                console.log("emitted last");
+                            } else {
+                                localBuffer = data_16000;
+                            }
+                        }
                     } else {
-                        localBuffer = data_16000;
+                        if(!state_end){
+                            var data_44100 = e.inputBuffer.getChannelData(0);
+                            var data_16000 = downSampleBuffer(data_44100, 44100, 16000);
+                            state_end = true;
+                            socket.emit('mic_data', data_16000, current_lang, false);
+                            console.log("emitted last");
+                        }
                     }
-                  }
                 };
             }).catch(function (err) {
-                image.src = "mic.webp";
-                state = "OFF";
+                console.log(err);
+                if(timeout_ !== null)
+                    clearTimeout(timeout_)
+                stopRecording()
             });
         }
 
@@ -275,16 +298,35 @@
         }
 
         function stopIt(){
-            let track = globalStream.getTracks()[0];
-            track.stop();
-
-            input.disconnect(processor);
-            processor.disconnect(context.destination);
+            try{
+                let track = globalStream.getTracks()[0];
+                if(track)
+                    track.stop();
+            }catch(err){
+                console.log(err);
+            }
+            
+            try{
+                input.disconnect(processor);
+            } catch(err){
+                console.log(err);
+            }
+            try{
+                processor.disconnect(context.destination);
+            } catch(err){
+                console.log(err);
+            }
             context.close().then(function () {
                 input = null;
                 processor = null;
                 context = null;
                 audioContext = null;
+            }).catch(err=>{
+                input = null;
+                processor = null;
+                context = null;
+                audioContext = null;
+                console.log(err);
             });
         }
     </script>

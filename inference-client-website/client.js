@@ -54,7 +54,7 @@ function onResponse(response) {
 function onUserConnected(socket, grpc_client){
   userCalls[socket.id] = grpc_client.recognize_audio();
   userCalls[socket.id].on("data", onResponse);
-  io.to(socket.id).emit("id", socket.id);
+  //io.to(socket.id).emit("id", socket.id);
 }
 
 function main() {
@@ -86,8 +86,10 @@ function main() {
     });
 
     socket.on("disconnect", () => {
-      if(socket.id in userCalls)
+      if(socket.id in userCalls){
+        userCalls[socket.id].end()
         delete userCalls[socket.id]
+      }
       grpc_client.disconnect({'user': socket.id},function(err, resp){})
     });
 
@@ -95,6 +97,7 @@ function main() {
         let user = socket.id;
         let message = make_message(chunk, user, speaking, language);
         userCalls[user].write(message)
+        console.log(user, "sent")
     });
   });
 
