@@ -121,8 +121,8 @@ class InferenceService:
             model_dict = json.load(f)
         for lang, path in model_dict.items():
             if torch.cuda.is_available():
-                self.cuda = False
-                self.models[lang] = load_cpu_model(path)
+                self.cuda = True
+                self.models[lang] = load_gpu_model(path)
             else:
                 self.cuda = False
                 self.models[lang] = load_cpu_model(path)
