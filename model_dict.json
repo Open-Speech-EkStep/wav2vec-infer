@@ -1,7 +1,9 @@
 {
-    "en" : "/home/sreejithv/inference/deployed_models/en/english_v2.pt",
-    "hi" : "/home/sreejithv/inference/deployed_models/hi/hindi.pt",
-    "gu" : "/home/sreejithv/inference/deployed_models/gu/gujarati.pt",
-    "ta" : "/home/sreejithv/inference/deployed_models/ta/tamil.pt",
-    "te" : "/home/sreejithv/inference/deployed_models/te/telugu.pt"
+    "en" : "/home/anirudh/wav2vec-infer/deployed_models/english/english_v2.pt",
+    "en-IN":"/home/anirudh/wav2vec-infer/deployed_models/indian_english/combined_model.pt",
+    "hi" : "/home/anirudh/wav2vec-infer/deployed_models/hindi/hindi.pt",
+    "gu" : "/home/anirudh/wav2vec-infer/deployed_models/gujarati/gujarati.pt",
+    "ta" : "/home/anirudh/wav2vec-infer/deployed_models/tamil/tamil.pt",
+    "te" : "/home/anirudh/wav2vec-infer/deployed_models/telugu/telugu.pt",
+    "kn" : "/home/anirudh/wav2vec-infer/deployed_models/kannada/kannada.pt"
 }
