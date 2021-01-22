@@ -3,10 +3,13 @@
 const grpc = require("grpc");
 var express = require("express");
 const app = express();
+app.use(express.json());
+// app.use(express.urlencoded());
+
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 const path = require("path");
-
+const { addFeedback, getFeedback } = require('./dbOperations');
 app.use(express.static(path.join(__dirname, "static")));
 
 const PROTO_PATH =
@@ -28,7 +31,7 @@ const userCalls = {};
 function make_message(audio, user, speaking, language = 'en') {
   const msg = {
     audio: audio,
-    user: user+"",
+    user: user + "",
     language: language,
     speaking: speaking
   };
@@ -45,16 +48,56 @@ function onResponse(response) {
   } else {
     idDict[user] = id;
   }
-  if(!data["success"]){
+  if (!data["success"]) {
     return;
   }
   io.to(response.user).emit("response", data["transcription"]);
 }
 
-function onUserConnected(socket, grpc_client){
+function onUserConnected(socket, grpc_client) {
   userCalls[socket.id] = grpc_client.recognize_audio();
   userCalls[socket.id].on("data", onResponse);
-  //io.to(socket.id).emit("id", socket.id);
+  io.to(socket.id).emit("id", socket.id);
+}
+
+function startServer() {
+  app.get("/", function (req, res) {
+    res.sendFile("index.html", { root: __dirname });
+  });
+
+  app.get("/feedback", function (req, res) {
+    res.sendFile("feedback.html", { root: __dirname });
+  });
+
+  app.post("/api/feedback", function (req, res) {
+    console.log(req.body)
+    addFeedback(req.body).then(() => {
+      res.json({ "success": true })
+    }).catch(err => {
+      console.log(err)
+      res.status(500).json({ "success": false })
+    })
+  })
+
+  app.get("/api/feedback", function (req, res) {
+    const start = Number(req.query.start) || 0;
+    const size = Number(req.query.length) || 10;
+    getFeedback(start, size).then(result => {
+      res.json({
+        "draw": req.query.draw | 1,
+        "recordsTotal": result['total'],
+        "recordsFiltered": result['total'],
+        "data": result['data']
+      })
+    }).catch(err => {
+      console.log(err)
+      res.status(500).json({ "success": false })
+    })
+  })
+
+  const PORT = 9008;
+  server.listen(PORT);
+  console.log("Listening in port => " + PORT);
 }
 
 function main() {
@@ -68,46 +111,41 @@ function main() {
     onUserConnected(socket, grpc_client);
 
     socket.on("start", function () {
-      grpc_client.start({'user': ""+socket.id},function(err, resp){
+      grpc_client.start({ 'user': "" + socket.id }, function (err, resp) {
 
       })
     });
 
     socket.on("end", function () {
-      grpc_client.end({'user': ""+socket.id}, function(err, resp){
+      grpc_client.end({ 'user': "" + socket.id }, function (err, resp) {
 
       })
     });
 
-    socket.on("language_reset", function(){
-       grpc_client.language_reset({'user': ""+socket.id},function(err, resp){
+    socket.on("language_reset", function () {
+      grpc_client.language_reset({ 'user': "" + socket.id }, function (err, resp) {
 
       })
     });
 
     socket.on("disconnect", () => {
-      if(socket.id in userCalls){
+      if (socket.id in userCalls) {
         userCalls[socket.id].end()
         delete userCalls[socket.id]
       }
-      grpc_client.disconnect({'user': socket.id},function(err, resp){})
+      grpc_client.disconnect({ 'user': socket.id }, function (err, resp) { })
     });
 
     socket.on("mic_data", function (chunk, language, speaking) {
-        let user = socket.id;
-        let message = make_message(chunk, user, speaking, language);
-        userCalls[user].write(message)
-        console.log(user, "sent")
+      let user = socket.id;
+      let message = make_message(chunk, user, speaking, language);
+      userCalls[user].write(message)
+      console.log(user, "sent")
     });
   });
 
-  app.get("/", function (req, res) {
-    res.sendFile("index.html", { root: __dirname });
-  });
-
-  const PORT = 9008;
-  server.listen(PORT);
-  console.log("Listening in port => " + PORT);
+  startServer();
 }
 
-main();
+// main();
+startServer();

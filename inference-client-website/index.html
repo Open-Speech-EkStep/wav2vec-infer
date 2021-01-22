@@ -50,6 +50,7 @@
                         <h4>Wav2Vec Inference Service</h4>
                         <br/>
                         <p>(No Language model present)</p>
+                        <p id="userid"></p>
                     </center>
                 </div>
                 <div class="col-sm-12">
@@ -137,7 +138,7 @@
                 document.getElementById('output').textContent = data;
             });
             socket.on('id', function(id){
-                console.log("Your id is "+id)
+                document.getElementById('userid').textContent = id;
             })
         });
 

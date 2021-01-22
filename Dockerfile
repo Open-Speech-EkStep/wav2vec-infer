@@ -24,9 +24,9 @@ COPY start_inference_service.py .
 
 COPY init.sh .
 
-# RUN sh init.sh
-
 COPY deployed_models/ deployed_models/
+
+RUN sh init.sh
 
 EXPOSE 9008
 

@@ -16,3 +16,4 @@ wav2vec/fairseq/data/data_utils_fast.cpython-38-darwin.so
 wav2vec/fairseq/data/token_block_utils_fast.cpython-37m-darwin.so
 wav2vec/fairseq/data/token_block_utils_fast.cpython-38-darwin.so
 inference-client/static/main.js
+inference-client-website/.env
