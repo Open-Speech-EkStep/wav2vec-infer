@@ -12,6 +12,7 @@ import logging
 import os
 import torch
 import json
+import numpy as np
 
 class Wav2VecCtc(BaseFairseqModel):
     def __init__(self, w2v_encoder, args):
@@ -111,12 +112,100 @@ class W2lViterbiDecoder(W2lDecoder):
             [{"tokens": self.get_tokens(viterbi_path[b].tolist()), "score": 0}] for b in range(B)
         ]
 
+class W2lKenLMDecoder(W2lDecoder):
+    def __init__(self,args,tgt_dict):
+        super().__init__(tgt_dict)
+        self.silence = (
+            tgt_dict.index("<ctc_blank>")
+            if "<ctc_blank>" in tgt_dict.indices
+            else tgt_dict.bos()
+        )
+        
+        self.lexicon = load_words(args['lexicon'])
+        self.word_dict = create_word_dict(self.lexicon)
+        self.unk_word = self.word_dict.get_index("<unk>")
+        self.lm = KenLM(args['kenlm_model'], self.word_dict)
+        self.trie = Trie(self.vocab_size, self.silence)
+        start_state = self.lm.start(False)
+        for i, (word, spellings) in enumerate(self.lexicon.items()):
+            word_idx = self.word_dict.get_index(word)
+            _, score = self.lm.score(start_state, word_idx)
+            for spelling in spellings:
+                spelling_idxs = [tgt_dict.index(token) for token in spelling]
+                assert (
+                    tgt_dict.unk() not in spelling_idxs
+                ), f"{spelling} {spelling_idxs}"
+                self.trie.insert(spelling_idxs, word_idx, score)
+        self.trie.smear(SmearingMode.MAX)
+        self.decoder_opts = DecoderOptions(
+            args['beam'],
+            int(getattr(args, "beam_size_token", len(tgt_dict))),
+            args['beam_threshold'],
+            args['lm_weight'],
+            args['word_score'],
+            args['unk_weight'],
+            args['sil_weight'],
+            0,
+            False,
+            self.criterion_type,
+        )
+
+        if self.asg_transitions is None:
+            N = 768
+            # self.asg_transitions = torch.FloatTensor(N, N).zero_()
+            self.asg_transitions = []
+        self.decoder = LexiconDecoder(
+            self.decoder_opts,
+            self.trie,
+            self.lm,
+            self.silence,
+            self.blank,
+            self.unk_word,
+            self.asg_transitions,
+            False,
+        )
+    def decode(self, emissions):
+        B, T, N = emissions.size()
+        hypos = []
+        for b in range(B):
+            emissions_ptr = emissions.data_ptr() + 4 * b * emissions.stride(0)
+            results = self.decoder.decode(emissions_ptr, T, N)
+            nbest_results = results[: self.nbest]
+            hypos.append(
+                [
+                    {
+                        "tokens": self.get_tokens(result.tokens),
+                        "score": result.score,
+                        "words": [
+                            self.word_dict.get_entry(x) for x in result.words if x >= 0
+                        ],
+                    }
+                    for result in nbest_results
+                ]
+            )
+        return hypos
+
+def get_args(lexicon_path, lm_path, BEAM=128, LM_WEIGHT=2, WORD_SCORE=-1):
+    args = {}
+    args['lexicon'] = lexicon_path
+    args['kenlm_model'] = lm_path
+    args['beam'] = BEAM
+    args['beam_threshold'] = 25
+    args['lm_weight'] = LM_WEIGHT
+    args['word_score'] = WORD_SCORE
+    args['unk_weight'] = -np.inf
+    args['sil_weight'] = 0
+    args['nbest'] = 1
+    args['criterion'] ='ctc'
+    args['labels']='ltr'
+    return args
 
 class InferenceService:
 
     def __init__(self, model_dict_path):
         self.models = {}
         self.dict_paths = {}
+        self.generators = {}
         with open(model_dict_path) as f:
             model_dict = json.load(f)
         for lang, path in model_dict.items():
@@ -126,11 +215,24 @@ class InferenceService:
             else:
                 self.cuda = False
                 self.models[lang] = load_cpu_model(path)
-            self.dict_paths[lang] = "/".join(path.split('/')[:-1]) + '/dict.ltr.txt'
+            parent_path = "/".join(path.split('/')[:-1])
+            self.dict_paths[lang] =  parent_path + '/dict.ltr.txt'
+            if lang == 'hi' or lang == 'en-IN':
+                # load kenlm
+                lexicon_path = parent_path + '/lexicon.lst'
+                lm_path = parent_path + '/lm.binary'
+                target_dict_path = parent_path + '/dict.ltr.txt'
+                target_dict = Dictionary.load(target_dict_path)
+                args = get_args(lexicon_path, lm_path)
+                generator = W2lKenLMDecoder(args, target_dict)
+                self.generators[lang] = generator
         
 
     def get_inference(self, file_name, language):
-        result = get_results( file_name , self.dict_paths[language],self.cuda,model=self.models[language])
+        generator = None
+        if language == 'hi' or language == 'en-IN':
+            generator = self.generators[language]
+        result = get_results( file_name , self.dict_paths[language],self.cuda,model=self.models[language], generator=generator)
         res = {}
         logging.info('File transcribed')
         res['status'] = "OK"
@@ -139,7 +241,7 @@ class InferenceService:
 
 
 
-def get_results(wav_path,target_dict_path,use_cuda=False,w2v_path=None,model=None):
+def get_results(wav_path,target_dict_path,use_cuda=False,w2v_path=None,model=None, generator = None):
     sample = dict()
     net_input = dict()
 
@@ -148,7 +250,11 @@ def get_results(wav_path,target_dict_path,use_cuda=False,w2v_path=None,model=Non
     
     model[0].eval()
 
-    generator = W2lViterbiDecoder(target_dict)
+    # generator = W2lViterbiDecoder(target_dict)
+
+    if generator is None:
+        generator = W2lViterbiDecoder(target_dict)
+
     net_input["source"] = feature.unsqueeze(0)
 
     padding_mask = torch.BoolTensor(net_input["source"].size(1)).fill_(False).unsqueeze(0)

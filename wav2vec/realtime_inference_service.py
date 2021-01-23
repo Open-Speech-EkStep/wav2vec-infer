@@ -7,7 +7,7 @@ import grpc
 
 from audio_to_text_pb2 import Response, EventResponse 
 from audio_to_text_pb2_grpc import add_RecognizeServicer_to_server, RecognizeServicer
-from inference_service import InferenceService, Wav2VecCtc, W2lViterbiDecoder, W2lDecoder
+from inference_service import InferenceService, Wav2VecCtc, W2lViterbiDecoder, W2lDecoder, W2lKenLMDecoder
 
 class RecognizeAudioServicer(RecognizeServicer):
     def __init__(self):
@@ -112,7 +112,7 @@ class RecognizeAudioServicer(RecognizeServicer):
 
 def serve():
     port = 55102
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=12))
+    server = grpc.server(futures.ThreadPoolExecutor())
     add_RecognizeServicer_to_server(RecognizeAudioServicer(), server)
     server.add_insecure_port('[::]:%d' % port)
     server.start()
