@@ -19,7 +19,8 @@ let cn = {
 const db = pgp(cn);
 
 const addFeedbackQuery = 'Insert into inference_feedback("user_id", "language", "audio_path", "text", "rating", "device") values ($1, $2, $3, $4, $5, $6);';
-const getFeedbackQuery = 'Select * from inference_feedback limit $1 offset $2 ';
+const getFeedbackQuery = 'Select * from inference_feedback order by created_on desc limit $1 offset $2';
+const getFeedbackFilterByRating = 'Select * from inference_feedback where rating=$1 order by created_on desc limit $2 offset $3'
 const getFeedbackCountQuery = 'Select count(*) as num_feedback from inference_feedback';
 
 const getFeedbackCount = () => {
@@ -50,11 +51,17 @@ const addFeedback = (user_id, language, audio_path, text, rating, device) => {
     ])
 }
 
-const getFeedback = (offset, size = 10) => {
+const getFeedback = (offset, size = 10, ratingFilter) => {
     return getFeedbackCount().then(count => {
-        return db.many(getFeedbackQuery, [size, offset]).then(result => {
+        let query = getFeedbackQuery;
+        let params = [size, offset];
+        if(ratingFilter && ratingFilter !== ''){
+            query = getFeedbackFilterByRating;
+            params = [ratingFilter, size, offset];
+        }
+        return db.many(query, params).then(result => {
             let total = count['num_feedback'];
-            return getSuccessPromise({ "total": total, "data": result })
+            return getSuccessPromise({ "total": total, "data": result ,"filtered": total})
         }).catch(error => getErrorPromise(error))
     }).catch(error => {
         return getErrorPromise(error)
