@@ -12,6 +12,7 @@ const path = require("path");
 const fs = require("fs");
 const { addFeedback, getFeedback } = require('./dbOperations');
 app.use(express.static(path.join(__dirname, "static")));
+
 const { uploadFile } = require('./uploader');
 const PROTO_PATH =
   __dirname +
@@ -40,7 +41,7 @@ function make_message(audio, user, speaking, language = 'en') {
 }
 
 function onResponse(response) {
-  console.log(response)
+  // console.log(response)
   const data = JSON.parse(response.transcription);
   const id = data["id"];
   const user = response.user;
@@ -104,12 +105,12 @@ function startServer() {
         addFeedback(user_id, language, audio_path, text, rating, device).then(() => {
           res.json({ "success": true })
         }).catch(err => {
-          console.log(err)
+          console.log("error", err)
           res.status(500).json({ "success": false })
         })
       })
       .catch((err) => {
-        console.error(err);
+        console.error("error", err);
         res.sendStatus(500);
       })
       .finally(() => {
@@ -183,7 +184,7 @@ function main() {
       let user = socket.id;
       let message = make_message(chunk, user, speaking, language);
       userCalls[user].write(message)
-      console.log(user, "sent")
+      // console.log(user, "sent")
     });
   });
 

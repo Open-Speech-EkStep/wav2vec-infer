@@ -69,7 +69,7 @@ def parse_transcription():
         subprocess.call(["sox {} -r {} -b 16 -c 1 {}".format(filename_final, str(16000), filename_new)], shell=True)
 
         # write model infer code here
-        result = inference.get_inference(filename_new, language)
+        result = inference_service.get_inference(filename_new, language)
 
         if delete:
             cmd = 'rm -f {}'.format(filename_final)
@@ -107,7 +107,7 @@ def parse_transcription_gcp():
 
         subprocess.call(["sox {} -r {} -b 16 -c 1 {}".format(local_file_path, str(16000), reformatted_file_path)], shell=True)
 
-        result = inference.get_inference(filename_new, language)
+        result = inference_service.get_inference(reformatted_file_path, language)
 
         os.remove(local_file_path)
         os.remove(reformatted_file_path)
