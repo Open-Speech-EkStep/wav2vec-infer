@@ -176,23 +176,49 @@
         let input, processor, context, globalStream, audioContext;
         let localBuffer = null, isSpeaking = false;
         let timeout_ = null, state_end = false, audioData = [], recordingLength = 0, sampleRate = 44100;
-        let recordedBlob = null, rating = null, device = null, transcription_text = null, transcription_language = null;
-        function setRatingAction(flag){
+        let userId=null,recordedBlob = null, rating = null, device = null, transcription_text = null, transcription_language = null;
+        function setRatingAction(flag) {
             let value = flag ? 'auto' : 'none'
-            $('#like').css({'pointer-events': value })
-            $('#dislike').css({'pointer-events': value })
-            if(flag){
+            $('#like').css({ 'pointer-events': value })
+            $('#dislike').css({ 'pointer-events': value })
+            if (flag) {
                 $('#rating-note').hide();
             } else {
                 $('#rating-note').show();
             }
         }
-        function saveToDb(){
+        function saveToDb() {
             console.log("blob", recordedBlob)
             console.log("rating", rating)
             console.log("device", device)
             console.log("Trans text", transcription_text)
             console.log("Trans lang", transcription_language)
+            console.log("user id", userId);
+            const formData = new FormData();
+            formData.append('audio_data', recordedBlob);
+            formData.append('rating', rating);
+            formData.append('device', device);
+            formData.append('text', transcription_text);
+            formData.append('language', transcription_language);
+            formData.append('user_id', userId);
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/feedback',
+                data: formData,
+                beforeSend: function () {
+                    // $("#loader").show();
+                },
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data);
+                    // $("#loader").hide();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // $("#loader").hide();
+                    console.log("failed");
+                }
+
+            });
         }
         $(document).ready(function () {
             const socketIO = io({ path: window.location.pathname + "socket.io" });
@@ -205,17 +231,18 @@
                 transcription_language = language;
             });
             socket.on('id', function (id) {
+                userId = id;
                 document.getElementById('userid').textContent = id;
             });
             function getDeviceInfo() {
                 const os = platform.os;
                 let info = os.family + " " + os.version;
-                if(platform.product){
+                if (platform.product) {
                     info = info + " " + platform.product
                 }
                 return info;
             }
-            
+
             device = getDeviceInfo();
             $('#like, #dislike').on('click', function () {
                 event.preventDefault();

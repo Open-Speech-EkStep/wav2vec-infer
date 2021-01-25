@@ -1,6 +1,5 @@
 const pgp = require('pg-promise')();
-const dotenv = require('dotenv');
-dotenv.config();
+// require('dotenv').config();
 
 const envVars = process.env;
 let cn = {
@@ -40,7 +39,7 @@ const getSuccessPromise = (data) => {
 }
 
 
-const addFeedback = ({ user_id, language, audio_path, text, rating, device }) => {
+const addFeedback = (user_id, language, audio_path, text, rating, device) => {
     return db.none(addFeedbackQuery, [
         user_id,
         language,

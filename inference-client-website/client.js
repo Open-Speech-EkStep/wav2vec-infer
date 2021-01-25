@@ -1,17 +1,18 @@
 "use strict";
-
+require('dotenv').config();
 const grpc = require("grpc");
 var express = require("express");
 const app = express();
 app.use(express.json());
-// app.use(express.urlencoded());
+app.use(express.urlencoded());
 
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 const path = require("path");
+const fs = require("fs");
 const { addFeedback, getFeedback } = require('./dbOperations');
 app.use(express.static(path.join(__dirname, "static")));
-
+const { uploadFile } = require('./uploader');
 const PROTO_PATH =
   __dirname +
   (process.env.PROTO_PATH || "/audio_to_text.proto");
@@ -61,6 +62,27 @@ function onUserConnected(socket, grpc_client) {
 }
 
 function startServer() {
+  const currentDateAndTime = () => {
+    return new Date().toISOString().replace(/[-:T.]/g, '');
+  };
+  const randomString = () => {
+    return (Math.random() + 1).toString(36).substring(2, 10);
+  };
+  const multer = require('multer');
+  const multerStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      if (!fs.existsSync('uploads')) {
+        fs.mkdirSync('uploads');
+        console.log('Created directory uploads');
+      }
+      cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+      cb(null, currentDateAndTime() + '_' + randomString() + '.wav');
+    },
+  });
+  const upload = multer({ storage: multerStorage });
+  app.use(upload.single('audio_data'));
   app.get("/", function (req, res) {
     res.sendFile("index.html", { root: __dirname });
   });
@@ -70,13 +92,34 @@ function startServer() {
   });
 
   app.post("/api/feedback", function (req, res) {
-    console.log(req.body)
-    addFeedback(req.body).then(() => {
-      res.json({ "success": true })
-    }).catch(err => {
-      console.log(err)
-      res.status(500).json({ "success": false })
-    })
+    const file = req.file;
+    const { user_id, language, text, rating, device } = req.body;
+
+    uploadFile(file.path, user_id, language)
+      .then((uploadResponse) => {
+        console.log("responsed")
+        const blobName = uploadResponse[0]['metadata']['name'];
+        const bucketName = uploadResponse[0]['metadata']['bucket'];
+        const audio_path = `https://storage.googleapis.com/${bucketName}/${blobName}`
+        addFeedback(user_id, language, audio_path, text, rating, device).then(() => {
+          res.json({ "success": true })
+        }).catch(err => {
+          console.log(err)
+          res.status(500).json({ "success": false })
+        })
+      })
+      .catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      })
+      .finally(() => {
+        fs.unlink(file.path, function (err) {
+          if (err) {
+            console.log(`File ${file.path} not deleted!`);
+            console.log(err);
+          }
+        });
+      });
   })
 
   app.get("/api/feedback", function (req, res) {
