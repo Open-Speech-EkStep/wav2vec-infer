@@ -11,7 +11,7 @@ apt-get install git netcat -y
 git clone https://github.com/kpu/kenlm.git
 cd kenlm
 mkdir -p build && cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DKENLM_MAX_ORDER=20 -DCMAKE_POSITION_INDEPENDENT_CODE=ON
+cmake .. 
 make -j16
 cd ..
 export KENLM_ROOT_DIR=$PWD

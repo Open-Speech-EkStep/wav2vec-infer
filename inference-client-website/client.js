@@ -51,7 +51,7 @@ function onResponse(response) {
   if (!data["success"]) {
     return;
   }
-  io.to(response.user).emit("response", data["transcription"]);
+  io.to(response.user).emit("response", data["transcription"], response.language);
 }
 
 function onUserConnected(socket, grpc_client) {
@@ -147,5 +147,5 @@ function main() {
   startServer();
 }
 
-// main();
-startServer();
+main();
+// startServer();

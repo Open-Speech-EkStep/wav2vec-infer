@@ -30,6 +30,8 @@ RUN sh init.sh
 
 EXPOSE 9008
 
+EXPOSE 9009
+
 
 
 

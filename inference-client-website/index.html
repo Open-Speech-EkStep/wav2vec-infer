@@ -13,6 +13,9 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="platform.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <style>
         textarea {
             width: 100%;
@@ -26,9 +29,11 @@
             /* Chrome/Opera/Safari */
             text-align: center;
         }
+
         ::-moz-placeholder {
             text-align: center;
         }
+
         ::-ms-placeholder {
             text-align: center;
         }
@@ -37,6 +42,30 @@
             padding: 15px;
             margin: 15px;
             border: 1px black solid;
+        }
+
+        .rating {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+
+        #like,
+        #dislike {
+            display: inline-block;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        #dislike:hover,
+        #like:hover {
+            color: #2EBDD1;
+            transition: all .2s ease-in-out;
+            transform: scale(1.1);
+        }
+
+        .active {
+            color: #2EBDD1;
         }
     </style>
 </head>
@@ -48,7 +77,7 @@
                 <div class="col-sm-12">
                     <center>
                         <h4>Wav2Vec Inference Service</h4>
-                        <br/>
+                        <br />
                         <p>(No Language model present)</p>
                         <p id="userid"></p>
                     </center>
@@ -58,18 +87,19 @@
                         <div class="col-sm-12">
                             <p>Choose Language:</p>
                             <select class="form-control" id="ddlLanguage" onchange="getval(this);">
-                                <option value='en' selected >English</option>
-                                <option value='en-IN' selected >English (IN)</option>
+                                <option value='en' selected>English</option>
+                                <option value='en-IN'>English (IN)</option>
                                 <option value='hi'>Hindi</option>
                                 <option value='gu'>Gujarati</option>
                                 <option value='ta'>Tamil</option>
                                 <option value='te'>Telugu</option>
-				<option value='kn'>Kannada</option>
-                              </select>
+                                <option value='kn'>Kannada</option>
+                            </select>
                             <br />
                         </div>
                         <div class="col-sm-12">
-                            <img src="mic.png" id="mic_image" onclick="toggle()" height="100" width="100" alt="MIC"/><br />
+                            <img src="mic.png" id="mic_image" onclick="toggle()" height="100" width="100"
+                                alt="MIC" /><br />
                         </div>
                         <div class="col-sm-12">
                             <br />
@@ -79,13 +109,29 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-sm-12">
+                            <h5>Please do provide your rating</h5>
+                            <div class="rating">
+                                <!-- Thumbs up -->
+                                <div id="like" class="grow" data-val="thumbs_up">
+                                    <i class="fa fa-thumbs-up fa-3x like" aria-hidden="true"></i>
+                                </div>
+                                <!-- Thumbs down -->
+                                <div id="dislike" class="dislike grow" data-val="thumbs_down">
+                                    <i class="fa fa-thumbs-down fa-3x like" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <p id="rating-note">(Rating will be enabled only after spoken in microphone)</p>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-4">
                             <center>
                                 <p>Hindi Sample</p>
                                 <p>(Harveen Chadha)</p>
                             </center>
                             <audio controls>
-                                <source src="hindi2.wav"/>
+                                <source src="hindi2.wav" />
                             </audio>
                         </div>
                         <div class="col-sm-4">
@@ -94,7 +140,7 @@
                                 <p>(Kandan Muthukumar)</p>
                             </center>
                             <audio controls>
-                                <source src="tamil.wav"/>
+                                <source src="tamil.wav" />
                             </audio>
                         </div>
                         <div class="col-sm-4">
@@ -103,7 +149,7 @@
                                 <p>(Bijal Bharat Kumar Parekh)</p>
                             </center>
                             <audio controls>
-                                <source src="gujarati.wav"/>
+                                <source src="gujarati.wav" />
                             </audio>
                         </div>
                         <div class="col-sm-12">
@@ -112,8 +158,8 @@
                                     <p>Hindi Sample</p>
                                     <p>(Rajat Singhal)</p>
                                 </center>
-                                <audio controls>
-                                    <source src="hindi.m4a"/>
+                                <audio controls id="audio_sample_id">
+                                    <source src="hindi.m4a" id="sample_id" />
                                 </audio>
                             </center>
                         </div>
@@ -129,27 +175,69 @@
         let speechEvents = null;
         let input, processor, context, globalStream, audioContext;
         let localBuffer = null, isSpeaking = false;
-        let timeout_ = null, state_end = false;
-
+        let timeout_ = null, state_end = false, audioData = [], recordingLength = 0, sampleRate = 44100;
+        let recordedBlob = null, rating = null, device = null, transcription_text = null, transcription_language = null;
+        function setRatingAction(flag){
+            let value = flag ? 'auto' : 'none'
+            $('#like').css({'pointer-events': value })
+            $('#dislike').css({'pointer-events': value })
+            if(flag){
+                $('#rating-note').hide();
+            } else {
+                $('#rating-note').show();
+            }
+        }
+        function saveToDb(){
+            console.log("blob", recordedBlob)
+            console.log("rating", rating)
+            console.log("device", device)
+            console.log("Trans text", transcription_text)
+            console.log("Trans lang", transcription_language)
+        }
         $(document).ready(function () {
-            const socketIO = io({ path: window.location.pathname+"socket.io"});
+            const socketIO = io({ path: window.location.pathname + "socket.io" });
             socket = socketIO.on('connect', function () {
                 start = true;
             });
             socket.on('response', function (data, language) {
                 document.getElementById('output').textContent = data;
+                transcription_text = data;
+                transcription_language = language;
             });
-            socket.on('id', function(id){
+            socket.on('id', function (id) {
                 document.getElementById('userid').textContent = id;
-            })
+            });
+            function getDeviceInfo() {
+                const os = platform.os;
+                let info = os.family + " " + os.version;
+                if(platform.product){
+                    info = info + " " + platform.product
+                }
+                return info;
+            }
+            
+            device = getDeviceInfo();
+            $('#like, #dislike').on('click', function () {
+                event.preventDefault();
+                $('.active').removeClass('active');
+                $(this).addClass('active');
+
+                rating = $(this).data("val");
+                console.log("clicked");
+                setRatingAction(false)
+                // proceed to save the audio and details
+
+                saveToDb();
+            });
+            setRatingAction(false);
         });
 
-        function getval(sel){
+        function getval(sel) {
             current_lang = sel.value;
-            if(state === "ON") {
-              stopRecording();
+            if (state === "ON") {
+                stopRecording();
             } else {
-              socket.emit("language_reset");
+                socket.emit("language_reset");
             }
         }
 
@@ -166,7 +254,7 @@
                 selected_lang = current_lang;
                 startRecording(image);
             } else if (state === "ON") {
-                if(timeout_ !== null)
+                if (timeout_ !== null)
                     clearTimeout(timeout_);
                 stopRecording()
             }
@@ -199,8 +287,8 @@
             return result.buffer;
         }
 
-        function timeout(){
-            let timeout = setTimeout(function(){
+        function timeout() {
+            let timeout = setTimeout(function () {
                 stopRecording()
             }, 120000);
             return timeout;
@@ -208,13 +296,15 @@
 
 
         function appendBuffer(buffer1, buffer2) {
-          const buffer = new ArrayBuffer(buffer1.byteLength + buffer2.byteLength);
-          var tmp = new Uint8Array(buffer);
-          tmp.set(new Uint8Array(buffer1), 0);
-          tmp.set(new Uint8Array(buffer2), buffer1.byteLength);
-          return buffer;
-        }; 
+            const buffer = new ArrayBuffer(buffer1.byteLength + buffer2.byteLength);
+            var tmp = new Uint8Array(buffer);
+            tmp.set(new Uint8Array(buffer1), 0);
+            tmp.set(new Uint8Array(buffer2), buffer1.byteLength);
+            return buffer;
+        };
         function startRecording(image) {
+            audioData = [];
+            setRatingAction(true);
             timeout_ = timeout();
             let constraints = { audio: true, video: false }
             document.getElementById('output').textContent = "";
@@ -223,23 +313,23 @@
                 globalStream = stream;
                 audioContext = window.AudioContext || window.webkitAudioContext;
                 context = new audioContext({
-                  latencyHint: 'interactive',
+                    latencyHint: 'interactive',
                 });
 
-                let options = {audioContext: context};
+                let options = { audioContext: context };
                 speechEvents = hark(stream.clone(), options);
 
-                speechEvents.on('speaking', function() {
-                  isSpeaking = true;
-                  console.log('speaking');
+                speechEvents.on('speaking', function () {
+                    isSpeaking = true;
+                    console.log('speaking');
                 });
 
-                speechEvents.on('stopped_speaking', function() {
-                  console.log('stopped_speaking');
-                  isSpeaking = false;
+                speechEvents.on('stopped_speaking', function () {
+                    console.log('stopped_speaking');
+                    isSpeaking = false;
                 });
-
-                processor = context.createScriptProcessor(16384, 1, 1);
+                let bufferSize = 16384;
+                processor = context.createScriptProcessor(bufferSize, 1, 1);
                 input = context.createMediaStreamSource(stream);
 
                 processor.connect(context.destination);
@@ -247,30 +337,32 @@
                 input.connect(processor);
                 let sentOnce = true;
                 processor.onaudioprocess = function (e) {
-                    if(state === "ON"){
+                    audioData.push(new Float32Array(e.inputBuffer.getChannelData(0)));
+                    recordingLength += bufferSize;
+                    if (state === "ON") {
                         state_end = false;
                         var data_44100 = e.inputBuffer.getChannelData(0);
                         var data_16000 = downSampleBuffer(data_44100, 44100, 16000);
-                        if(isSpeaking){
+                        if (isSpeaking) {
                             sentOnce = false;
 
-                            if(localBuffer !== undefined && localBuffer !== null){
+                            if (localBuffer !== undefined && localBuffer !== null) {
                                 data_16000 = appendBuffer(localBuffer, data_16000)
                             }
                             console.log("emitted", data_16000);
-                            socket.emit('mic_data', data_16000, current_lang,true);
+                            socket.emit('mic_data', data_16000, current_lang, true);
                             localBuffer = null;
                         } else {
-                            if(!sentOnce){
-                                sentOnce= true;
-                                socket.emit('mic_data', data_16000, current_lang,false);
+                            if (!sentOnce) {
+                                sentOnce = true;
+                                socket.emit('mic_data', data_16000, current_lang, false);
                                 console.log("emitted last");
                             } else {
                                 localBuffer = data_16000;
                             }
                         }
                     } else {
-                        if(!state_end){
+                        if (!state_end) {
                             var data_44100 = e.inputBuffer.getChannelData(0);
                             var data_16000 = downSampleBuffer(data_44100, 44100, 16000);
                             state_end = true;
@@ -281,13 +373,13 @@
                 };
             }).catch(function (err) {
                 console.log(err);
-                if(timeout_ !== null)
+                if (timeout_ !== null)
                     clearTimeout(timeout_)
                 stopRecording()
             });
         }
 
-        function stopRecording(){
+        function stopRecording() {
             let image = document.getElementById("mic_image");
             state = "OFF";
             image.src = "mic.png";
@@ -298,25 +390,35 @@
             socket.emit("end");
             stopIt();
             speechEvents.stop();
+            let finalBuffer = flattenArray(audioData, recordingLength);
+            let blob = generateWavBlob(finalBuffer);
+            if (blob == null) {
+                console.log("no blob generated");
+                return;
+            }
+            recordedBlob = blob;
+            let url = window.URL.createObjectURL(blob);
+            document.getElementById("sample_id").src = url;
+            document.getElementById("audio_sample_id").load();
         }
 
-        function stopIt(){
-            try{
+        function stopIt() {
+            try {
                 let track = globalStream.getTracks()[0];
-                if(track)
+                if (track)
                     track.stop();
-            }catch(err){
+            } catch (err) {
                 console.log(err);
             }
-            
-            try{
+
+            try {
                 input.disconnect(processor);
-            } catch(err){
+            } catch (err) {
                 console.log(err);
             }
-            try{
+            try {
                 processor.disconnect(context.destination);
-            } catch(err){
+            } catch (err) {
                 console.log(err);
             }
             context.close().then(function () {
@@ -324,13 +426,64 @@
                 processor = null;
                 context = null;
                 audioContext = null;
-            }).catch(err=>{
+            }).catch(err => {
                 input = null;
                 processor = null;
                 context = null;
                 audioContext = null;
                 console.log(err);
             });
+        }
+
+        function flattenArray(channelBuffer, recordingLength) {
+            var result = new Float32Array(recordingLength);
+            var offset = 0;
+            for (var i = 0; i < channelBuffer.length; i++) {
+                var buffer = channelBuffer[i];
+                result.set(buffer, offset);
+                offset += buffer.length;
+            }
+            return result;
+        }
+
+        function writeUTFBytes(view, offset, string) {
+            for (var i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+
+        function generateWavBlob(finalBuffer) {
+            let buffer = new ArrayBuffer(44 + finalBuffer.length * 2);
+            let view = new DataView(buffer);
+
+            // RIFF chunk descriptor
+            writeUTFBytes(view, 0, 'RIFF');
+            view.setUint32(4, 44 + finalBuffer.length * 2, true);
+            writeUTFBytes(view, 8, 'WAVE');
+            // FMT sub-chunk
+            writeUTFBytes(view, 12, 'fmt ');
+            view.setUint32(16, 16, true); // chunkSize
+            view.setUint16(20, 1, true); // wFormatTag
+            view.setUint16(22, 1, true); // wChannels:mono(1 channel) / stereo (2 channels)
+            view.setUint32(24, sampleRate, true); // dwSamplesPerSec
+            view.setUint32(28, sampleRate * 2, true); // dwAvgBytesPerSec
+            view.setUint16(32, 4, true); // wBlockAlign
+            view.setUint16(34, 16, true); // wBitsPerSample
+            // data sub-chunk
+            writeUTFBytes(view, 36, 'data');
+            view.setUint32(40, finalBuffer.length * 2, true);
+
+            // write the PCM samples
+            let index = 44;
+            let volume = 1;
+            for (var i = 0; i < finalBuffer.length; i++) {
+                view.setInt16(index, finalBuffer[i] * (0x7FFF * volume), true);
+                index += 2;
+            }
+
+            // our final blob
+            let blob = new Blob([view], { type: 'audio/wav' });
+            return blob;
         }
     </script>
 </body>
