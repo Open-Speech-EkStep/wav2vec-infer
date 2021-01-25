@@ -22,6 +22,7 @@ const addFeedbackQuery = 'Insert into inference_feedback("user_id", "language", 
 const getFeedbackQuery = 'Select * from inference_feedback order by created_on desc limit $1 offset $2';
 const getFeedbackFilterByRating = 'Select * from inference_feedback where rating=$1 order by created_on desc limit $2 offset $3';
 const getFeedbackFilterByDevice = 'Select * from inference_feedback where device ILIKE $1 order by created_on desc limit $2 offset $3';
+const getFeedbackFilterByRatingAndDevice = 'Select * from inference_feedback where rating=$1 and device ILIKE $2 order by created_on desc limit $3 offset $4';
 const getFeedbackCountQuery = 'Select count(*) as num_feedback from inference_feedback';
 
 const getFeedbackCount = () => {
@@ -56,11 +57,15 @@ const getFeedback = (offset, size = 10, ratingFilter, deviceFilter) => {
     return getFeedbackCount().then(count => {
         let query = getFeedbackQuery;
         let params = [size, offset];
-        if(ratingFilter && ratingFilter !== ''){
+        const ratingCondition = ratingFilter && ratingFilter !== '';
+        const deviceCondition = deviceFilter && deviceFilter !== '';
+        if(ratingCondition && deviceCondition){
+            query = getFeedbackFilterByRatingAndDevice;
+            params = [ratingFilter, deviceFilter, size, offset];
+        }else if(ratingCondition){
             query = getFeedbackFilterByRating;
             params = [ratingFilter, size, offset];
-        }
-        if(deviceFilter && deviceFilter !== ''){
+        }else if(deviceCondition){
             query = getFeedbackFilterByDevice;
             params = [deviceFilter+"%", size, offset];
         }
