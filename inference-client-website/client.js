@@ -126,9 +126,9 @@ function startServer() {
   app.get("/api/feedback", function (req, res) {
     const start = Number(req.query.start) || 0;
     const size = Number(req.query.length) || 10;
-    const ratingFilter = req.query.rating_filter;
-    
-    getFeedback(start, size, ratingFilter).then(result => {
+    const ratingFilter = req.query.rating_filter || '';
+    const deviceFilter = req.query.device_filter || '';
+    getFeedback(start, size, ratingFilter, deviceFilter).then(result => {
       res.json({
         "draw": req.query.draw | 1,
         "recordsTotal": result['total'],
@@ -136,8 +136,16 @@ function startServer() {
         "data": result['data']
       })
     }).catch(err => {
-      console.log(err)
-      res.status(500).json({ "success": false })
+      if (err.name && err.name == 'QueryResultError') {
+        res.json({
+          "draw": req.query.draw | 1,
+          "recordsTotal": 0,
+          "recordsFiltered": 0,
+          "data": []
+        })
+      } else {
+        res.status(500).json({ "success": false })
+      }
     })
   })
 
