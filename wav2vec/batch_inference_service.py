@@ -54,12 +54,22 @@ def parse_transcription():
         res['transcription'] = result
         return jsonify(res)
  
+@app.route('/transcribe_gcp', methods=['POST'])
+@cross_origin()
+def parse_transcription_gcp():
+    if request.method == 'POST':
+        res = {}
+        language = request.args.get("lang")
+        res = {}
 
+        res['status'] = "OK"
+        res['transcription'] = "hello sdfas dfds f ds fds  fds f sd f ds f dssd sd fsd a f sadf ds  fs da fsdfasdfasd ds fad sfas dsfsfsdf sfdsfsdf sfsdfsdfs sfsdf"
+        return jsonify(res)
 
 
 if __name__ == "__main__":
     cwd = os.getcwd()
-    inference_service = InferenceService(cwd + "/model_dict.json")
+    # inference_service = InferenceService(cwd + "/model_dict.json")
     logging.info('Server initialised')
     app.run(host='0.0.0.0', port=8000, debug=True, use_reloader=False)
 

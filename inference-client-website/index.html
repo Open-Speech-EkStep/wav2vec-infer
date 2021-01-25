@@ -188,12 +188,7 @@
             }
         }
         function saveToDb() {
-            console.log("blob", recordedBlob)
-            console.log("rating", rating)
-            console.log("device", device)
-            console.log("Trans text", transcription_text)
-            console.log("Trans lang", transcription_language)
-            console.log("user id", userId);
+            
             const formData = new FormData();
             formData.append('audio_data', recordedBlob);
             formData.append('rating', rating);
@@ -218,6 +213,8 @@
                 error: function (jqXHR, textStatus, errorThrown) {
                     // $("#loader").hide();
                     console.log("failed");
+                    alert("Rating update failed, Please try again")
+                    setRatingAction(true)
                 }
 
             });
@@ -252,7 +249,6 @@
                 $(this).addClass('active');
 
                 rating = $(this).data("val");
-                console.log("clicked");
                 setRatingAction(false)
                 // proceed to save the audio and details
 
