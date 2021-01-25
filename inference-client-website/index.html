@@ -184,6 +184,7 @@
             if (flag) {
                 $('#rating-note').hide();
             } else {
+                $('.active').removeClass('active');
                 $('#rating-note').show();
             }
         }
@@ -199,7 +200,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/api/feedback',
+                url: 'api/feedback',
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -423,8 +424,8 @@
             }
             recordedBlob = blob;
             let url = window.URL.createObjectURL(blob);
-            document.getElementById("sample_id").src = url;
-            document.getElementById("audio_sample_id").load();
+            // document.getElementById("sample_id").src = url;
+            // document.getElementById("audio_sample_id").load();
         }
 
         function stopIt() {

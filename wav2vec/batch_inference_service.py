@@ -124,5 +124,5 @@ if __name__ == "__main__":
         os.system("mkdir downloads")
     inference_service = InferenceService(cwd + "/model_dict.json")
     logging.info('Server initialised')
-    app.run(host='0.0.0.0', port=8000, debug=True, use_reloader=False)
+    app.run(host='0.0.0.0', port=8001, use_reloader=False)
 
