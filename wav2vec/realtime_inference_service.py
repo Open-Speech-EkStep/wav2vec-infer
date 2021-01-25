@@ -87,7 +87,7 @@ class RecognizeAudioServicer(RecognizeServicer):
         index = data.user + count
         user = data.user
         file_name = self.write_wave_to_file(index + ".wav", buffer)
-        #result = {"transcription":"hello", 'status':'OK'}
+        # result = {"transcription":"hello", 'status':'OK'}
         result = self.inference.get_inference(file_name, data.language)
         # print("then", len(buffer))
         if user not in self.client_transcription:
