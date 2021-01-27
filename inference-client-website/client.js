@@ -13,7 +13,7 @@ const fs = require("fs");
 const { addFeedback, getFeedback } = require('./dbOperations');
 app.use(express.static(path.join(__dirname, "static")));
 
-const MAX_SOCKET_CONNECTIONS = 2;
+const MAX_SOCKET_CONNECTIONS = 12;
 
 const { uploadFile } = require('./uploader');
 const PROTO_PATH =
@@ -173,7 +173,6 @@ function main() {
     });
 
     const numUsers = socket.client.conn.server.clientsCount;
-    console.log("client = ", numUsers);
 
     if(numUsers > MAX_SOCKET_CONNECTIONS){
       socket.emit("abort");

@@ -115,91 +115,89 @@
                         <h6 id="userid"></h6>
                     </center>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-sm-12">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <p>Choose Language:</p>
-                            <select class="form-control" id="ddlLanguage" onchange="getval(this);">
-                                <option value='en' selected>English</option>
-                                <option value='en-IN'>English (IN)</option>
-                                <option value='hi'>Hindi</option>
-                                <option value='gu'>Gujarati</option>
-                                <option value='ta'>Tamil</option>
-                                <option value='te'>Telugu</option>
-                                <option value='kn'>Kannada</option>
-                            </select>
-                            <br />
+                    <p>Choose Language:</p>
+                    <select class="form-control" id="ddlLanguage" onchange="getval(this);">
+                        <option value='en' selected>English</option>
+                        <option value='en-IN'>English (IN)</option>
+                        <option value='hi'>Hindi</option>
+                        <option value='gu'>Gujarati</option>
+                        <option value='ta'>Tamil</option>
+                        <option value='te'>Telugu</option>
+                        <option value='kn'>Kannada</option>
+                    </select>
+                    <br />
+                </div>
+                <div class="col-sm-12">
+                    <img src="mic.png" id="mic_image" onclick="toggle()" height="100" width="100"
+                        alt="MIC" /><br />
+                </div>
+                <div class="col-sm-12">
+                    <br />
+                </div>
+                <div class="col-sm-12">
+                    <textarea id="output" placeholder="Output" rows="6" readonly></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h5>Please do provide your rating</h5>
+                    <div class="rating">
+                        <!-- Thumbs up -->
+                        <div id="like" class="grow" data-val="thumbs_up">
+                            <i class="fa fa-thumbs-up fa-3x like" aria-hidden="true"></i>
                         </div>
-                        <div class="col-sm-12">
-                            <img src="mic.png" id="mic_image" onclick="toggle()" height="100" width="100"
-                                alt="MIC" /><br />
-                        </div>
-                        <div class="col-sm-12">
-                            <br />
-                        </div>
-                        <div class="col-sm-12">
-                            <textarea id="output" placeholder="Output" rows="6" readonly></textarea>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h5>Please do provide your rating</h5>
-                            <div class="rating">
-                                <!-- Thumbs up -->
-                                <div id="like" class="grow" data-val="thumbs_up">
-                                    <i class="fa fa-thumbs-up fa-3x like" aria-hidden="true"></i>
-                                </div>
-                                <!-- Thumbs down -->
-                                <div id="dislike" class="dislike grow" data-val="thumbs_down">
-                                    <i class="fa fa-thumbs-down fa-3x like" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                            <center>
-                                <div class="loader" style='display: none;'></div>
-                            </center>
-                            <p id="rating-note">(Rating will be enabled only after spoken in microphone)</p>
+                        <!-- Thumbs down -->
+                        <div id="dislike" class="dislike grow" data-val="thumbs_down">
+                            <i class="fa fa-thumbs-down fa-3x like" aria-hidden="true"></i>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <center>
-                                <p>Hindi Sample</p>
-                                <p>(Harveen Chadha)</p>
-                            </center>
-                            <audio controls>
-                                <source src="hindi2.wav" />
-                            </audio>
-                        </div>
-                        <div class="col-sm-4">
-                            <center>
-                                <p>Tamil Sample</p>
-                                <p>(Kandan Muthukumar)</p>
-                            </center>
-                            <audio controls>
-                                <source src="tamil.wav" />
-                            </audio>
-                        </div>
-                        <div class="col-sm-4">
-                            <center>
-                                <p>Gujarati Sample</p>
-                                <p>(Bijal Bharat Kumar Parekh)</p>
-                            </center>
-                            <audio controls>
-                                <source src="gujarati.wav" />
-                            </audio>
-                        </div>
-                        <div class="col-sm-12">
-                            <center>
-                                <center>
-                                    <p>Hindi Sample</p>
-                                    <p>(Rajat Singhal)</p>
-                                </center>
-                                <audio controls id="audio_sample_id">
-                                    <source src="hindi.m4a" id="sample_id" />
-                                </audio>
-                            </center>
-                        </div>
-                    </div>
+                    <center>
+                        <div class="loader" style='display: none;'></div>
+                    </center>
+                    <p id="rating-note">(Rating will be enabled only after you speak in the microphone)</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <center>
+                        <p>Hindi Sample</p>
+                        <p>(Harveen Chadha)</p>
+                    </center>
+                    <audio controls>
+                        <source src="hindi2.wav" />
+                    </audio>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <center>
+                        <p>Tamil Sample</p>
+                        <p>(Kandan Muthukumar)</p>
+                    </center>
+                    <audio controls>
+                        <source src="tamil.wav" />
+                    </audio>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <center>
+                        <p>Gujarati Sample</p>
+                        <p>(Bijal Bharat Kumar Parekh)</p>
+                    </center>
+                    <audio controls>
+                        <source src="gujarati.wav" />
+                    </audio>
+                </div>
+                <div class="col-sm-12 col-md-12">
+                    <center>
+                        <center>
+                            <p>Hindi Sample</p>
+                            <p>(Rajat Singhal)</p>
+                        </center>
+                        <audio controls id="audio_sample_id">
+                            <source src="hindi.m4a" id="sample_id" />
+                        </audio>
+                    </center>
                 </div>
             </div>
         </div>
@@ -279,7 +277,7 @@
                 start = false;
             })
             socket.on('abort', function () {
-                alert("The server is busy at the moment, please try in sometime.");
+                alert("The server is busy at the moment, please try after sometime.");
                 $(".container **").attr("disabled", "disabled").off('click');
                 document.getElementById('userid').innerHTML = "Server busy. Please refresh the page after some time.";
                 if (socket_disconnect_timeout !== null)
