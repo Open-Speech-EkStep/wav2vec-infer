@@ -184,7 +184,6 @@
             if (flag) {
                 $('#rating-note').hide();
             } else {
-                $('.active').removeClass('active');
                 $('#rating-note').show();
             }
         }
@@ -330,6 +329,7 @@
         };
         function startRecording(image) {
             audioData = [];
+            $('.active').removeClass('active');
             setRatingAction(true);
             timeout_ = timeout();
             let constraints = { audio: true, video: false }
