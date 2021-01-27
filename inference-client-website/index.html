@@ -112,7 +112,7 @@
                         <h4>Wav2Vec Inference Service</h4>
                         <br />
                         <p>(No Language model present)</p>
-                        <p id="userid"></p>
+                        <h6 id="userid"></h6>
                     </center>
                 </div>
                 <div class="col-sm-12">
@@ -211,8 +211,9 @@
         let speechEvents = null;
         let input, processor, context, globalStream, audioContext;
         let localBuffer = null, isSpeaking = false;
-        let timeout_ = null, state_end = false, audioData = [], recordingLength = 0, sampleRate = 44100;
+        let timeout_ = null, state_end = false, audioData = [], recordingLength = 0, sampleRate = 44100, socket_disconnect_timeout = null;
         let userId = null, recordedBlob = null, rating = null, device = null, transcription_text = null, transcription_language = null;
+
         function setRatingAction(flag) {
             let value = flag ? 'auto' : 'none'
             $('#like').css({ 'pointer-events': value })
@@ -223,6 +224,7 @@
                 $('#rating-note').show();
             }
         }
+
         function saveToDb() {
 
             const formData = new FormData();
@@ -255,8 +257,10 @@
 
             });
         }
+
         $(document).ready(function () {
-            const socketIO = io({ path: window.location.pathname + "socket.io" });
+            const socketIO = io({ path: window.location.pathname + "socket.io", autoConnect: false });
+            socketIO.open();
             socket = socketIO.on('connect', function () {
                 start = true;
             });
@@ -269,6 +273,20 @@
                 userId = id;
                 document.getElementById('userid').textContent = id;
             });
+            socket.on('disconnect', function(){
+                if(start)
+                    alert("Website idle for more than 2 minutes. Please refresh to continue.")
+                start = false;
+            })
+            socket.on('abort', function () {
+                alert("The server is busy at the moment, please try in sometime.");
+                $(".container **").attr("disabled", "disabled").off('click');
+                document.getElementById('userid').innerHTML = "Server busy. Please refresh the page after some time.";
+                if (socket_disconnect_timeout !== null)
+                    clearTimeout(socket_disconnect_timeout)
+                start = false;
+            });
+
             function getDeviceInfo() {
                 const os = platform.os;
                 let info = os.family + " " + os.version;
@@ -286,11 +304,13 @@
 
                 rating = $(this).data("val");
                 setRatingAction(false)
-                // proceed to save the audio and details
 
                 saveToDb();
             });
             setRatingAction(false);
+            if(socket_disconnect_timeout !== null)
+                clearTimeout(socket_disconnect_timeout)
+            socket_disconnect_timeout = timeout(120000, abortSocket)
         });
 
         function getval(sel) {
@@ -304,7 +324,7 @@
 
         function toggle() {
             if (!start) {
-                alert("Try again! socket not connected")
+                alert("Not connected! Please Refresh the page and Try again.")
                 return;
             }
             let image = document.getElementById("mic_image");
@@ -348,10 +368,10 @@
             return result.buffer;
         }
 
-        function timeout() {
+        function timeout(timeLimit, funcToCall) {
             let timeout = setTimeout(function () {
-                stopRecording()
-            }, 120000);
+                funcToCall()
+            }, timeLimit);
             return timeout;
         }
 
@@ -365,10 +385,12 @@
         };
 
         function startRecording(image) {
+            if (socket_disconnect_timeout !== null)
+                clearTimeout(socket_disconnect_timeout)
             audioData = [];
             $('.active').removeClass('active');
             setRatingAction(true);
-            timeout_ = timeout();
+            timeout_ = timeout(120000, stopRecording);
             let constraints = { audio: true, video: false }
             document.getElementById('output').textContent = "";
             let sendData = false;
@@ -442,10 +464,15 @@
             });
         }
 
+        function abortSocket() {
+            socket.disconnect();
+        }
+
         function stopRecording() {
             let image = document.getElementById("mic_image");
             state = "OFF";
             image.src = "mic.png";
+            socket_disconnect_timeout = timeout(120000, abortSocket)
             endProcess();
         }
 
