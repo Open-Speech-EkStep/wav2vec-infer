@@ -9,7 +9,7 @@ def set_gcs_credentials():
 
     # Writing to sample.json
     with open("temp.json", "w") as outfile:
-        json.dump(json_object['Credentials'], outfile)
+        json.dump(json_object, outfile)
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'temp.json'
 
 
