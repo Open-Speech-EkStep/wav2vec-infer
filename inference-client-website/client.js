@@ -13,6 +13,8 @@ const fs = require("fs");
 const { addFeedback, getFeedback } = require('./dbOperations');
 app.use(express.static(path.join(__dirname, "static")));
 
+const MAX_SOCKET_CONNECTIONS = 2;
+
 const { uploadFile } = require('./uploader');
 const PROTO_PATH =
   __dirname +
@@ -162,6 +164,23 @@ function main() {
   );
 
   io.on("connection", (socket) => {
+    socket.on("disconnect", () => {
+      if (socket.id in userCalls) {
+        userCalls[socket.id].end();
+        delete userCalls[socket.id];
+        grpc_client.disconnect({ 'user': socket.id }, function (err, resp) { })
+      }
+    });
+
+    const numUsers = socket.client.conn.server.clientsCount;
+    console.log("client = ", numUsers);
+
+    if(numUsers > MAX_SOCKET_CONNECTIONS){
+      socket.emit("abort");
+      socket.disconnect();
+      return;
+    }
+
     onUserConnected(socket, grpc_client);
 
     socket.on("start", function () {
@@ -182,20 +201,16 @@ function main() {
       })
     });
 
-    socket.on("disconnect", () => {
-      if (socket.id in userCalls) {
-        userCalls[socket.id].end()
-        delete userCalls[socket.id]
-      }
-      grpc_client.disconnect({ 'user': socket.id }, function (err, resp) { })
-    });
-
     socket.on("mic_data", function (chunk, language, speaking) {
       let user = socket.id;
       let message = make_message(chunk, user, speaking, language);
       userCalls[user].write(message)
       // console.log(user, "sent")
     });
+
+    socket.on('abort', function(){
+      
+    })
   });
 
   startServer();
