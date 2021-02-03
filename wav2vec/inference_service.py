@@ -13,6 +13,7 @@ import os
 import torch
 import json
 import numpy as np
+from audio_normalization import AudioNormalization
 
 class Wav2VecCtc(BaseFairseqModel):
     def __init__(self, w2v_encoder, args):
@@ -244,8 +245,11 @@ class InferenceService:
 def get_results(wav_path,target_dict_path,use_cuda=False,w2v_path=None,model=None, generator = None):
     sample = dict()
     net_input = dict()
+    
+    normalized_audio = AudioNormalization(wav_path).loudness_normalization_effects()
+    wav = np.array(normalized_audio.get_array_of_samples()).astype('float64')
 
-    feature = get_feature(wav_path)
+    feature = get_feature(wav, 16000)
     target_dict = Dictionary.load(target_dict_path)
     
     model[0].eval()
@@ -268,7 +272,7 @@ def get_results(wav_path,target_dict_path,use_cuda=False,w2v_path=None,model=Non
     text=post_process(hyp_pieces, 'letter')
     return text
 
-def get_feature(filepath):
+def get_feature(wav, sample_rate):
     def postprocess(feats, sample_rate):
         if feats.dim == 2:
             feats = feats.mean(-1)
@@ -279,7 +283,7 @@ def get_feature(filepath):
             feats = F.layer_norm(feats, feats.shape)
         return feats
 
-    wav, sample_rate = sf.read(filepath)
+    # wav, sample_rate = sf.read(filepath)
     feats = torch.from_numpy(wav).float()
     feats = postprocess(feats, sample_rate)
     return feats
