@@ -47,7 +47,7 @@ def parse_transcription():
         res = {}
         language = request.args.get("lang")
 
-        model_path = model_dict[language]
+        #model_path = model_dict[language]
         
         file = request.files['file']
         filename = file.filename

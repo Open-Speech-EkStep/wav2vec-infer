@@ -165,7 +165,7 @@
                 formData.append('audio_path', audio_path);
                 $.ajax({
                     type: 'POST',
-                    url: 'http://localhost:8001/transcribe_gcp?lang=' + language,
+                    url: 'https://codmento.com/ekstep/model-service/transcribe_gcp?lang=' + language,
                     data: formData,
                     contentType: false,
                     processData: false,
