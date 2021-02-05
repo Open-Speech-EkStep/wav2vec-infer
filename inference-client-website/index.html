@@ -263,6 +263,7 @@
                 start = true;
             });
             socket.on('response', function (data, language) {
+                if(language === "en-IN") data = data.toLowerCase();
                 document.getElementById('output').textContent = data;
                 transcription_text = data;
                 transcription_language = language;

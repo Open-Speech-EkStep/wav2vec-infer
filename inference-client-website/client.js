@@ -13,7 +13,7 @@ const fs = require("fs");
 const { addFeedback, getFeedback } = require('./dbOperations');
 app.use(express.static(path.join(__dirname, "static")));
 
-const MAX_SOCKET_CONNECTIONS = 12;
+const MAX_SOCKET_CONNECTIONS = process.env.MAX_CONNECTIONS || 80;
 
 const { uploadFile } = require('./uploader');
 const PROTO_PATH =
