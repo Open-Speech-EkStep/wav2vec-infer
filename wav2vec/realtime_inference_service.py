@@ -71,8 +71,8 @@ class RecognizeAudioServicer(RecognizeServicer):
         if not data.speaking:
             del self.client_buffers[data.user]
             append_result = True
-            local_file_name = "utterances/{}__{}__{}.wav".format(data.user,str(int(time.time()*1000)), data.language)
-            self.write_wave_to_file(local_file_name, buffer)
+            #local_file_name = "utterances/{}__{}__{}.wav".format(data.user,str(int(time.time()*1000)), data.language)
+            #self.write_wave_to_file(local_file_name, buffer)
         return buffer, append_result, None
 
     def write_wave_to_file(self, file_name, audio):
@@ -96,7 +96,6 @@ class RecognizeAudioServicer(RecognizeServicer):
         result['transcription'] = transcription
         if append_result:
             self.client_transcription[user] = transcription
-            # print("appended")
             if local_file_name is not None:
                 with open(local_file_name.replace(".wav",".txt"), 'w') as local_file:
                     local_file.write(result['transcription'])

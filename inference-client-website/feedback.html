@@ -16,6 +16,7 @@
         crossorigin="anonymous"></script>
     <script type="text/javascript"
         src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/cr-1.5.2/datatables.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
 <style>
     .result {
@@ -128,6 +129,14 @@
                     {
                         data: "rating",
                         searchable: false,
+                        render: function (data,type,row){
+                            let thumbsUp = '<i class="fa fa-thumbs-up fa-2x like" aria-hidden="true"></i>';
+                            let thumbsDown = '<i class="fa fa-thumbs-down fa-2x like" aria-hidden="true"></i>';
+			    if(data === 'thumbs_up')
+                             return thumbsUp;
+		            else
+			     return thumbsDown;
+                        }
                     },
                     {
                         data: "device",
@@ -165,7 +174,7 @@
                 formData.append('audio_path', audio_path);
                 $.ajax({
                     type: 'POST',
-                    url: 'https://codmento.com/ekstep/model-service/transcribe_gcp?lang=' + language,
+                    url: 'https://inference.vakyansh.in/model-service/transcribe_gcp?lang=' + language,
                     data: formData,
                     contentType: false,
                     processData: false,
