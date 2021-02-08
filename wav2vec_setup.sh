@@ -15,7 +15,7 @@ pip install -e .
 
 cd ..
 sudo apt-get install liblzma-dev libbz2-dev libzstd-dev libsndfile1-dev libopenblas-dev libfftw3-dev libgflags-dev libgoogle-glog-dev
-sudo apt install build-essential cmake libboost-system-dev libboost-thread-dev libboost-program-options-dev libboost-test-dev libeigen3-dev zlib1g-dev libbz2-dev liblzma-dev
+sudo apt install build-essential cmake libboost-system-dev libboost-thread-dev libboost-program-options-dev libboost-test-dev libeigen3-dev zlib1g-dev libbz2-dev liblzma-dev netcat
 
 
 git clone https://github.com/kpu/kenlm.git
@@ -58,7 +58,7 @@ gsutil -m cp -r gs://ekstepspeechrecognition-dev/deployed_models .
 
 ## For Inference
 
-pip install flask flask-cors
+pip install flask flask-cors flask_socketio grpcio-tools grpcio
 
 ####### IGNORE ############
 ## Inference command: python wav2vec_inference.py -m ../files_hindi/final_custom_model.pt -d ../files_hindi/dict.ltr.txt  -w ../files_hindi/test.wav 
