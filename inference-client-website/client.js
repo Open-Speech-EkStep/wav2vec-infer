@@ -86,6 +86,9 @@ function startServer() {
   });
   const upload = multer({ storage: multerStorage });
   app.use(upload.single('audio_data'));
+  app.get("/", function (req, res) {
+    res.redirect("https://codmento.com/hindi");
+  });
   app.get("/:language", function (req, res) {
     res.sendFile("index.html", { root: __dirname });
   });
