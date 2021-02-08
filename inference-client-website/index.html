@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Wav2Vec Inference</title>
+    <title>Speech Recognition Models</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -104,15 +104,32 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-4"><a href="/"><img src="ekstep-logo.svg"
+                style="width:3rem" alt="Ek Step Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item p-2"><a href="https://vakyansh.in/about-us"
+                        class="nav-link text-dark font-weight-bold">About Us</a>
+                </li>
+                <li class="nav-item p-2"><a href="https://vakyansh.in/"
+                        class="nav-link text-dark font-weight-bold">Vakyansh</a></li>
+                <li class="nav-item p-2"><a class="nav-link text-dark font-weight-bold d-none" id="nav-user"><span
+                            class="material-icons align-middle mx-1">account_circle</span> <span
+                            id="nav-username"></span></a></li>
+            </ul>
+        </div>
+    </nav>
     <center>
         <div class="container">
             <div class="row" style="border: 0px;">
                 <div class="col-sm-12">
                     <center>
-                        <h4>Wav2Vec Inference Service</h4>
+                        <h4>Speech Recognition Models</h4>
                         <br />
-                        <p>(No Language model present)</p>
-                        <h6 id="userid"></h6>
                     </center>
                 </div>
             </div>
@@ -200,8 +217,29 @@
                     </center>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-12">
+                    <br/>
+                </div>
+            </div>
         </div>
     </center>
+    <footer class="fixed-bottom bg-light pt-3 border-top mt-lg-2 w-100">
+        <div class="container-fluid">
+            <div
+                class="d-flex flex-column-reverse flex-lg-row justify-content-lg-around align-items-sm-center align-items-md-center text-center">
+                <div class="">
+                    <p class="text-muted">&copy; EkStep Foundation, 2020 .</p>
+                </div>
+                <div class="d-lg-inline-flex justify-content-around mb-2">
+                    <div class="p-2"><a href="https://vakyansh.in/about-us">About Us</a></div>
+                    <div class="p-2"><a href="https://vakyansh.in/terms-and-conditions">Terms & Conditions</a></div>
+                    <div class="p-2"><a href="https://vakyansh.in/terms-and-conditions#privacy-policy">Privacy
+                            Policy</a></div>
+                </div>
+            </div>
+        </div>
+    </footer>
     <script>
         let start = false, socket;
         let current_lang = 'en', selected_lang = 'en';
@@ -269,10 +307,11 @@
             });
             socket.on('id', function (id) {
                 userId = id;
-                document.getElementById('userid').textContent = id;
+                console.log(id);
+                // document.getElementById('userid').textContent = id;
             });
-            socket.on('disconnect', function(){
-                if(start)
+            socket.on('disconnect', function () {
+                if (start)
                     alert("Website idle for more than 2 minutes. Please refresh to continue.")
                 start = false;
             })
