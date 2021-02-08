@@ -134,7 +134,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-12">
+                <!--<div class="col-sm-12">
                     <p>Choose Language:</p>
                     <select class="form-control" id="ddlLanguage" onchange="getval(this);">
                         <option value='en' selected>English</option>
@@ -146,8 +146,9 @@
                         <option value='kn'>Kannada</option>
                     </select>
                     <br />
-                </div>
+                </div>-->
                 <div class="col-sm-12">
+                    <br/>
                     <img src="mic.png" id="mic_image" onclick="toggle()" height="100" width="100"
                         alt="MIC" /><br />
                 </div>
@@ -217,14 +218,14 @@
                     </center>
                 </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-12">
                     <br/>
                 </div>
-            </div>
+            </div> -->
         </div>
     </center>
-    <footer class="fixed-bottom bg-light pt-3 border-top mt-lg-2 w-100">
+    <footer class="bottom bg-light pt-3 border-top mt-lg-2 w-100">
         <div class="container-fluid">
             <div
                 class="d-flex flex-column-reverse flex-lg-row justify-content-lg-around align-items-sm-center align-items-md-center text-center">
@@ -294,8 +295,32 @@
             });
         }
 
+        function fetchCurrentLanguageCode(language){
+            language = language.toLowerCase();
+            if(language === "kannada"){
+                return "kn";
+            } else if (language === "indian-english"){
+                return "en-IN";
+            } else if(language === "hindi"){
+                return "hi";
+            } else if(language === "tamil"){
+                return "ta";
+            } else if(language === "telugu"){
+                return "te";
+            } else if(language === "gujarati"){
+                return "gu";
+            } else {
+                return "en";
+            }
+        }
+
         $(document).ready(function () {
-            const socketIO = io({ path: window.location.pathname + "socket.io", autoConnect: false });
+            let pathname = window.location.pathname.replace("/","");
+            if(pathname.length != 0){
+                current_lang = fetchCurrentLanguageCode(pathname);
+            }
+            // path: window.location.pathname + "socket.io"
+            const socketIO = io({autoConnect: false });
             socketIO.open();
             socket = socketIO.on('connect', function () {
                 start = true;
