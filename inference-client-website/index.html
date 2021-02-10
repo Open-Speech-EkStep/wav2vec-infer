@@ -38,6 +38,11 @@
             text-align: center;
         }
 
+        #mic_image:hover {
+            border-radius:70%;
+            box-shadow: 0 0 14px 8px rgba(33,33,33,.2); 
+        } 
+
         .row {
             padding: 15px;
             margin: 15px;
@@ -68,7 +73,7 @@
             color: #2EBDD1;
         }
 
-        .loader {
+        #loader {
             margin-top: 20px;
             border: 4px solid #f3f3f3;
             border-radius: 50%;
@@ -104,8 +109,8 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light px-4"><a href="/"><img src="ekstep-logo.svg"
-                style="width:3rem" alt="Ek Step Logo">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-4"><a href="https://vakyansh.in"><img
+                src="ekstep-logo.svg" style="width:3rem" alt="Ek Step Logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
@@ -161,7 +166,11 @@
                 </div>-->
                 <div class="col-sm-12">
                     <br />
-                    <img src="mic.png" id="mic_image" onclick="toggle()" height="100" width="100" alt="MIC" /><br />
+                    <div style="min-height:100px;min-width:100px;">
+                        <center>
+                            <img src="mic.png" id="mic_image" onclick="toggle()" height="100" width="100" alt="MIC" /><br />
+                        </center>
+                    </div>
                 </div>
                 <div class="col-sm-12">
                     <br />
@@ -184,7 +193,7 @@
                         </div>
                     </div>
                     <center>
-                        <div class="loader" style='display: none;'></div>
+                        <div id="loader" style='display: none;'></div>
                     </center>
                     <p id="rating-note">(Rating will be enabled only after you speak in the microphone)</p>
                 </div>
@@ -269,7 +278,8 @@
         let input, processor, context, globalStream, audioContext;
         let localBuffer = null, isSpeaking = false;
         let timeout_ = null, state_end = false, audioData = [], recordingLength = 0, sampleRate = 44100, socket_disconnect_timeout = null;
-        let userId = null, recordedBlob = null, rating = null, device = null, transcription_text = null, transcription_language = null;
+        let userId = null, recordedBlob = null, rating = null, device = null, transcription_text = null, transcription_language = null, end_timeout = null;
+        const socketIO = io({ autoConnect: false });
 
         function setRatingAction(flag) {
             let value = flag ? 'auto' : 'none'
@@ -336,18 +346,12 @@
         function toCamelCase(word) {
             return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
         }
-
-        $(document).ready(function () {
-            let pathname = window.location.pathname.replace("/", "");
-            if (pathname.length != 0) {
-                current_lang = fetchCurrentLanguageCode(pathname);
-                document.getElementById("title-text").innerHTML = toCamelCase(pathname) + " Speech Recognition Model"
-            }
-            // path: window.location.pathname + "socket.io"
-            const socketIO = io({ autoConnect: false });
+        function connectSocket(startMic, image) {
             socketIO.open();
             socket = socketIO.on('connect', function () {
                 start = true;
+                console.log("connected");
+                startMic(image);
             });
             socket.on('response', function (data, language) {
                 if (language === "en-IN") data = data.toLowerCase();
@@ -358,21 +362,32 @@
             socket.on('id', function (id) {
                 userId = id;
                 console.log(id);
-                // document.getElementById('userid').textContent = id;
             });
             socket.on('disconnect', function () {
-                if (start)
-                    alert("Website idle for more than 2 minutes. Please refresh to continue.")
+                // if (start)
+                //     alert("Website idle for more than 2 minutes. Please refresh to continue.")
                 start = false;
+                console.log("disconnected");
             })
             socket.on('abort', function () {
                 alert("The server is busy at the moment, please try after sometime.");
                 $(".container **").attr("disabled", "disabled").off('click');
                 document.getElementById('userid').innerHTML = "Server busy. Please refresh the page after some time.";
-                if (socket_disconnect_timeout !== null)
-                    clearTimeout(socket_disconnect_timeout)
+                // if (socket_disconnect_timeout !== null)
+                //     clearTimeout(socket_disconnect_timeout)
                 start = false;
             });
+        }
+
+        $(document).ready(function () {
+            let pathname = window.location.pathname.replace("/", "");
+            if (pathname.length != 0) {
+                current_lang = fetchCurrentLanguageCode(pathname);
+                let titleLanguage = toCamelCase(pathname);
+                if (pathname === "indian-english")
+                    titleLanguage = "English(IN)";
+                document.getElementById("title-text").innerHTML = titleLanguage + " Speech Recognition Model"
+            }
 
             function getDeviceInfo() {
                 const os = platform.os;
@@ -395,9 +410,9 @@
                 saveToDb();
             });
             setRatingAction(false);
-            if (socket_disconnect_timeout !== null)
-                clearTimeout(socket_disconnect_timeout)
-            socket_disconnect_timeout = timeout(120000, abortSocket)
+            // if (socket_disconnect_timeout !== null)
+            //     clearTimeout(socket_disconnect_timeout)
+            // socket_disconnect_timeout = timeout(120000, abortSocket)
         });
 
         function getval(sel) {
@@ -408,23 +423,25 @@
                 socket.emit("language_reset");
             }
         }
-
+        
         function toggle() {
-            if (!start) {
-                alert("Not connected! Please Refresh the page and Try again.")
-                return;
+            // if (!start) {
+            //     alert("Not connected! Please Refresh the page and Try again.")
+            //     return;
+            // }
+            if(end_timeout !== null || end_timeout){
+                clearTimeout(end_timeout);
+                end_timeout = null;
+                endSocket();
             }
+
             let image = document.getElementById("mic_image");
             if (state === "OFF") {
-                state = "ON";
-                image.src = "stop.png";
-                socket.emit("start");
-                selected_lang = current_lang;
-                startRecording(image);
+                connectSocket(startRecording, image);
             } else if (state === "ON") {
                 if (timeout_ !== null)
                     clearTimeout(timeout_);
-                stopRecording()
+                stopRecording();
             }
         }
 
@@ -472,8 +489,13 @@
         };
 
         function startRecording(image) {
-            if (socket_disconnect_timeout !== null)
-                clearTimeout(socket_disconnect_timeout)
+            // if (socket_disconnect_timeout !== null)
+            //     clearTimeout(socket_disconnect_timeout)
+            state = "ON";
+            image.src = "stop.png";
+            $("#mic_image").animate({zoom: '87%'}, "slow");
+            socket.emit("start");
+            selected_lang = current_lang;
             audioData = [];
             $('.active').removeClass('active');
             setRatingAction(true);
@@ -555,16 +577,23 @@
             socket.disconnect();
         }
 
+        function endSocket(){
+            socket.emit("end");
+            abortSocket();
+        }
+
         function stopRecording() {
-            let image = document.getElementById("mic_image");
+            $("#mic_image").animate({zoom: '100%'}, "slow");
             state = "OFF";
-            image.src = "mic.png";
-            socket_disconnect_timeout = timeout(120000, abortSocket)
-            endProcess();
+            setTimeout(()=>{
+                let image = document.getElementById("mic_image");
+                image.src = "mic.png";
+                // socket_disconnect_timeout = timeout(120000, abortSocket)
+                endProcess();
+            },1000);
         }
 
         function endProcess() {
-            socket.emit("end");
             stopIt();
             speechEvents.stop();
             let finalBuffer = flattenArray(audioData, recordingLength);
@@ -574,7 +603,12 @@
                 return;
             }
             recordedBlob = blob;
-            let url = window.URL.createObjectURL(blob);
+            
+            end_timeout = setTimeout(()=>{
+                endSocket();
+                end_timeout = null;
+            }, 4000);
+            // let url = window.URL.createObjectURL(blob);
             // document.getElementById("sample_id").src = url;
             // document.getElementById("audio_sample_id").load();
         }

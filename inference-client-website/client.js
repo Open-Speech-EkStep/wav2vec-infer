@@ -87,14 +87,15 @@ function startServer() {
   const upload = multer({ storage: multerStorage });
   app.use(upload.single('audio_data'));
   app.get("/", function (req, res) {
-    res.redirect("https://codmento.com/hindi");
+    res.redirect("/hindi");
   });
-  app.get("/:language", function (req, res) {
-    res.sendFile("index.html", { root: __dirname });
-  });
-
+  
   app.get("/feedback", function (req, res) {
     res.sendFile("feedback.html", { root: __dirname });
+  });
+
+  app.get("/:language", function (req, res) {
+    res.sendFile("index.html", { root: __dirname });
   });
 
   app.post("/api/feedback", function (req, res) {
@@ -177,7 +178,7 @@ function main() {
 
     const numUsers = socket.client.conn.server.clientsCount;
 
-    if(numUsers > MAX_SOCKET_CONNECTIONS){
+    if (numUsers > MAX_SOCKET_CONNECTIONS) {
       socket.emit("abort");
       socket.disconnect();
       return;
@@ -210,8 +211,8 @@ function main() {
       // console.log(user, "sent")
     });
 
-    socket.on('abort', function(){
-      
+    socket.on('abort', function () {
+
     })
   });
 
