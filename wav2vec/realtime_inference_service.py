@@ -23,7 +23,7 @@ class RecognizeAudioServicer(RecognizeServicer):
     def recognize_audio(self, request_iterator, context):
         for data in request_iterator:
             self.count += 1
-            print(data.user, "received")
+            # print(data.user, "received")
             buffer, append_result, local_file_name = self.preprocess(data)
             transcription = self.transcribe(buffer, str(self.count), data, append_result, local_file_name)
             yield Response(transcription=transcription, user=data.user, action=str(append_result),
@@ -46,18 +46,6 @@ class RecognizeAudioServicer(RecognizeServicer):
         self.clear_states(request.user)
         return EventResponse(user=request.user, message="disconnected and cleared")
 
-    def start(self, request, context):
-        self.clear_states(request.user)
-        return EventResponse(user=request.user, message="started")
-
-    def end(self, request, context):
-        self.clear_buffers(request.user)
-        return EventResponse(user=request.user, message="ended")
-
-    def language_reset(self, request, context):
-        self.clear_states(request.user)
-        return EventResponse(user=request.user, message="reset done")
-
     def preprocess(self, data):
         local_file_name = None
         append_result = False
@@ -71,8 +59,8 @@ class RecognizeAudioServicer(RecognizeServicer):
         if not data.speaking:
             del self.client_buffers[data.user]
             append_result = True
-            #local_file_name = "utterances/{}__{}__{}.wav".format(data.user,str(int(time.time()*1000)), data.language)
-            #self.write_wave_to_file(local_file_name, buffer)
+            # local_file_name = "utterances/{}__{}__{}.wav".format(data.user,str(int(time.time()*1000)), data.language)
+            # self.write_wave_to_file(local_file_name, buffer)
         return buffer, append_result, None
 
     def write_wave_to_file(self, file_name, audio):
@@ -89,7 +77,6 @@ class RecognizeAudioServicer(RecognizeServicer):
         file_name = self.write_wave_to_file(index + ".wav", buffer)
         # result = {"transcription":"hello", 'status':'OK'}
         result = self.inference.get_inference(file_name, data.language)
-        # print("then", len(buffer))
         if user not in self.client_transcription:
             self.client_transcription[user] = ""
         transcription = (self.client_transcription[user] + " " + result['transcription']).lstrip()
@@ -100,7 +87,7 @@ class RecognizeAudioServicer(RecognizeServicer):
                 with open(local_file_name.replace(".wav",".txt"), 'w') as local_file:
                     local_file.write(result['transcription'])
         result["id"] = index
-        print(user, "responsed")
+        # print(user, "responsed")
         os.remove(file_name)
         if result['status'] != "OK":
             result["success"] = False

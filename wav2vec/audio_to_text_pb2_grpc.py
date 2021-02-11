@@ -24,21 +24,6 @@ class RecognizeStub(object):
                 request_serializer=audio__to__text__pb2.Info.SerializeToString,
                 response_deserializer=audio__to__text__pb2.EventResponse.FromString,
                 )
-        self.start = channel.unary_unary(
-                '/recognize.Recognize/start',
-                request_serializer=audio__to__text__pb2.Info.SerializeToString,
-                response_deserializer=audio__to__text__pb2.EventResponse.FromString,
-                )
-        self.end = channel.unary_unary(
-                '/recognize.Recognize/end',
-                request_serializer=audio__to__text__pb2.Info.SerializeToString,
-                response_deserializer=audio__to__text__pb2.EventResponse.FromString,
-                )
-        self.language_reset = channel.unary_unary(
-                '/recognize.Recognize/language_reset',
-                request_serializer=audio__to__text__pb2.Info.SerializeToString,
-                response_deserializer=audio__to__text__pb2.EventResponse.FromString,
-                )
 
 
 class RecognizeServicer(object):
@@ -56,24 +41,6 @@ class RecognizeServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def start(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def end(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def language_reset(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
 
 def add_RecognizeServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -84,21 +51,6 @@ def add_RecognizeServicer_to_server(servicer, server):
             ),
             'disconnect': grpc.unary_unary_rpc_method_handler(
                     servicer.disconnect,
-                    request_deserializer=audio__to__text__pb2.Info.FromString,
-                    response_serializer=audio__to__text__pb2.EventResponse.SerializeToString,
-            ),
-            'start': grpc.unary_unary_rpc_method_handler(
-                    servicer.start,
-                    request_deserializer=audio__to__text__pb2.Info.FromString,
-                    response_serializer=audio__to__text__pb2.EventResponse.SerializeToString,
-            ),
-            'end': grpc.unary_unary_rpc_method_handler(
-                    servicer.end,
-                    request_deserializer=audio__to__text__pb2.Info.FromString,
-                    response_serializer=audio__to__text__pb2.EventResponse.SerializeToString,
-            ),
-            'language_reset': grpc.unary_unary_rpc_method_handler(
-                    servicer.language_reset,
                     request_deserializer=audio__to__text__pb2.Info.FromString,
                     response_serializer=audio__to__text__pb2.EventResponse.SerializeToString,
             ),
@@ -141,57 +93,6 @@ class Recognize(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/recognize.Recognize/disconnect',
-            audio__to__text__pb2.Info.SerializeToString,
-            audio__to__text__pb2.EventResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def start(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/recognize.Recognize/start',
-            audio__to__text__pb2.Info.SerializeToString,
-            audio__to__text__pb2.EventResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def end(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/recognize.Recognize/end',
-            audio__to__text__pb2.Info.SerializeToString,
-            audio__to__text__pb2.EventResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def language_reset(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/recognize.Recognize/language_reset',
             audio__to__text__pb2.Info.SerializeToString,
             audio__to__text__pb2.EventResponse.FromString,
             options, channel_credentials,

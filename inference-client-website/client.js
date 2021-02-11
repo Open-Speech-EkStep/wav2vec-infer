@@ -43,7 +43,6 @@ function make_message(audio, user, speaking, language = 'en') {
 }
 
 function onResponse(response) {
-  // console.log(response)
   const data = JSON.parse(response.transcription);
   const id = data["id"];
   const user = response.user;
@@ -185,24 +184,6 @@ function main() {
     }
 
     onUserConnected(socket, grpc_client);
-
-    socket.on("start", function () {
-      grpc_client.start({ 'user': "" + socket.id }, function (err, resp) {
-
-      })
-    });
-
-    socket.on("end", function () {
-      grpc_client.end({ 'user': "" + socket.id }, function (err, resp) {
-
-      })
-    });
-
-    socket.on("language_reset", function () {
-      grpc_client.language_reset({ 'user': "" + socket.id }, function (err, resp) {
-
-      })
-    });
 
     socket.on("mic_data", function (chunk, language, speaking) {
       let user = socket.id;
