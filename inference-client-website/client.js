@@ -61,7 +61,7 @@ function onResponse(response) {
 function onUserConnected(socket, grpc_client) {
   userCalls[socket.id] = grpc_client.recognize_audio();
   userCalls[socket.id].on("data", onResponse);
-  io.to(socket.id).emit("id", socket.id);
+  io.to(socket.id).emit("connect-success", "");
 }
 
 function startServer() {
@@ -87,7 +87,7 @@ function startServer() {
   const upload = multer({ storage: multerStorage });
   app.use(upload.single('audio_data'));
   app.get("/", function (req, res) {
-    res.redirect("/hindi");
+    res.redirect("https://codmento.com/ekstep/test/hindi");
   });
   
   app.get("/feedback", function (req, res) {
@@ -162,17 +162,17 @@ function startServer() {
 
 function main() {
 
-  let grpc_client = new proto.Recognize(
-    "localhost:55102",
-    grpc.credentials.createInsecure()
-  );
-
   io.on("connection", (socket) => {
+    let grpc_client = new proto.Recognize(
+      "localhost:55102",
+      grpc.credentials.createInsecure()
+    );
     socket.on("disconnect", () => {
       if (socket.id in userCalls) {
         userCalls[socket.id].end();
         delete userCalls[socket.id];
-        grpc_client.disconnect({ 'user': socket.id }, function (err, resp) { })
+        grpc_client.disconnect({ 'user': socket.id }, function (err, resp) { });
+        grpc.closeClient(grpc_client);
       }
     });
 
@@ -208,12 +208,7 @@ function main() {
       let user = socket.id;
       let message = make_message(chunk, user, speaking, language);
       userCalls[user].write(message)
-      // console.log(user, "sent")
     });
-
-    socket.on('abort', function () {
-
-    })
   });
 
   startServer();
