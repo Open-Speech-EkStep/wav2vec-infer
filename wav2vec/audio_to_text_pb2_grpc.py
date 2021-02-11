@@ -19,23 +19,12 @@ class RecognizeStub(object):
                 request_serializer=audio__to__text__pb2.Message.SerializeToString,
                 response_deserializer=audio__to__text__pb2.Response.FromString,
                 )
-        self.disconnect = channel.unary_unary(
-                '/recognize.Recognize/disconnect',
-                request_serializer=audio__to__text__pb2.Info.SerializeToString,
-                response_deserializer=audio__to__text__pb2.EventResponse.FromString,
-                )
 
 
 class RecognizeServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def recognize_audio(self, request_iterator, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def disconnect(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -48,11 +37,6 @@ def add_RecognizeServicer_to_server(servicer, server):
                     servicer.recognize_audio,
                     request_deserializer=audio__to__text__pb2.Message.FromString,
                     response_serializer=audio__to__text__pb2.Response.SerializeToString,
-            ),
-            'disconnect': grpc.unary_unary_rpc_method_handler(
-                    servicer.disconnect,
-                    request_deserializer=audio__to__text__pb2.Info.FromString,
-                    response_serializer=audio__to__text__pb2.EventResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -78,22 +62,5 @@ class Recognize(object):
         return grpc.experimental.stream_stream(request_iterator, target, '/recognize.Recognize/recognize_audio',
             audio__to__text__pb2.Message.SerializeToString,
             audio__to__text__pb2.Response.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def disconnect(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/recognize.Recognize/disconnect',
-            audio__to__text__pb2.Info.SerializeToString,
-            audio__to__text__pb2.EventResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -411,11 +411,10 @@
             const socketIO = io({ path: "/ekstep/test/socket.io", autoConnect: false });
             socketIO.connect();
             socket = socketIO.on('connect', function () {
-                console.log("connected", socket.id);
                 userId = socket.id;
             });
             socket.on('connect-success', function (data) {
-                console.log("connect-success")
+                console.log("connect-success", userId);
                 startMic();
                 document.getElementById('userid').innerHTML = "";
             });
@@ -440,7 +439,6 @@
         function uiOnMicStart() {
             let image = document.getElementById("mic_image");
             image.src = "stop.png";
-            $("#mic_image").animate({ zoom: '87%' }, "slow");
             $('.active').removeClass('active');
             enableRating(true);
             document.getElementById('output').textContent = "";
@@ -470,6 +468,7 @@
         function toggle() {
             disableDelaySocketClose();
             if (state === "OFF") {
+                $("#mic_image").animate({ zoom: '87%' }, "slow");
                 connectSocket(startRecording);
             } else if (state === "ON") {
                 stopRecording();
@@ -505,12 +504,12 @@
                         data_16000 = appendBuffer(localBuffer, data_16000)
                     }
                     // console.log("emitted", data_16000);
-                    socket.emit('mic_data', data_16000, current_lang, true);
+                    socket.emit('mic_data', data_16000, current_lang, true, false);
                     localBuffer = null;
                 } else {
                     if (!sentOnce) {
                         sentOnce = true;
-                        socket.emit('mic_data', data_16000, current_lang, false);
+                        socket.emit('mic_data', data_16000, current_lang, false, false);
                         // console.log("emitted last");
                     } else {
                         localBuffer = data_16000;
@@ -521,8 +520,8 @@
                     var data_44100 = e.inputBuffer.getChannelData(0);
                     var data_16000 = downSampleBuffer(data_44100, 44100, 16000);
                     state_end = true;
-                    socket.emit('mic_data', data_16000, current_lang, false);
-                    // console.log("emitted last");
+                    socket.emit('mic_data', data_16000, current_lang, false, true);
+                    console.log("emitted last");
                 }
             }
         };
@@ -627,7 +626,6 @@
         */
         $(document).ready(function () {
             let pathname = window.location.pathname.replace("/ekstep/test", "").replace("/", "");
-            console.log(pathname);
             if (pathname.length != 0) {
                 current_lang = fetchCurrentLanguageCode(pathname);
                 let titleLanguage = toCamelCase(pathname);

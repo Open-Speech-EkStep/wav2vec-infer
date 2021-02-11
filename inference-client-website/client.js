@@ -32,12 +32,13 @@ let proto = grpc.loadPackageDefinition(packageDefinition).recognize;
 const idDict = {};
 const userCalls = {};
 
-function make_message(audio, user, speaking, language = 'en') {
+function make_message(audio, user, speaking, language = 'en', isEnd) {
   const msg = {
     audio: audio,
     user: user + "",
     language: language,
-    speaking: speaking
+    speaking: speaking,
+    isEnd: isEnd
   };
   return msg;
 }
@@ -160,23 +161,26 @@ function startServer() {
 }
 
 function main() {
-
+  
   io.on("connection", (socket) => {
+
     let grpc_client = new proto.Recognize(
-      "localhost:55102",
+      'codmento.com:55102',
       grpc.credentials.createInsecure()
     );
     socket.on("disconnect", () => {
       if (socket.id in userCalls) {
+        let message = make_message(null, socket.id, true, "", true);
+        userCalls[socket.id].write(message);
         userCalls[socket.id].end();
         delete userCalls[socket.id];
-        grpc_client.disconnect({ 'user': socket.id }, function (err, resp) { });
+        //grpc_client.disconnect({ 'user': socket.id }, function (err, resp) { });
         grpc.closeClient(grpc_client);
       }
     });
 
     const numUsers = socket.client.conn.server.clientsCount;
-
+    console.log(grpc_client.getChannel(), numUsers);
     if (numUsers > MAX_SOCKET_CONNECTIONS) {
       socket.emit("abort");
       socket.disconnect();
@@ -185,9 +189,9 @@ function main() {
 
     onUserConnected(socket, grpc_client);
 
-    socket.on("mic_data", function (chunk, language, speaking) {
+    socket.on("mic_data", function (chunk, language, speaking, isEnd) {
       let user = socket.id;
-      let message = make_message(chunk, user, speaking, language);
+      let message = make_message(chunk, user, speaking, language, isEnd);
       userCalls[user].write(message)
     });
   });
