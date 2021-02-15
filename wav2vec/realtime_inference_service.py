@@ -29,7 +29,7 @@ class RecognizeAudioServicer(RecognizeServicer):
                 result = {}
                 result["id"] = self.count
                 result["success"] = True
-                yield Response(transcription=result,user=data.user, action="terminate",
+                yield Response(transcription=json.dumps(result),user=data.user, action="terminate",
                            language=data.language)
             else:
                 buffer, append_result, local_file_name = self.preprocess(data)

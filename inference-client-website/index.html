@@ -73,7 +73,7 @@
             color: #2EBDD1;
         }
 
-        #status_text{
+        #status_text {
             margin-top: 10px;
         }
 
@@ -164,7 +164,7 @@
                         <center>
                             <img src="mic.png" id="mic_image" onclick="toggle()" height="100" width="100"
                                 alt="MIC" /><br />
-                            <p id="status_text" style="display: none;">Starting</p>    
+                            <p id="status_text" style="display: none;">Starting</p>
                         </center>
                     </div>
                 </div>
@@ -233,7 +233,7 @@
         /*
             init variables
         */
-        let socket;
+        let socket, socket_close_timeout = null;
         let current_lang = 'en', selected_lang = 'en';
         let bufferSize = 16384;
         let sentOnce = true;
@@ -307,6 +307,21 @@
                 endSocket();
             }
         }
+        function enableSocketClose() {
+            if (socket_close_timeout === null) {
+                socket_close_timeout = setTimeout(() => {
+                    if (state === "OFF")
+                        endSocket();
+                    socket_close_timeout = null;
+                }, 60000);
+            }
+        }
+        // function disableSocketClose() {
+        //     if (socket_close_timeout !== null) {
+        //         clearTimeout(socket_close_timeout);
+        //         socket_close_timeout = null;
+        //     }
+        // }
     </script>
     <script>
         /*
@@ -433,8 +448,11 @@
             socket.on('disconnect', function () {
                 console.log("disconnected");
             })
-            socket.on('terminate', function() {
-                endSocket();
+            socket.on('terminate', function () {
+                if (socket_close_timeout === null){
+                    endSocket();
+                    console.log("end socket called");
+                }
             });
             socket.on('abort', function () {
                 alert("The server is busy at the moment, please try after sometime.");
@@ -448,7 +466,7 @@
         function uiOnMicStart() {
             let image = document.getElementById("mic_image");
             image.src = "stop.png";
-            image.addEventListener('load', function(){
+            image.addEventListener('load', function () {
                 $('#status_text').text("Start Speaking !");
             })
             $('.active').removeClass('active');
@@ -490,11 +508,11 @@
         }
 
         function toggle() {
-            disableDelaySocketClose();
-            if(socket && socket !== null){
-                if(socket.connected)
-                endSocket();
-            }
+            // disableDelaySocketClose();
+            // if (socket && socket !== null) {
+            //     if (socket.connected)
+            //         endSocket();
+            // }
             let audio = new Audio("click_sound.wav ");
             if (state === "OFF") {
                 if ((verOffset = nAgt.indexOf("Firefox")) != -1) {
@@ -510,7 +528,11 @@
                     $("#mic_image").animate({ zoom: '87%' }, "slow");
                 }
                 audio.play();
-                connectSocket(startRecording);
+                if (socket && socket !== null && socket.connected) {
+                    startRecording();
+                } else {
+                    connectSocket(startRecording);
+                }
                 $('#status_text').show();
                 $('#status_text').text("Starting...");
             } else if (state === "ON") {
@@ -576,6 +598,7 @@
         function startRecording() {
             uiOnMicStart();
             stateOnMicStart();
+            enableSocketClose();
             let constraints = { audio: true, video: false }
             let sendData = false;
 
