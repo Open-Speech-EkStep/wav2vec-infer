@@ -111,8 +111,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
         <a href="https://vakyansh.in">
-        <img
-                src="ekstep-logo.svg" style="width:3rem" alt="Ek Step Logo">
+            <img src="ekstep-logo.svg" style="width:3rem" alt="Ek Step Logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
@@ -123,12 +122,13 @@
                         class="nav-link text-dark font-weight-bold dropdown-toggle" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Speech Recognition Models </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="https://codmento.com/kannada">Kannada</a>
-                        <a class="dropdown-item" href="https://codmento.com/hindi">Hindi</a>
-                        <a class="dropdown-item" href="https://codmento.com/english">English</a>
-                        <a class="dropdown-item" href="https://codmento.com/indian-english">Indian-English</a>
-                        <a class="dropdown-item" href="https://codmento.com/telugu">Telugu</a>
-                        <a class="dropdown-item" href="https://codmento.com/tamil">Tamil</a>
+                        <a class="dropdown-item" href="https://codmento.com/ekstep/test/kannada">Kannada</a>
+                        <a class="dropdown-item" href="https://codmento.com/ekstep/test/hindi">Hindi</a>
+                        <a class="dropdown-item" href="https://codmento.com/ekstep/test/english">English</a>
+                        <a class="dropdown-item"
+                            href="https://codmento.com/ekstep/test/indian-english">Indian-English</a>
+                        <a class="dropdown-item" href="https://codmento.com/ekstep/test/telugu">Telugu</a>
+                        <a class="dropdown-item" href="https://codmento.com/ekstep/test/tamil">Tamil</a>
                     </div>
                 </li>
                 <li class="nav-item p-2"><a href="https://vakyansh.in/about-us"
@@ -238,6 +238,7 @@
         let localBuffer = null, isSpeaking = false;
         let timeout_ = null, state_end = false, audioData = [], recordingLength = 0, sampleRate = 44100, socket_disconnect_timeout = null;
         let userId = null, recordedBlob = null, rating = null, device = null, transcription_text = null, transcription_language = null, end_timeout = null;
+        let nAgt = navigator.userAgent, verOffset;
     </script>
     <script>
         /*
@@ -280,7 +281,7 @@
         }
 
         function disableAutoMicClose() {
-            if (timeout_ !== null){
+            if (timeout_ !== null) {
                 clearTimeout(timeout_)
                 timeout_ = null;
             }
@@ -288,13 +289,13 @@
         function enableAutoMicClose(callbackFunction) {
             timeout_ = timeout(120000, callbackFunction);
         }
-        function enableDelaySocketClose(){
+        function enableDelaySocketClose() {
             end_timeout = setTimeout(() => {
                 endSocket();
                 end_timeout = null;
             }, 4000);
         }
-        function disableDelaySocketClose(){
+        function disableDelaySocketClose() {
             if (end_timeout !== null || end_timeout) {
                 clearTimeout(end_timeout);
                 end_timeout = null;
@@ -446,7 +447,18 @@
         }
 
         function uiOnMicStop() {
-            $("#mic_image").animate({ zoom: '100%' }, "slow");
+            if ((verOffset = nAgt.indexOf("Firefox")) != -1) {
+                $('#mic_image').animate({
+                    'top': '10%',
+                    'left': '10%',
+                    'right': '10%',
+                    'bottom': '10%',
+                    'height': '100px',
+                    'width': '100px'
+                }, "slow");
+            } else {
+                $("#mic_image").animate({ zoom: '100%' }, "slow");
+            }
             setTimeout(() => {
                 let image = document.getElementById("mic_image");
                 image.src = "mic.png";
@@ -467,11 +479,25 @@
 
         function toggle() {
             disableDelaySocketClose();
+            let audio = new Audio("click_sound.wav ");
             if (state === "OFF") {
-                $("#mic_image").animate({ zoom: '87%' }, "slow");
+                if ((verOffset = nAgt.indexOf("Firefox")) != -1) {
+                    $('#mic_image').animate({
+                        'top': '10%',
+                        'left': '10%',
+                        'right': '10%',
+                        'bottom': '10%',
+                        'height': '87px',
+                        'width': '87px'
+                    }, "slow");
+                } else {
+                    $("#mic_image").animate({ zoom: '87%' }, "slow");
+                }
+                audio.play();
                 connectSocket(startRecording);
             } else if (state === "ON") {
                 stopRecording();
+                audio.play();
             }
         }
 
@@ -496,6 +522,7 @@
             if (state === "ON") {
                 state_end = false;
                 var data_44100 = e.inputBuffer.getChannelData(0);
+                // let data_16000 = data_44100;
                 var data_16000 = downSampleBuffer(data_44100, 44100, 16000);
                 if (isSpeaking) {
                     sentOnce = false;
@@ -519,6 +546,7 @@
                 if (!state_end) {
                     var data_44100 = e.inputBuffer.getChannelData(0);
                     var data_16000 = downSampleBuffer(data_44100, 44100, 16000);
+                    // let data_16000 = data_44100;
                     state_end = true;
                     socket.emit('mic_data', data_16000, current_lang, false, true);
                     console.log("emitted last");
