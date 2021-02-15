@@ -356,17 +356,17 @@
 
         function appendBuffer(buffer1, buffer2) {
             const buffer = new ArrayBuffer(buffer1.byteLength + buffer2.byteLength);
-            var tmp = new Uint8Array(buffer);
+            let tmp = new Uint8Array(buffer);
             tmp.set(new Uint8Array(buffer1), 0);
             tmp.set(new Uint8Array(buffer2), buffer1.byteLength);
             return buffer;
         };
 
         function flattenArray(channelBuffer, recordingLength) {
-            var result = new Float32Array(recordingLength);
-            var offset = 0;
-            for (var i = 0; i < channelBuffer.length; i++) {
-                var buffer = channelBuffer[i];
+            let result = new Float32Array(recordingLength);
+            let offset = 0;
+            for (let i = 0; i < channelBuffer.length; i++) {
+                let buffer = channelBuffer[i];
                 result.set(buffer, offset);
                 offset += buffer.length;
             }
@@ -499,6 +499,7 @@
             state = "ON";
             selected_lang = current_lang;
             audioData = [];
+            recordingLength = 0;
             enableAutoMicClose(stopRecording);
         }
 
