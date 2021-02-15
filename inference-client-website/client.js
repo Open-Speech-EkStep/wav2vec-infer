@@ -55,7 +55,11 @@ function onResponse(response) {
   if (!data["success"]) {
     return;
   }
-  io.to(response.user).emit("response", data["transcription"], response.language);
+  if(response.action === "terminate"){
+    io.to(response.user).emit("terminate");  
+  } else {
+    io.to(response.user).emit("response", data["transcription"], response.language);
+  }
 }
 
 function onUserConnected(socket, grpc_client) {
@@ -170,11 +174,10 @@ function main() {
     );
     socket.on("disconnect", () => {
       if (socket.id in userCalls) {
-        let message = make_message(null, socket.id, true, "", true);
-        userCalls[socket.id].write(message);
+        // let message = make_message(null, socket.id, true, "", true);
+        // userCalls[socket.id].write(message);
         userCalls[socket.id].end();
         delete userCalls[socket.id];
-        //grpc_client.disconnect({ 'user': socket.id }, function (err, resp) { });
         grpc.closeClient(grpc_client);
       }
     });

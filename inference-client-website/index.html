@@ -73,6 +73,10 @@
             color: #2EBDD1;
         }
 
+        #status_text{
+            margin-top: 10px;
+        }
+
         #loader {
             margin-top: 20px;
             border: 4px solid #f3f3f3;
@@ -160,6 +164,7 @@
                         <center>
                             <img src="mic.png" id="mic_image" onclick="toggle()" height="100" width="100"
                                 alt="MIC" /><br />
+                            <p id="status_text" style="display: none;">Starting</p>    
                         </center>
                     </div>
                 </div>
@@ -428,6 +433,9 @@
             socket.on('disconnect', function () {
                 console.log("disconnected");
             })
+            socket.on('terminate', function() {
+                endSocket();
+            });
             socket.on('abort', function () {
                 alert("The server is busy at the moment, please try after sometime.");
                 // $(".rating **").attr("disabled", "disabled").off('click');
@@ -440,6 +448,9 @@
         function uiOnMicStart() {
             let image = document.getElementById("mic_image");
             image.src = "stop.png";
+            image.addEventListener('load', function(){
+                $('#status_text').text("Start Speaking !");
+            })
             $('.active').removeClass('active');
             enableRating(true);
             document.getElementById('output').textContent = "";
@@ -455,14 +466,14 @@
                     'bottom': '10%',
                     'height': '100px',
                     'width': '100px'
-                }, "slow");
+                });
             } else {
-                $("#mic_image").animate({ zoom: '100%' }, "slow");
+                $("#mic_image").animate({ zoom: '100%' });
             }
-            setTimeout(() => {
-                let image = document.getElementById("mic_image");
-                image.src = "mic.png";
-            }, 1000);
+            // setTimeout(() => {
+            let image = document.getElementById("mic_image");
+            image.src = "mic.png";
+            // }, 1000);
             $('#audio_sample_id').show();
         }
 
@@ -475,10 +486,15 @@
 
         function stateOnMicStop() {
             state = "OFF";
+            socket.emit('mic_data', null, current_lang, false, true);
         }
 
         function toggle() {
             disableDelaySocketClose();
+            if(socket && socket !== null){
+                if(socket.connected)
+                endSocket();
+            }
             let audio = new Audio("click_sound.wav ");
             if (state === "OFF") {
                 if ((verOffset = nAgt.indexOf("Firefox")) != -1) {
@@ -495,9 +511,12 @@
                 }
                 audio.play();
                 connectSocket(startRecording);
+                $('#status_text').show();
+                $('#status_text').text("Starting...");
             } else if (state === "ON") {
                 stopRecording();
                 audio.play();
+                $('#status_text').hide();
             }
         }
 
@@ -591,7 +610,7 @@
             uiOnMicStop();
             stateOnMicStop();
             stopMediaRecorder();
-            enableDelaySocketClose();
+            // enableDelaySocketClose();
         }
 
         function stopMediaRecorder() {
@@ -637,7 +656,6 @@
                     $("#loader").show();
                 },
                 success: function (data, textStatus, jqXHR) {
-                    console.log(data);
                     $("#loader").hide();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
