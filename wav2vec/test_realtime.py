@@ -26,11 +26,16 @@ class RecognizeAudioServicer(RecognizeServicer):
             print(data.user, "received", data.isEnd)
             if data.isEnd:
                 self.disconnect(data.user)
-                continue
-            buffer, append_result, local_file_name = self.preprocess(data)
-            transcription = self.transcribe(buffer, str(self.count), data, append_result, local_file_name)
-            yield Response(transcription=transcription, user=data.user, action=str(append_result),
+                result = {}
+                result["id"] = self.count
+                result["success"] = True
+                yield Response(transcription=json.dumps(result),user=data.user, action="terminate",
                            language=data.language)
+            else:
+                buffer, append_result, local_file_name = self.preprocess(data)
+                transcription = self.transcribe(buffer, str(self.count), data, append_result, local_file_name)
+                yield Response(transcription=transcription, user=data.user, action=str(append_result),
+                            language=data.language)
 
     def clear_buffers(self, user):
         if user in self.client_buffers:
