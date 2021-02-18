@@ -10,6 +10,7 @@ const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 const path = require("path");
 const fs = require("fs");
+const WaveFile = require('wavefile').WaveFile;
 const { addFeedback, getFeedback } = require('./dbOperations');
 app.use(express.static(path.join(__dirname, "static")));
 
@@ -169,7 +170,7 @@ function main() {
   io.on("connection", (socket) => {
 
     let grpc_client = new proto.Recognize(
-      'codmento.com:55102',
+      'localhost:55102',
       grpc.credentials.createInsecure()
     );
     socket.on("disconnect", () => {
@@ -196,6 +197,25 @@ function main() {
       let user = socket.id;
       let message = make_message(chunk, user, speaking, language, isEnd);
       userCalls[user].write(message)
+    });
+
+    socket.on("file_data", function (chunk, language) {
+      let user = socket.id;
+      let wav = new WaveFile();
+      wav.fromBuffer(chunk);
+      if(wav.fmt.sampleRate !== 16000){
+        wav.toSampleRate(16000);
+      }
+      let message = make_message(wav.toBuffer(), user, false, language, false);
+      // console.log(message);
+      const file_client = grpc_client.recognize_audio_file_mode();
+      file_client.write(message);
+      file_client.end();
+      file_client.on('data',(response)=>{
+        console.log(response);
+        const data = JSON.parse(response.transcription);
+        io.to(response.user).emit("file_upload_response", data["transcription"], response.language);
+      });
     });
   });
 

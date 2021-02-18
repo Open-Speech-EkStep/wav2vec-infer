@@ -17,6 +17,7 @@ class RecognizeAudioServicer(RecognizeServicer):
         self.inference = InferenceService(cwd + "/model_dict.json")
         print('Model Loaded Successfully')
         self.count = 0
+        self.file_count = 0
         self.client_buffers = {}
         self.client_transcription = {}
 
@@ -36,6 +37,13 @@ class RecognizeAudioServicer(RecognizeServicer):
                 transcription = self.transcribe(buffer, str(self.count), data, append_result, local_file_name)
                 yield Response(transcription=transcription, user=data.user, action=str(append_result),
                             language=data.language)
+
+    def recognize_audio_file_mode(self, request_iterator, context):
+        for request in request_iterator:
+            self.file_count += 1
+            transcription = self.transcribe_file(request.audio, str(self.file_count), request.user, request.language)
+            yield Response(transcription=transcription, user=request.user, action="",
+                        language=request.language)
 
     def clear_buffers(self, user):
         if user in self.client_buffers:
@@ -94,6 +102,19 @@ class RecognizeAudioServicer(RecognizeServicer):
             if local_file_name is not None:
                 with open(local_file_name.replace(".wav",".txt"), 'w') as local_file:
                     local_file.write(result['transcription'])
+        result["id"] = index
+        print(user, "responsed")
+        os.remove(file_name)
+        if result['status'] != "OK":
+            result["success"] = False
+        else:
+            result["success"] = True
+        return json.dumps(result)
+
+    def transcribe_file(self, buffer, count, user,language):
+        index = user +"_file_"+ count
+        file_name = self.write_wave_to_file(index + ".wav", buffer)
+        result = self.inference.get_inference(file_name, language)
         result["id"] = index
         print(user, "responsed")
         os.remove(file_name)

@@ -202,6 +202,26 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-sm-6">
+                    <center>
+                        <strong>Note:</strong>
+                        <p>Supported format: *.wav with size <= 3.5 MB</p>
+                    </center>
+                    <div class="custom-file mb-3">
+                        <input type="file" class="custom-file-input" id="audio_file_input" onchange="updateLabel()">
+                        <label class="custom-file-label" for="customFile" id="file_upload_label">Upload File</label>
+                    </div>
+                    <audio id="audio" controls style="display:none;">
+                        <source src="" id="audio_source" />
+                    </audio>
+                </div>
+                <div class="col-sm-6">
+                    <button class="btn btn-secondary" onclick="startFileUpload()">Run Model</button>
+                    <textarea id="file_upload_response" class="mt-2" disabled placeholder="Output"></textarea>
+                </div>
+            </div>
+
+            <div class="row">
                 <center>
                     <h4>Vakyansh: The Home of Speech Recognition Essentials for Indian Languages</h4><br />
                     <p>Vakyansh aims to host the key essentials of Automatic Speech Recognition
@@ -449,10 +469,14 @@
                 console.log("disconnected");
             })
             socket.on('terminate', function () {
-                if (socket_close_timeout === null){
+                if (socket_close_timeout === null) {
                     endSocket();
                     console.log("end socket called");
                 }
+            });
+            socket.on("file_upload_response", function (transcription, language) {
+                document.getElementById("file_upload_response").innerHTML = transcription;
+                endSocket();
             });
             socket.on('abort', function () {
                 alert("The server is busy at the moment, please try after sometime.");
@@ -652,6 +676,58 @@
             let url = window.URL.createObjectURL(blob);
             document.getElementById("sample_id").src = url;
             document.getElementById("audio_sample_id").load();
+        }
+
+        function startFileUpload() {
+            connectSocket(readFile)
+        }
+
+        function updateLabel(){
+            let chosenFile = document.getElementById('audio_file_input').value;
+            let theSplit = chosenFile.split('\\');
+            chosenFile = theSplit[theSplit.length-1];
+            document.getElementById('file_upload_label').innerHTML = chosenFile;
+        }
+
+        function readFile() {
+            let files = document.querySelector('#audio_file_input').files;
+            let blob = files[0];
+            // console.log(blob instanceof Blob);
+            // var reader = new FileReader();
+            // reader.addEventListener('load', function (e) {
+            //     var chunk =  e.target.result;
+            //     socket.emit('file_data', chunk, current_lang);
+            // });
+            // reader.readAsArrayBuffer(blob);
+            read_as_chunks(blob);
+        }
+
+        function read_as_chunks(file) {
+            var chunk_size = 3000000;
+            var offset = 0;
+            var size = file.size;
+            var i = 0;
+
+            if (size < chunk_size) {
+                chunk_size = size;
+            }
+
+            while (i < size) {
+                let end_size = offset + chunk_size
+                if (size < end_size) {
+                    end_size = size
+                }
+                var blob = file.slice(offset, end_size);
+                var reader = new FileReader();
+                reader.addEventListener('load', function (e) {
+                    var chunk = e.target.result;
+                    // console.log("emitted");
+                    socket.emit('file_data', chunk, current_lang);
+                });
+                reader.readAsArrayBuffer(blob);
+                offset += chunk_size;
+                i += chunk_size;
+            }
         }
 
     </script>

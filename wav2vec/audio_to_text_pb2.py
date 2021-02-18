@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x13\x61udio_to_text.proto\x12\trecognize\"Y\n\x07Message\x12\r\n\x05\x61udio\x18\x01 \x01(\x0c\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x10\n\x08language\x18\x03 \x01(\t\x12\x10\n\x08speaking\x18\x04 \x01(\x08\x12\r\n\x05isEnd\x18\x05 \x01(\x08\"Q\n\x08Response\x12\x15\n\rtranscription\x18\x01 \x01(\t\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x10\n\x08language\x18\x03 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x04 \x01(\t2M\n\tRecognize\x12@\n\x0frecognize_audio\x12\x12.recognize.Message\x1a\x13.recognize.Response\"\x00(\x01\x30\x01\x62\x06proto3'
+  serialized_pb=b'\n\x13\x61udio_to_text.proto\x12\trecognize\"Y\n\x07Message\x12\r\n\x05\x61udio\x18\x01 \x01(\x0c\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x10\n\x08language\x18\x03 \x01(\t\x12\x10\n\x08speaking\x18\x04 \x01(\x08\x12\r\n\x05isEnd\x18\x05 \x01(\x08\"Q\n\x08Response\x12\x15\n\rtranscription\x18\x01 \x01(\t\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x10\n\x08language\x18\x03 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x04 \x01(\t2\x99\x01\n\tRecognize\x12@\n\x0frecognize_audio\x12\x12.recognize.Message\x1a\x13.recognize.Response\"\x00(\x01\x30\x01\x12J\n\x19recognize_audio_file_mode\x12\x12.recognize.Message\x1a\x13.recognize.Response\"\x00(\x01\x30\x01\x62\x06proto3'
 )
 
 
@@ -164,13 +164,23 @@ _RECOGNIZE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=208,
-  serialized_end=285,
+  serialized_start=209,
+  serialized_end=362,
   methods=[
   _descriptor.MethodDescriptor(
     name='recognize_audio',
     full_name='recognize.Recognize.recognize_audio',
     index=0,
+    containing_service=None,
+    input_type=_MESSAGE,
+    output_type=_RESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='recognize_audio_file_mode',
+    full_name='recognize.Recognize.recognize_audio_file_mode',
+    index=1,
     containing_service=None,
     input_type=_MESSAGE,
     output_type=_RESPONSE,

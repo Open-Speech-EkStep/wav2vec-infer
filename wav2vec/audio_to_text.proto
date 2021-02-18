@@ -4,6 +4,7 @@ package recognize;
 
 service Recognize {
    rpc recognize_audio(stream Message) returns (stream Response) {}
+   rpc recognize_audio_file_mode(stream Message) returns (stream Response) {}
 }
 
 message Message {

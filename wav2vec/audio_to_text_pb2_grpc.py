@@ -19,6 +19,11 @@ class RecognizeStub(object):
                 request_serializer=audio__to__text__pb2.Message.SerializeToString,
                 response_deserializer=audio__to__text__pb2.Response.FromString,
                 )
+        self.recognize_audio_file_mode = channel.stream_stream(
+                '/recognize.Recognize/recognize_audio_file_mode',
+                request_serializer=audio__to__text__pb2.Message.SerializeToString,
+                response_deserializer=audio__to__text__pb2.Response.FromString,
+                )
 
 
 class RecognizeServicer(object):
@@ -30,11 +35,22 @@ class RecognizeServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def recognize_audio_file_mode(self, request_iterator, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_RecognizeServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'recognize_audio': grpc.stream_stream_rpc_method_handler(
                     servicer.recognize_audio,
+                    request_deserializer=audio__to__text__pb2.Message.FromString,
+                    response_serializer=audio__to__text__pb2.Response.SerializeToString,
+            ),
+            'recognize_audio_file_mode': grpc.stream_stream_rpc_method_handler(
+                    servicer.recognize_audio_file_mode,
                     request_deserializer=audio__to__text__pb2.Message.FromString,
                     response_serializer=audio__to__text__pb2.Response.SerializeToString,
             ),
@@ -60,6 +76,23 @@ class Recognize(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.stream_stream(request_iterator, target, '/recognize.Recognize/recognize_audio',
+            audio__to__text__pb2.Message.SerializeToString,
+            audio__to__text__pb2.Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def recognize_audio_file_mode(request_iterator,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.stream_stream(request_iterator, target, '/recognize.Recognize/recognize_audio_file_mode',
             audio__to__text__pb2.Message.SerializeToString,
             audio__to__text__pb2.Response.FromString,
             options, channel_credentials,
