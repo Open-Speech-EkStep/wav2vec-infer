@@ -18,7 +18,7 @@ let cn = {
 
 const db = pgp(cn);
 
-const addFeedbackQuery = 'Insert into inference_feedback("user_id", "language", "audio_path", "text", "rating", "device") values ($1, $2, $3, $4, $5, $6);';
+const addFeedbackQuery = 'Insert into inference_feedback("user_id", "language", "audio_path", "text", "rating","feedback","device","browser") values ($1, $2, $3, $4, $5, $6, $7, $8);';
 const getFeedbackQuery = 'Select * from inference_feedback order by created_on desc limit $1 offset $2';
 const getFeedbackFilterByRating = 'Select * from inference_feedback where rating=$1 order by created_on desc limit $2 offset $3';
 const getFeedbackFilterByRatingCount = 'Select count(*) as num_feedback from inference_feedback where rating=$1 limit $2 offset $3';
@@ -45,14 +45,16 @@ const getSuccessPromise = (data) => {
 }
 
 
-const addFeedback = (user_id, language, audio_path, text, rating, device) => {
+const addFeedback = (user_id, language, audio_path, text, rating, feedback, device, browser) => {
     return db.none(addFeedbackQuery, [
         user_id,
         language,
         audio_path,
         text,
         rating,
-        device
+        feedback,
+        device,
+        browser
     ])
 }
 
@@ -85,11 +87,9 @@ const getFeedback = async (offset, size = 10, ratingFilter, deviceFilter) => {
     console.log(query, params)
     return db.many(query, params).then(result => {
         console.log(totalCount, filteredCount);
-        return getSuccessPromise({ "total": totalCount, "data": result, "filtered": filteredCount })
+        return getSuccessPromise({"total": totalCount, "data": result, "filtered": filteredCount})
     }).catch(error => getErrorPromise(error))
 }
-
-
 
 module.exports = {
     addFeedback,
