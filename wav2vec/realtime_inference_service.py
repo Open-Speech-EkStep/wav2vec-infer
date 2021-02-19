@@ -4,7 +4,7 @@ import wave
 from concurrent import futures
 import time
 import grpc
-
+import subprocess
 from audio_to_text_pb2 import Response 
 from audio_to_text_pb2_grpc import add_RecognizeServicer_to_server, RecognizeServicer
 from inference_service import InferenceService, Wav2VecCtc, W2lViterbiDecoder, W2lDecoder, W2lKenLMDecoder
@@ -41,7 +41,8 @@ class RecognizeAudioServicer(RecognizeServicer):
     def recognize_audio_file_mode(self, request_iterator, context):
         for request in request_iterator:
             self.file_count += 1
-            transcription = self.transcribe_file(request.audio, str(self.file_count), request.user, request.language)
+            print("Received", request.filename)
+            transcription = self.transcribe_file(request.audio, str(self.file_count), request.user, request.language, request.filename)
             yield Response(transcription=transcription, user=request.user, action="",
                         language=request.language)
 
@@ -87,6 +88,12 @@ class RecognizeAudioServicer(RecognizeServicer):
             file.writeframes(audio)
         return os.path.join(os.getcwd(), file_name)
 
+    def write_to_file(self, file_name, audio):
+        with open(file_name, 'wb') as file:
+            file.write(audio)
+        return os.path.join(os.getcwd(), file_name)
+
+
     def transcribe(self, buffer, count, data, append_result, local_file_name):
         index = data.user + count
         user = data.user
@@ -111,13 +118,16 @@ class RecognizeAudioServicer(RecognizeServicer):
             result["success"] = True
         return json.dumps(result)
 
-    def transcribe_file(self, buffer, count, user,language):
+    def transcribe_file(self, buffer, count, user,language,input_file_name):
         index = user +"_file_"+ count
-        file_name = self.write_wave_to_file(index + ".wav", buffer)
-        result = self.inference.get_inference(file_name, language)
+        input_file_name = self.write_to_file(input_file_name, buffer)
+        output_file_name = index + ".wav"
+        subprocess.call(['ffmpeg -i {} -ar 16000 -ac 1 -bits_per_raw_sample 16 -vn {}'.format(input_file_name, output_file_name)],shell=True)
+        result = self.inference.get_inference(output_file_name, language)
         result["id"] = index
-        print(user, "responsed")
-        os.remove(file_name)
+        print("responsed", input_file_name)
+        os.remove(input_file_name)
+        os.remove(output_file_name)
         if result['status'] != "OK":
             result["success"] = False
         else:

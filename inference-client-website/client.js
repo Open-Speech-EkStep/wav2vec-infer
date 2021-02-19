@@ -43,6 +43,15 @@ function make_message(audio, user, speaking, language = 'en', isEnd) {
   };
   return msg;
 }
+function make_file_message(audio, user, language = 'en', fileName) {
+  const msg = {
+    audio: audio,
+    user: user + "",
+    language: language,
+    filename: fileName
+  };
+  return msg;
+}
 
 function onResponse(response) {
   const data = JSON.parse(response.transcription);
@@ -175,47 +184,45 @@ function main() {
     );
     socket.on("disconnect", () => {
       if (socket.id in userCalls) {
-        // let message = make_message(null, socket.id, true, "", true);
-        // userCalls[socket.id].write(message);
         userCalls[socket.id].end();
         delete userCalls[socket.id];
-        grpc.closeClient(grpc_client);
       }
+      grpc.closeClient(grpc_client);
     });
 
     const numUsers = socket.client.conn.server.clientsCount;
-    console.log(grpc_client.getChannel(), numUsers);
+    console.log("Number of users => ", numUsers);
     if (numUsers > MAX_SOCKET_CONNECTIONS) {
       socket.emit("abort");
       socket.disconnect();
+      console.log("CAllled");
       return;
     }
 
-    onUserConnected(socket, grpc_client);
-
-    socket.on("mic_data", function (chunk, language, speaking, isEnd) {
-      let user = socket.id;
-      let message = make_message(chunk, user, speaking, language, isEnd);
-      userCalls[user].write(message)
+    socket.on('connect_mic_stream', ()=>{
+      onUserConnected(socket, grpc_client);
+      socket.on("mic_data", function (chunk, language, speaking, isEnd) {
+        let user = socket.id;
+        let message = make_message(chunk, user, speaking, language, isEnd);
+        userCalls[user].write(message)
+      });
     });
 
-    socket.on("file_data", function (chunk, language) {
-      let user = socket.id;
-      let wav = new WaveFile();
-      wav.fromBuffer(chunk);
-      if(wav.fmt.sampleRate !== 16000){
-        wav.toSampleRate(16000);
-      }
-      let message = make_message(wav.toBuffer(), user, false, language, false);
-      // console.log(message);
-      const file_client = grpc_client.recognize_audio_file_mode();
-      file_client.write(message);
-      file_client.end();
-      file_client.on('data',(response)=>{
-        console.log(response);
+    socket.on('connect_file_stream', ()=>{
+      console.log("CONNECT FILE STREAM CALLED");
+      userCalls[socket.id] = grpc_client.recognize_audio_file_mode();
+      userCalls[socket.id].on("data", (response)=>{
         const data = JSON.parse(response.transcription);
         io.to(response.user).emit("file_upload_response", data["transcription"], response.language);
+        userCalls[socket.id].end();
       });
+      socket.on("file_data", function (chunk, language, fileName) {
+        console.log("called file data");
+        let user = socket.id;
+        let message = make_file_message(chunk, user, language, fileName);
+        userCalls[socket.id].write(message);
+      });
+      io.to(socket.id).emit("connect-success", "");
     });
   });
 

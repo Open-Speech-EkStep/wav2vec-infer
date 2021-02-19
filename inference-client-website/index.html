@@ -89,6 +89,18 @@
             animation: spin 2s linear infinite;
         }
 
+        #file-loader {
+            margin-top: 20px;
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid #3498db;
+            width: 30px;
+            height: 30px;
+            -webkit-animation: spin 2s linear infinite;
+            /* Safari */
+            animation: spin 2s linear infinite;
+        }
+
         /* Safari */
         @-webkit-keyframes spin {
             0% {
@@ -174,7 +186,7 @@
                 <div class="col-sm-12 col-md-12">
                     <center>
                         <audio controls id="audio_sample_id" style="display: none;">
-                            <source src="hindi.m4a" id="sample_id" />
+                            <source src="" id="sample_id" />
                         </audio>
                     </center>
                 </div>
@@ -205,22 +217,28 @@
                 <div class="col-sm-6">
                     <center>
                         <strong>Note:</strong>
-                        <p>Supported format: *.wav with size <= 3.5 MB</p>
+                        <p>Max size: 3.5 MB</p>
                     </center>
                     <div class="custom-file mb-3">
-                        <input type="file" class="custom-file-input" id="audio_file_input" onchange="updateLabel()">
-                        <label class="custom-file-label" for="customFile" id="file_upload_label">Upload File</label>
+                        <input type="file" accept=".wav,.mp3,.mp4,.ogg,.m4a" class="custom-file-input"
+                            id="audio_file_input" onchange="updateLabel()">
+                        <label class="custom-file-label" for="customFile" id="file_upload_label">Upload
+                            File</label>
                     </div>
+                    <p id="file-error" style="display: none; color: red;">Chosen File size is greater than 3.5 MB</p>
                     <audio id="audio" controls style="display:none;">
                         <source src="" id="audio_source" />
                     </audio>
                 </div>
                 <div class="col-sm-6">
-                    <button class="btn btn-secondary" onclick="startFileUpload()">Run Model</button>
-                    <textarea id="file_upload_response" class="mt-2" disabled placeholder="Output"></textarea>
+                    <button class="btn btn-secondary" onclick="startFileUpload()" disabled id="run-model-btn">Run
+                        Model</button>
+                    <center>
+                        <div id="file-loader" style='display: none;'></div>
+                    </center>
+                    <textarea id="file_upload_response" class="mt-2" readonly placeholder="Output"></textarea>
                 </div>
             </div>
-
             <div class="row">
                 <center>
                     <h4>Vakyansh: The Home of Speech Recognition Essentials for Indian Languages</h4><br />
@@ -253,7 +271,7 @@
         /*
             init variables
         */
-        let socket, socket_close_timeout = null;
+        let socket, socket_close_timeout = null,fileSocket, micSocketIO, fileSocketIO;
         let current_lang = 'en', selected_lang = 'en';
         let bufferSize = 16384;
         let sentOnce = true;
@@ -336,12 +354,12 @@
                 }, 60000);
             }
         }
-        // function disableSocketClose() {
-        //     if (socket_close_timeout !== null) {
-        //         clearTimeout(socket_close_timeout);
-        //         socket_close_timeout = null;
-        //     }
-        // }
+        function disableSocketClose() {
+            if (socket_close_timeout !== null) {
+                clearTimeout(socket_close_timeout);
+                socket_close_timeout = null;
+            }
+        }
     </script>
     <script>
         /*
@@ -448,11 +466,40 @@
             }
         }
 
+        function connectFileSocket(methodToRun){
+            fileSocketIO = io('/',{ path: "/ekstep/test/socket.io", autoConnect: false });
+            fileSocketIO.connect();
+            fileSocket = fileSocketIO.on('connect', function () {
+                userId = fileSocket.id;
+                fileSocket.emit('connect_file_stream');
+            });
+            fileSocket.on('connect-success', function (data) {
+                console.log("connect-success", userId);
+                methodToRun();
+                document.getElementById('userid').innerHTML = "";
+            });
+            fileSocket.on("file_upload_response", function (transcription, language) {
+                console.log("response received");
+                document.getElementById("file_upload_response").innerHTML = transcription;
+                fileSocket.disconnect();
+                $('#file-loader').hide();
+            });
+            fileSocket.on("disconnect", function(){
+                console.log("Disconnected socket");
+                fileSocketIO = null;
+                fileSocket = null;
+            });
+            fileSocket.on("error", (err)=>{
+                console.log("file error", err);
+            })
+        }
+
         function connectSocket(startMic) {
-            const socketIO = io({ path: "/ekstep/test/socket.io", autoConnect: false });
-            socketIO.connect();
-            socket = socketIO.on('connect', function () {
+            const micSocketIO = io('/',{ path: "/ekstep/test/socket.io", autoConnect: false });
+            micSocketIO.connect();
+            socket = micSocketIO.on('connect', function () {
                 userId = socket.id;
+                socket.emit('connect_mic_stream');
             });
             socket.on('connect-success', function (data) {
                 console.log("connect-success", userId);
@@ -466,6 +513,8 @@
                 transcription_language = language;
             });
             socket.on('disconnect', function () {
+                micSocketIO = null;
+                socket = null;
                 console.log("disconnected");
             })
             socket.on('terminate', function () {
@@ -474,10 +523,7 @@
                     console.log("end socket called");
                 }
             });
-            socket.on("file_upload_response", function (transcription, language) {
-                document.getElementById("file_upload_response").innerHTML = transcription;
-                endSocket();
-            });
+            
             socket.on('abort', function () {
                 alert("The server is busy at the moment, please try after sometime.");
                 // $(".rating **").attr("disabled", "disabled").off('click');
@@ -646,6 +692,8 @@
             }).catch(function (err) {
                 console.log(err);
                 stopRecording();
+                $('#audio_sample_id').hide();
+                $('#status_text').hide();
             });
         }
 
@@ -662,9 +710,12 @@
         }
 
         function stopMediaRecorder() {
-            speechEvents.stop();
-            input.disconnect();
-            processor.disconnect();
+            if(speechEvents && speechEvents !== null)
+                speechEvents.stop();
+            if(input && input !== null)
+                input.disconnect();
+            if(processor && processor !== null)
+                processor.disconnect();
 
             let finalBuffer = flattenArray(audioData, recordingLength);
             let blob = generateWavBlob(finalBuffer);
@@ -679,35 +730,50 @@
         }
 
         function startFileUpload() {
-            connectSocket(readFile)
+            $('#file-loader').show();
+            connectFileSocket(readFile);
         }
 
-        function updateLabel(){
+        function updateLabel() {
+            $('#file-error').hide();
+            let file = document.querySelector('#audio_file_input').files[0];
+            if(!file){
+                $('#run-model-btn').prop('disabled', true);
+                document.getElementById('file_upload_label').innerHTML = "";
+                $('#audio').hide();
+                return;
+            }
             let chosenFile = document.getElementById('audio_file_input').value;
             let theSplit = chosenFile.split('\\');
-            chosenFile = theSplit[theSplit.length-1];
+            chosenFile = theSplit[theSplit.length - 1];
             document.getElementById('file_upload_label').innerHTML = chosenFile;
+            if (file.size > 3500000) {
+                $('#file-error').show();
+                $('#run-model-btn').prop('disabled', true);
+                return;
+            }
+            // let fileNameSplit = file.name.split(".");
+            // if()
+            console.log(file);
+            let URL_OBJECT = window.URL || window.webkitURL;
+            let url = URL_OBJECT.createObjectURL(file);
+            document.getElementById("audio_source").src = url;
+            document.getElementById("audio").load();
+            $('#audio').show();
+            $('#run-model-btn').prop('disabled', false);
         }
 
         function readFile() {
             let files = document.querySelector('#audio_file_input').files;
             let blob = files[0];
-            // console.log(blob instanceof Blob);
-            // var reader = new FileReader();
-            // reader.addEventListener('load', function (e) {
-            //     var chunk =  e.target.result;
-            //     socket.emit('file_data', chunk, current_lang);
-            // });
-            // reader.readAsArrayBuffer(blob);
             read_as_chunks(blob);
         }
 
         function read_as_chunks(file) {
-            var chunk_size = 3000000;
+            var chunk_size = 3500000;
             var offset = 0;
             var size = file.size;
             var i = 0;
-
             if (size < chunk_size) {
                 chunk_size = size;
             }
@@ -721,12 +787,13 @@
                 var reader = new FileReader();
                 reader.addEventListener('load', function (e) {
                     var chunk = e.target.result;
-                    // console.log("emitted");
-                    socket.emit('file_data', chunk, current_lang);
+                    console.log("emitted file", chunk);
+                    fileSocket.emit('file_data', chunk, current_lang, file.name);
                 });
                 reader.readAsArrayBuffer(blob);
                 offset += chunk_size;
                 i += chunk_size;
+                console.log("read");
             }
         }
 

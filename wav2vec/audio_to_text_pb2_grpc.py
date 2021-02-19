@@ -21,7 +21,7 @@ class RecognizeStub(object):
                 )
         self.recognize_audio_file_mode = channel.stream_stream(
                 '/recognize.Recognize/recognize_audio_file_mode',
-                request_serializer=audio__to__text__pb2.Message.SerializeToString,
+                request_serializer=audio__to__text__pb2.FileUploadMessage.SerializeToString,
                 response_deserializer=audio__to__text__pb2.Response.FromString,
                 )
 
@@ -51,7 +51,7 @@ def add_RecognizeServicer_to_server(servicer, server):
             ),
             'recognize_audio_file_mode': grpc.stream_stream_rpc_method_handler(
                     servicer.recognize_audio_file_mode,
-                    request_deserializer=audio__to__text__pb2.Message.FromString,
+                    request_deserializer=audio__to__text__pb2.FileUploadMessage.FromString,
                     response_serializer=audio__to__text__pb2.Response.SerializeToString,
             ),
     }
@@ -93,7 +93,7 @@ class Recognize(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.stream_stream(request_iterator, target, '/recognize.Recognize/recognize_audio_file_mode',
-            audio__to__text__pb2.Message.SerializeToString,
+            audio__to__text__pb2.FileUploadMessage.SerializeToString,
             audio__to__text__pb2.Response.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
