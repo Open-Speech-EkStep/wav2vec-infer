@@ -765,14 +765,6 @@
         document.getElementById("audio_sample_id").load();
     }
 
-    function submitFeedback(input) {
-        alert("this is submit")
-        stopRecording();
-        alert("this is rating" + rating + " ");
-        rating = input.getAttribute("data-val");
-        // feedback = select.star.data("feed-val");
-
-    }
 
 </script>
 <script>
@@ -836,7 +828,6 @@
 
             rating = $('[name="star"]:checked').val();
             feedback = $("#feedback-dropdown").val();
-            alert("Value: " + feedback + rating);
             enableRating(false)
 
             saveRating({
