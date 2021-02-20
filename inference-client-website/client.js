@@ -105,7 +105,7 @@ function startServer() {
 
     app.post("/api/feedback", function (req, res) {
         const file = req.file;
-        const {user_id, language, text, rating, feedback, device, browser} = req.body;
+        const {user_id, language, text, rating, feedback, device, browser, date} = req.body;
 
         uploadFile(file.path, user_id, language)
             .then((uploadResponse) => {
@@ -113,7 +113,7 @@ function startServer() {
                 const blobName = uploadResponse[0]['metadata']['name'];
                 const bucketName = uploadResponse[0]['metadata']['bucket'];
                 const audio_path = `https://storage.googleapis.com/${bucketName}/${blobName}`
-                addFeedback(user_id, language, audio_path, text, rating, feedback, device, browser).then(() => {
+                addFeedback(user_id, language, audio_path, text, rating, feedback, device, browser, date).then(() => {
                     res.json({"success": true})
                 }).catch(err => {
                     console.log("error", err)
@@ -139,7 +139,9 @@ function startServer() {
         const size = Number(req.query.length) || 10;
         const ratingFilter = req.query.rating_filter || '';
         const deviceFilter = req.query.device_filter || '';
-        getFeedback(start, size, ratingFilter, deviceFilter).then(result => {
+        const browserFilter = req.query.browser_filter || '';
+        const dateFilter = req.query.date_filter || '';
+        getFeedback(start, size, ratingFilter, deviceFilter, browserFilter, dateFilter).then(result => {
             res.json({
                 "draw": req.query.draw | 1,
                 "recordsTotal": result['total'],

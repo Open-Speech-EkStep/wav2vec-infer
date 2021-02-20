@@ -26,6 +26,10 @@
             resize: vertical;
         }
 
+        :required {
+            background: #00b300;
+        }
+
         div.stars {
             width: 270px;
             display: inline-block;
@@ -242,7 +246,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <h5>Please do provide your rating(5 being the highest)</h5>
-                <div class="rating" >
+                <div class="rating">
                     <!--                                             Thumbs up-->
                     <!--                                            <div id="like" class="grow" data-val="thumbs_up">-->
                     <!--                                                <i class="fa fa-thumbs-up fa-3x like" aria-hidden="true"></i>-->
@@ -251,33 +255,29 @@
                     <!--                                            <div id="dislike" class="dislike grow" data-val="thumbs_down">-->
                     <!--                                                <i class="fa fa-thumbs-down fa-3x like" aria-hidden="true"></i>-->
                     <!--                                            </div>-->
-                    <input class="star star-5" id="star-5" type="radio" name="star" value="5"
-                           aria-hidden="true">
-                    <label class="star star-5" for="star-5"></label>
-                    <input class="star star-4" id="star-4" type="radio" name="star" value="4"
-                           aria-hidden="true">
-                    <label class="star star-4" for="star-4"></label>
-                    <input class="star star-3" id="star-3" type="radio" name="star" value="3"
-                           aria-hidden="true">
-                    <label class="star star-3" for="star-3"></label>
-                    <input class="star star-2" id="star-2" type="radio" name="star" value="2"
-                           aria-hidden="true">
-                    <label class="star star-2" for="star-2"></label>
-                    <input class="star star-1" id="star-1" type="radio" name="star" value="1"
-                           aria-hidden="true">
-                    <label class="star star-1" for="star-1"></label>
-                </div>
-                <div class="feedback">
-
                     <form id="feedback-form">
-                        <label for="feedback-dropdown">Provide Feedback</label>
-                    <select  id="feedback-dropdown" required>
-                        <option value=""> -- select an option -- </option>
-                        <option value="looks_perfect" >Looks perfect</option>
-                        <option value="few_words_missing" >Few words missing</option>
-                        <option value="few_words_misspelled" >Few words misspelled</option>
-                    </select>
-                    <input id="Submit" class="SubmitButton" type="submit" name="SUBMITBUTTON" value="Submit" style="font-size:20px; "/>
+                            <input class="star star-5" id="star-5" type="radio" name="star" value="5">
+                            <label class="star star-5" for="star-5"></label>
+                            <input class="star star-4" id="star-4" type="radio" name="star" value="4">
+                            <label class="star star-4" for="star-4"></label>
+                            <input class="star star-3" id="star-3" type="radio" name="star" value="3">
+                            <label class="star star-3" for="star-3"></label>
+                            <input class="star star-2" id="star-2" type="radio" name="star" value="2">
+                            <label class="star star-2" for="star-2"></label>
+                            <input class="star star-1" id="star-1" type="radio" name="star" value="1" required>
+                            <label class="star star-1" for="star-1"></label>
+                            <!--                <div class="feedback">-->
+                        <div class="feedback">
+                            <label for="feedback-dropdown">Provide Feedback</label>
+                            <select id="feedback-dropdown" required>
+                                <option value=""> -- select an option --</option>
+                                <option value="looks_perfect">Looks perfect</option>
+                                <option value="few_words_missing">Few words missing</option>
+                                <option value="few_words_misspelled">Few words misspelled</option>
+                            </select>
+                            <input id="Submit" class="SubmitButton" type="submit" name="SUBMITBUTTON" value="Submit"
+                                   style="font-size:20px; "/>
+                        </div>
                     </form>
                 </div>
 
@@ -624,8 +624,9 @@
         // }
         let audio = new Audio("click_sound.wav ");
         $('input[type="radio"]').prop('checked', false);
-        $('#feedback-dropdown option').prop('selected', function() {
-        return this.defaultSelected;});
+        $('#feedback-dropdown option').prop('selected', function () {
+            return this.defaultSelected;
+        });
         if (state === "OFF") {
             if ((verOffset = nAgt.indexOf("Firefox")) != -1) {
                 $('#mic_image').animate({
@@ -825,11 +826,9 @@
             $('.active').removeClass('active');
             $(this).addClass('active');
             stopRecording();
-
             rating = $('[name="star"]:checked').val();
             feedback = $("#feedback-dropdown").val();
             enableRating(false)
-
             saveRating({
                 recordedBlob,
                 rating,

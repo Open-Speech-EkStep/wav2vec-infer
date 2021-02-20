@@ -72,9 +72,17 @@
             <label for="rating-dropdown">Choose Rating</label>
             <select id="rating-dropdown">
                 <option value="">No Filter</option>
-                <option value="thumbs_up">Thumbs Up</option>
-                <option value="thumbs_down">Thumbs Down</option>
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
             </select>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <input type="text" placeholder="Search Browser" id="browser-search" />
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            Select Date: <input type="date" id="date-search">
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
         </div>
     </center>
     <br />
@@ -85,6 +93,8 @@
                 <th>Text</th>
                 <th>Rating</th>
                 <th>Device</th>
+                <th>Browser</th>
+                <th>Date</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -106,7 +116,9 @@
                     "data": function (d) {
                         return $.extend({}, d, {
                             "device_filter": $("#device-search").val().toLowerCase(),
-                            "rating_filter": $("#rating-dropdown").val().toLowerCase()
+                            "rating_filter": $("#rating-dropdown").val().toLowerCase(),
+                            "browser_filter": $("#browser-search").val().toLowerCase(),
+                            "date_filter": $("#date-search").val().toLowerCase()
                         })
                     }
                 },
@@ -130,16 +142,24 @@
                         data: "rating",
                         searchable: false,
                         render: function (data,type,row){
-                            let thumbsUp = '<i class="fa fa-thumbs-up fa-2x like" aria-hidden="true"></i>';
-                            let thumbsDown = '<i class="fa fa-thumbs-down fa-2x like" aria-hidden="true"></i>';
-			    if(data === 'thumbs_up')
-                             return thumbsUp;
-		            else
-			     return thumbsDown;
+                            return data;
                         }
+                //             let thumbsUp = '<i class="fa fa-thumbs-up fa-2x like" aria-hidden="true"></i>';
+                //             let thumbsDown = '<i class="fa fa-thumbs-down fa-2x like" aria-hidden="true"></i>';
+			    // if(data === 'thumbs_up')
+                //              return thumbsUp;
+		        //     else
+			    //  return thumbsDown;
+                //         }
                     },
                     {
                         data: "device",
+                    },
+                    {
+                        data: "browser",
+                    },
+                    {
+                        data: "created_on",
                     },
                     {
                         data: 'audio_path',
@@ -156,7 +176,7 @@
                 ]
             });
 
-            $('#device-search, #rating-dropdown').bind('keyup change', function () {
+            $('#device-search, #rating-dropdown,#browser-search,#date-search').bind('keyup change', function () {
                 table.draw();
             });
 
