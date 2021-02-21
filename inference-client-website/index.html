@@ -537,7 +537,7 @@
     }
 
     function connectSocket(startMic) {
-        const socketIO = io({autoConnect: false});
+        const socketIO = io({path:'/ekstep/test/socket.io',autoConnect: false});
         socketIO.connect();
         socket = socketIO.on('connect', function () {
             userId = socket.id;
@@ -673,37 +673,25 @@
     function streamAudioProcess(e) {
         audioData.push(new Float32Array(e.inputBuffer.getChannelData(0)));
         recordingLength += bufferSize;
-        if (state === "ON") {
-            state_end = false;
-            var data_44100 = e.inputBuffer.getChannelData(0);
-            // let data_16000 = data_44100;
-            var data_16000 = downSampleBuffer(data_44100, 44100, 16000);
-            if (isSpeaking) {
-                sentOnce = false;
+        var data_44100 = e.inputBuffer.getChannelData(0);
+        // let data_16000 = data_44100;
+        var data_16000 = downSampleBuffer(data_44100, 44100, 16000);
+        if (isSpeaking) {
+            sentOnce = false;
 
-                if (localBuffer !== undefined && localBuffer !== null) {
-                    data_16000 = appendBuffer(localBuffer, data_16000)
-                }
-                // console.log("emitted", data_16000);
-                socket.emit('mic_data', data_16000, current_lang, true, false);
-                localBuffer = null;
-            } else {
-                if (!sentOnce) {
-                    sentOnce = true;
-                    socket.emit('mic_data', data_16000, current_lang, false, false);
-                    // console.log("emitted last");
-                } else {
-                    localBuffer = data_16000;
-                }
+            if (localBuffer !== undefined && localBuffer !== null) {
+                data_16000 = appendBuffer(localBuffer, data_16000)
             }
+            // console.log("emitted", data_16000);
+            socket.emit('mic_data', data_16000, current_lang, true, false);
+            localBuffer = null;
         } else {
-            if (!state_end) {
-                var data_44100 = e.inputBuffer.getChannelData(0);
-                var data_16000 = downSampleBuffer(data_44100, 44100, 16000);
-                // let data_16000 = data_44100;
-                state_end = true;
-                socket.emit('mic_data', data_16000, current_lang, false, true);
-                console.log("emitted last");
+            if (!sentOnce) {
+                sentOnce = true;
+                socket.emit('mic_data', data_16000, current_lang, false, false);
+                // console.log("emitted last");
+            } else {
+                localBuffer = data_16000;
             }
         }
     };
