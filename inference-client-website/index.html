@@ -544,16 +544,16 @@
         }
 
         function setSilenceDetector(audioStream, context) {
-            let options = { audioContext: context };
+            let options = { audioContext: context};
             speechEvents = hark(audioStream, options);
 
             speechEvents.on('speaking', function () {
                 isSpeaking = true;
-                // console.log('speaking');
+                console.log('speaking');
             });
 
             speechEvents.on('stopped_speaking', function () {
-                // console.log('stopped_speaking');
+                console.log('stopped_speaking');
                 isSpeaking = false;
             });
         }

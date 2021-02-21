@@ -239,6 +239,17 @@ class InferenceService:
         res['status'] = "OK"
         res['transcription'] = result
         return res
+    
+    def get_inference_bytes(self, wav_bytes, language):
+        generator = None
+        if language == 'hi' or language == 'en-IN':
+            generator = self.generators[language]
+        result = get_results_bytes( wav_bytes , self.dict_paths[language],self.cuda,model=self.models[language], generator=generator)
+        res = {}
+        logging.info('File transcribed')
+        res['status'] = "OK"
+        res['transcription'] = result
+        return res
 
 
 
@@ -272,6 +283,36 @@ def get_results(wav_path,target_dict_path,use_cuda=False,w2v_path=None,model=Non
     text=post_process(hyp_pieces, 'letter')
     return text
 
+def get_results_bytes(wav,target_dict_path,use_cuda=False,w2v_path=None,model=None, generator = None):
+    sample = dict()
+    net_input = dict()
+    
+    #normalized_audio = AudioNormalization(wav_path).loudness_normalization_effects()
+    #wav = np.array(normalized_audio.get_array_of_samples()).astype('float64')
+
+    feature = get_feature_from_bytes(wav)
+    target_dict = Dictionary.load(target_dict_path)
+    
+    model[0].eval()
+
+    # generator = W2lViterbiDecoder(target_dict)
+
+    if generator is None:
+        generator = W2lViterbiDecoder(target_dict)
+
+    net_input["source"] = feature.unsqueeze(0)
+
+    padding_mask = torch.BoolTensor(net_input["source"].size(1)).fill_(False).unsqueeze(0)
+
+    net_input["padding_mask"] = padding_mask
+    sample["net_input"] = net_input
+    sample = utils.move_to_cuda(sample) if use_cuda else sample
+    with torch.no_grad():
+        hypo = generator.generate(model, sample, prefix_tokens=None)
+    hyp_pieces = target_dict.string(hypo[0][0]["tokens"].int().cpu())
+    text=post_process(hyp_pieces, 'letter')
+    return text    
+
 def get_feature(wav, sample_rate):
     def postprocess(feats, sample_rate):
         if feats.dim == 2:
@@ -286,6 +327,22 @@ def get_feature(wav, sample_rate):
     # wav, sample_rate = sf.read(filepath)
     feats = torch.from_numpy(wav).float()
     feats = postprocess(feats, sample_rate)
+    return feats
+
+def get_feature_from_bytes(file_bytes):
+    def postprocess(feats, sample_rate):
+        if feats.dim == 2:
+            feats = feats.mean(-1)
+
+        assert feats.dim() == 1, feats.dim()
+
+        with torch.no_grad():
+            feats = F.layer_norm(feats, feats.shape)
+        return feats
+
+    #wav, sample_rate = sf.read(filepath)
+    feats = torch.from_numpy(file_bytes).float()
+    feats = postprocess(feats, 16000)
     return feats
 
 def post_process(sentence: str, symbol: str):

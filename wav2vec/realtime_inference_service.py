@@ -8,6 +8,9 @@ import grpc
 from audio_to_text_pb2 import Response 
 from audio_to_text_pb2_grpc import add_RecognizeServicer_to_server, RecognizeServicer
 from inference_service import InferenceService, Wav2VecCtc, W2lViterbiDecoder, W2lDecoder, W2lKenLMDecoder
+import webrtcvad
+from vad import frame_generator, vad_collector, read_wave
+import numpy as np
 
 class RecognizeAudioServicer(RecognizeServicer):
     def __init__(self):
@@ -23,7 +26,7 @@ class RecognizeAudioServicer(RecognizeServicer):
     def recognize_audio(self, request_iterator, context):
         for data in request_iterator:
             self.count += 1
-            print(data.user, "received", data.isEnd)
+            # print(data.user, "received", data.isEnd)
             if data.isEnd:
                 self.disconnect(data.user)
                 result = {}
@@ -33,9 +36,11 @@ class RecognizeAudioServicer(RecognizeServicer):
                            language=data.language)
             else:
                 buffer, append_result, local_file_name = self.preprocess(data)
-                transcription = self.transcribe(buffer, str(self.count), data, append_result, local_file_name)
-                yield Response(transcription=transcription, user=data.user, action=str(append_result),
-                            language=data.language)
+                # if local_file_name is None:
+                #     continue
+                for transcription in self.transcribe(buffer, str(self.count), data, append_result, None):
+                    yield Response(transcription=transcription, user=data.user, action=str(append_result),
+                                language=data.language)
 
     def clear_buffers(self, user):
         if user in self.client_buffers:
@@ -67,9 +72,9 @@ class RecognizeAudioServicer(RecognizeServicer):
         if not data.speaking:
             del self.client_buffers[data.user]
             append_result = True
-            # local_file_name = "utterances/{}__{}__{}.wav".format(data.user,str(int(time.time()*1000)), data.language)
-            # self.write_wave_to_file(local_file_name, buffer)
-        return buffer, append_result, None
+            local_file_name = "utterances/{}__{}__{}.wav".format(data.user,str(int(time.time()*1000)), data.language)
+            self.write_wave_to_file(local_file_name, buffer)
+        return buffer, append_result, local_file_name
 
     def write_wave_to_file(self, file_name, audio):
         with wave.open(file_name, 'wb') as file:
@@ -79,29 +84,54 @@ class RecognizeAudioServicer(RecognizeServicer):
             file.writeframes(audio)
         return os.path.join(os.getcwd(), file_name)
 
+    def bytes_to_floats(self, wav_bytes):
+        byte_ints = np.frombuffer(wav_bytes, dtype='int16')
+        byte_floats = [float(val) / pow(2, 15) for val in byte_ints]
+        return np.array(byte_floats)
+
+    def add_vad(self, wav_path, language, user):
+        audio, sample_rate, seconds = read_wave(wav_path)
+        if(seconds < 30):
+            yield self.inference.get_inference(wav_path, language), True
+        else:
+            del self.client_buffers[user]
+            vad = webrtcvad.Vad(3)
+            frames = frame_generator(30, audio, sample_rate)
+            frames = list(frames)
+            segments = vad_collector(sample_rate, 30, 300, vad, frames)
+            # self.client_buffers[user] = 
+            for i, segment in enumerate(segments):
+                #print(bytes_to_floats(segment))
+                yield self.inference.get_inference_bytes(self.bytes_to_floats(segment), language), False
+
     def transcribe(self, buffer, count, data, append_result, local_file_name):
         index = data.user + count
         user = data.user
         file_name = self.write_wave_to_file(index + ".wav", buffer)
         # result = {"transcription":"hello", 'status':'OK'}
-        result = self.inference.get_inference(file_name, data.language)
-        if user not in self.client_transcription:
-            self.client_transcription[user] = ""
-        transcription = (self.client_transcription[user] + " " + result['transcription']).lstrip()
-        result['transcription'] = transcription
-        if append_result:
-            self.client_transcription[user] = transcription
-            if local_file_name is not None:
-                with open(local_file_name.replace(".wav",".txt"), 'w') as local_file:
-                    local_file.write(result['transcription'])
-        result["id"] = index
-        print(user, "responsed")
-        os.remove(file_name)
-        if result['status'] != "OK":
-            result["success"] = False
-        else:
-            result["success"] = True
-        return json.dumps(result)
+        # result = self.inference.get_inference(file_name, data.language)
+        for result, is_chunk in self.add_vad(file_name, data.language, user):
+            if user not in self.client_transcription:
+                self.client_transcription[user] = ""
+            transcription = (self.client_transcription[user] + " " + result['transcription']).lstrip()
+            if is_chunk:
+                if append_result:
+                    self.client_transcription[user] = transcription
+                    if local_file_name is not None:
+                        with open(local_file_name.replace(".wav",".txt"), 'w') as local_file:
+                            local_file.write(result['transcription'])
+            else:
+                self.client_transcription[user] = transcription
+                result['transcription'] = transcription
+            
+            result["id"] = index
+            # print(user, result)
+            # os.remove(file_name)
+            if result['status'] != "OK":
+                result["success"] = False
+            else:
+                result["success"] = True
+            yield json.dumps(result)
 
 
 def serve():
