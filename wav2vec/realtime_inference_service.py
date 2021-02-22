@@ -72,8 +72,8 @@ class RecognizeAudioServicer(RecognizeServicer):
         if not data.speaking:
             del self.client_buffers[data.user]
             append_result = True
-            local_file_name = "utterances/{}__{}__{}.wav".format(data.user,str(int(time.time()*1000)), data.language)
-            self.write_wave_to_file(local_file_name, buffer)
+            # local_file_name = "utterances/{}__{}__{}.wav".format(data.user,str(int(time.time()*1000)), data.language)
+            # self.write_wave_to_file(local_file_name, buffer)
         return buffer, append_result, local_file_name
 
     def write_wave_to_file(self, file_name, audio):
@@ -91,16 +91,20 @@ class RecognizeAudioServicer(RecognizeServicer):
 
     def add_vad(self, wav_path, language, user):
         audio, sample_rate, seconds = read_wave(wav_path)
-        if(seconds < 30):
+        if(seconds < 15):
             yield self.inference.get_inference(wav_path, language), True
         else:
+            print("Vad called")
             del self.client_buffers[user]
             vad = webrtcvad.Vad(3)
             frames = frame_generator(30, audio, sample_rate)
             frames = list(frames)
             segments = vad_collector(sample_rate, 30, 300, vad, frames)
             # self.client_buffers[user] = 
+            vad_count = 0
             for i, segment in enumerate(segments):
+                vad_count+=1
+                print("Vad segments called", vad_count)
                 #print(bytes_to_floats(segment))
                 yield self.inference.get_inference_bytes(self.bytes_to_floats(segment), language), False
 
@@ -111,22 +115,28 @@ class RecognizeAudioServicer(RecognizeServicer):
         # result = {"transcription":"hello", 'status':'OK'}
         # result = self.inference.get_inference(file_name, data.language)
         for result, is_chunk in self.add_vad(file_name, data.language, user):
+            # Does user have local storage
             if user not in self.client_transcription:
                 self.client_transcription[user] = ""
+            # prefix local storage transcription to result 
             transcription = (self.client_transcription[user] + " " + result['transcription']).lstrip()
             if is_chunk:
                 if append_result:
                     self.client_transcription[user] = transcription
-                    if local_file_name is not None:
-                        with open(local_file_name.replace(".wav",".txt"), 'w') as local_file:
-                            local_file.write(result['transcription'])
+                    # if local_file_name is not None:
+                    #     with open(local_file_name.replace(".wav",".txt"), 'w') as local_file:
+                    #         local_file.write(result['transcription'])
             else:
                 self.client_transcription[user] = transcription
-                result['transcription'] = transcription
             
+            result['transcription'] = transcription
+            print(result['transcription'])
             result["id"] = index
             # print(user, result)
-            # os.remove(file_name)
+            # if os.path.exists(file_name):
+            #     os.remove(file_name)
+            # else:
+            #     print(file_name, "does not exist")
             if result['status'] != "OK":
                 result["success"] = False
             else:

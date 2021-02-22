@@ -44,7 +44,7 @@ function make_message(audio, user, speaking, language = 'en', isEnd) {
 }
 
 function onResponse(response) {
-  console.log("output", response);
+  // console.log("output", response);
   const data = JSON.parse(response.transcription);
   const id = data["id"];
   const user = response.user;

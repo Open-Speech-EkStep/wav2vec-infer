@@ -549,11 +549,11 @@
 
             speechEvents.on('speaking', function () {
                 isSpeaking = true;
-                console.log('speaking');
+                console.log('speaking', new Date());
             });
 
             speechEvents.on('stopped_speaking', function () {
-                console.log('stopped_speaking');
+                console.log('stopped_speaking', new Date());
                 isSpeaking = false;
             });
         }
