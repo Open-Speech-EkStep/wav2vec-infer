@@ -13,7 +13,9 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"> </script>
     <script src="platform.js"></script>
+    <script src="concatBlobs.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io-stream/0.9.1/socket.io-stream.js"
@@ -282,7 +284,7 @@
         let speechEvents = null;
         let input, processor, context, globalStream, audioContextClass;
         let localBuffer = null, isSpeaking = false;
-        let timeout_ = null, state_end = false, audioData = [], recordingLength = 0, sampleRate = 44100, socket_disconnect_timeout = null;
+        let timeout_ = null, state_end = false, audioData = [], recordingLength = 0, sampleRate = 48000, channelCount = 2, socket_disconnect_timeout = null;
         let userId = null, recordedBlob = null, rating = null, device = null, transcription_text = null, transcription_language = null, end_timeout = null;
         let nAgt = navigator.userAgent, verOffset;
     </script>
@@ -335,19 +337,7 @@
         function enableAutoMicClose(callbackFunction) {
             timeout_ = timeout(120000, callbackFunction);
         }
-        function enableDelaySocketClose() {
-            end_timeout = setTimeout(() => {
-                endSocket();
-                end_timeout = null;
-            }, 4000);
-        }
-        function disableDelaySocketClose() {
-            if (end_timeout !== null || end_timeout) {
-                clearTimeout(end_timeout);
-                end_timeout = null;
-                endSocket();
-            }
-        }
+
         function enableSocketClose() {
             if (socket_close_timeout === null) {
                 socket_close_timeout = setTimeout(() => {
@@ -432,7 +422,7 @@
             writeUTFBytes(view, 12, 'fmt ');
             view.setUint32(16, 16, true); // chunkSize
             view.setUint16(20, 1, true); // wFormatTag
-            view.setUint16(22, 1, true); // wChannels:mono(1 channel) / stereo (2 channels)
+            view.setUint16(22, channelCount, true); // wChannels:mono(1 channel) / stereo (2 channels)
             view.setUint32(24, sampleRate, true); // dwSamplesPerSec
             view.setUint32(28, sampleRate * 2, true); // dwAvgBytesPerSec
             view.setUint16(32, 4, true); // wBlockAlign
@@ -487,8 +477,8 @@
                 // fileSocket.disconnect();
                 $('#file-loader').hide();
             });
-            fileSocket.on("disconnect", function () {
-                console.log("File socket is disconnected");
+            fileSocket.on("disconnect", function(){
+                console.log("Disconnected socket");
             });
             fileSocket.on("error", (err) => {
                 console.log("file error", err);
@@ -557,10 +547,8 @@
             } else {
                 $("#mic_image").animate({ zoom: '100%' });
             }
-            // setTimeout(() => {
             let image = document.getElementById("mic_image");
             image.src = "mic.png";
-            // }, 1000);
             $('#audio_sample_id').show();
         }
 
@@ -578,11 +566,6 @@
         }
 
         function toggle() {
-            // disableDelaySocketClose();
-            // if (socket && socket !== null) {
-            //     if (socket.connected)
-            //         endSocket();
-            // }
             let audio = new Audio("click_sound.wav ");
             if (state === "OFF") {
                 if ((verOffset = nAgt.indexOf("Firefox")) != -1) {
@@ -618,11 +601,11 @@
 
             speechEvents.on('speaking', function () {
                 isSpeaking = true;
-                // console.log('speaking');
+                console.log('speaking');
             });
 
             speechEvents.on('stopped_speaking', function () {
-                // console.log('stopped_speaking');
+                console.log('stopped_speaking');
                 isSpeaking = false;
             });
         }
@@ -669,31 +652,7 @@
             uiOnMicStart();
             stateOnMicStart();
             enableSocketClose();
-            let constraints = { audio: true, video: false }
-            let sendData = false;
-
-            navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
-                audioContextClass = window.AudioContext || window.webkitAudioContext;
-
-                context = new audioContextClass({
-                    latencyHint: 'interactive',
-                });
-
-                setSilenceDetector(stream.clone(), context);
-
-                input = context.createMediaStreamSource(stream);
-                processor = context.createScriptProcessor(bufferSize, 1, 1);
-
-                input.connect(processor);
-                processor.connect(context.destination);
-
-                processor.onaudioprocess = streamAudioProcess;
-            }).catch(function (err) {
-                console.log(err);
-                stopRecording();
-                $('#audio_sample_id').hide();
-                $('#status_text').hide();
-            });
+            startRecorder();
         }
 
         function endSocket() {
@@ -705,99 +664,78 @@
             uiOnMicStop();
             stateOnMicStop();
             stopMediaRecorder();
-            // enableDelaySocketClose();
         }
 
         function stopMediaRecorder() {
-            if (speechEvents && speechEvents !== null)
-                speechEvents.stop();
-            if (input && input !== null)
-                input.disconnect();
-            if (processor && processor !== null)
-                processor.disconnect();
-
-            let finalBuffer = flattenArray(audioData, recordingLength);
-            let blob = generateWavBlob(finalBuffer);
-            if (blob == null) {
-                console.log("no blob generated");
-                return;
+            speechEvents.stop();
+            stopRecorder();
+            if(audioData.length == 1){
+                updateAudioUI(audioData[0]);
+                recordedBlob = audioData[0];
+            } else {
+                ConcatenateBlobs(audioData, 'audio/wav', function(resultingBlob) {
+                    recordedBlob = resultingBlob;
+                    updateAudioUI(resultingBlob);
+                });
             }
-            recordedBlob = blob;
-            let url = window.URL.createObjectURL(blob);
+        }
+
+        function updateAudioUI(blob){
+            let url = URL.createObjectURL(blob);
             document.getElementById("sample_id").src = url;
             document.getElementById("audio_sample_id").load();
         }
 
-        function startFileUpload() {
-            $('#file-loader').show();
-            connectFileSocket(readFile);
+        let mediaRecorder;
+        function startRecorder() {
+            var mediaConstraints = {
+                audio: true,
+                video: false
+            };
+
+            navigator.getUserMedia(mediaConstraints, onMediaSuccess, console.log);
         }
+        function onMediaSuccess(stream) {
+            audioContextClass = window.AudioContext || window.webkitAudioContext;
 
-        function updateLabel() {
-            $('#file-error').hide();
-            let file = document.querySelector('#audio_file_input').files[0];
-            if (!file) {
-                $('#run-model-btn').prop('disabled', true);
-                document.getElementById('file_upload_label').innerHTML = "";
-                $('#audio').hide();
-                return;
-            }
-            let chosenFile = document.getElementById('audio_file_input').value;
-            let theSplit = chosenFile.split('\\');
-            chosenFile = theSplit[theSplit.length - 1];
-            document.getElementById('file_upload_label').innerHTML = chosenFile;
-            if (file.size > 3500000) {
-                $('#file-error').show();
-                $('#run-model-btn').prop('disabled', true);
-                return;
-            }
-            // let fileNameSplit = file.name.split(".");
-            // if()
-            console.log(file);
-            let URL_OBJECT = window.URL || window.webkitURL;
-            let url = URL_OBJECT.createObjectURL(file);
-            document.getElementById("audio_source").src = url;
-            document.getElementById("audio").load();
-            $('#audio').show();
-            $('#run-model-btn').prop('disabled', false);
-        }
+            context = new audioContextClass({
+                latencyHint: 'interactive',
+            });
 
-        function readFile() {
-            let files = document.querySelector('#audio_file_input').files;
-            let blob = files[0];
-            read_as_chunks(blob);
-        }
+            setSilenceDetector(stream.clone(), context);
 
-        function read_as_chunks(file) {
-            var chunk_size = 3500000;
-            var offset = 0;
-            var size = file.size;
-            var i = 0;
-            if (size < chunk_size) {
-                chunk_size = size;
-            }
-
-            while (i < size) {
-                let end_size = offset + chunk_size
-                if (size < end_size) {
-                    end_size = size
+            mediaRecorder = new MediaStreamRecorder(stream);
+            // mediaRecorder.audioChannels = 1;
+            // mediaRecorder.sampleRate = 16000;
+            mediaRecorder.mimeType = 'audio/wav';
+            mediaRecorder.ondataavailable =  async (blob) => {
+                // let url = window.URL.createObjectURL(blob);
+                let buffer = await blob.arrayBuffer();
+                recordingLength+=buffer.length;
+                audioData.push(blob);
+                let sentOnce = false;
+                if(isSpeaking){
+                    sentOnce = false;
+                    // if (localBuffer !== undefined && localBuffer !== null) {
+                    //     buffer = appendBuffer(localBuffer,buffer);
+                    // }
+                    socket.emit('mic_data', buffer, current_lang, isSpeaking, false);
+                } else {
+                    if(sentOnce){
+                        socket.emit('mic_data', buffer, current_lang, isSpeaking, false);
+                        sentOnce = true;
+                    } else {
+                        localBuffer = buffer;
+                    }
                 }
-                var blob = file.slice(offset, end_size);
-                var reader = new FileReader();
-                reader.addEventListener('load', function (e) {
-                    var chunk = e.target.result;
-                    console.log("emitted file", chunk);
-                    var stream = ss.createStream();
-                    ss(fileSocket).emit('file_data', stream, current_lang, file.name);
-                    ss.createBlobReadStream(chunk).pipe(stream);
-                });
-                reader.readAsArrayBuffer(blob);
-                offset += chunk_size;
-                i += chunk_size;
-                console.log("read");
-            }
+            };
+            mediaRecorder.start(1000);
         }
-
+        function stopRecorder() {
+            mediaRecorder.stop();
+            socket.emit('mic_data', null, current_lang, false, true);
+        }
+        
     </script>
     <script>
         /*

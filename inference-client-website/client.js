@@ -13,6 +13,7 @@ const fs = require("fs");
 const WaveFile = require('wavefile').WaveFile;
 const { addFeedback, getFeedback } = require('./dbOperations');
 app.use(express.static(path.join(__dirname, "static")));
+const wavefile = require('wavefile');
 
 const MAX_SOCKET_CONNECTIONS = process.env.MAX_CONNECTIONS || 80;
 
@@ -101,7 +102,7 @@ function startServer() {
   const upload = multer({ storage: multerStorage });
   app.use(upload.single('audio_data'));
   app.get("/", function (req, res) {
-    res.redirect("https://codmento.com/ekstep/test/hindi");
+    res.redirect("https://codmento.com/ekstep/test/indian-english");
   });
   
   app.get("/feedback", function (req, res) {
@@ -199,12 +200,24 @@ function main() {
       console.log("CAllled");
       return;
     }
-
+    let count = 0;
     socket.on('connect_mic_stream', ()=>{
       onUserConnected(socket, grpc_client);
       socket.on("mic_data", function (chunk, language, speaking, isEnd) {
         let user = socket.id;
         let message = make_message(chunk, user, speaking, language, isEnd);
+        if(chunk && chunk !== null){
+          if(typeof chunk === 'string')
+            console.log(chunk);
+          console.log(typeof chunk);
+          let wav = new wavefile.WaveFile(chunk);
+          count+=1;
+          console.log("Before", wav.fmt.numChannels, wav.fmt.sampleRate);
+          // wav.toSampleRate(16000);
+          console.log("After", wav.fmt.numChannels, wav.fmt.sampleRate);
+          // fs.writeFileSync(count+"bit-file.wav", wav.toBuffer());
+          // message = make_message(wav.toBuffer(), user, speaking, language, isEnd);
+        }
         userCalls[user].write(message)
       });
     });
