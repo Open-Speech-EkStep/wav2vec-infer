@@ -5,7 +5,7 @@ var express = require("express");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+var ss = require('socket.io-stream');
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 const path = require("path");
@@ -182,11 +182,12 @@ function main() {
       'localhost:55102',
       grpc.credentials.createInsecure()
     );
-    socket.on("disconnect", () => {
+    socket.on("disconnect", (reason) => {
       if (socket.id in userCalls) {
         userCalls[socket.id].end();
         delete userCalls[socket.id];
       }
+      console.log(socket.id, "got disconnected", reason);
       grpc.closeClient(grpc_client);
     });
 
@@ -194,7 +195,7 @@ function main() {
     console.log("Number of users => ", numUsers);
     if (numUsers > MAX_SOCKET_CONNECTIONS) {
       socket.emit("abort");
-      socket.disconnect();
+      // socket.disconnect();
       console.log("CAllled");
       return;
     }
@@ -216,11 +217,14 @@ function main() {
         io.to(response.user).emit("file_upload_response", data["transcription"], response.language);
         userCalls[socket.id].end();
       });
-      socket.on("file_data", function (chunk, language, fileName) {
-        console.log("called file data");
-        let user = socket.id;
-        let message = make_file_message(chunk, user, language, fileName);
-        userCalls[socket.id].write(message);
+      ss(socket).on("file_data", function (fileStream, language, fileName) {
+        console.log("called here", language, fileName);
+        fileStream.on('data',(data)=>{
+          console.log("called file data" ,data);
+          let user = socket.id;
+          let message = make_file_message(data, user, language, fileName);
+          userCalls[socket.id].write(message);
+        })
       });
       io.to(socket.id).emit("connect-success", "");
     });

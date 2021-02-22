@@ -16,6 +16,9 @@
     <script src="platform.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io-stream/0.9.1/socket.io-stream.js"
+        integrity="sha512-CIsFvh6QCVJHM5XSBQFm7a3mCErndwx9AugcP+nf/YxUQVVWY14klqk+3IG/qNqDpHg5pYVcZWiMt9SeZTiQnw=="
+        crossorigin="anonymous"></script>
     <style>
         textarea {
             width: 100%;
@@ -271,7 +274,7 @@
         /*
             init variables
         */
-        let socket, socket_close_timeout = null,fileSocket, micSocketIO, fileSocketIO;
+        let socket, socket_close_timeout = null, fileSocket, micSocketIO, fileSocketIO;
         let current_lang = 'en', selected_lang = 'en';
         let bufferSize = 16384;
         let sentOnce = true;
@@ -466,10 +469,10 @@
             }
         }
 
-        function connectFileSocket(methodToRun){
-            fileSocketIO = io('/',{ path: "/ekstep/test/socket.io", autoConnect: false });
-            fileSocketIO.connect();
-            fileSocket = fileSocketIO.on('connect', function () {
+        function connectFileSocket(methodToRun) {
+            fileSocket = io({ path: "/ekstep/test/socket.io", autoConnect: false, reconnection: false });
+            fileSocket.connect();
+            fileSocket.on('connect', function () {
                 userId = fileSocket.id;
                 fileSocket.emit('connect_file_stream');
             });
@@ -481,23 +484,21 @@
             fileSocket.on("file_upload_response", function (transcription, language) {
                 console.log("response received");
                 document.getElementById("file_upload_response").innerHTML = transcription;
-                fileSocket.disconnect();
+                // fileSocket.disconnect();
                 $('#file-loader').hide();
             });
-            fileSocket.on("disconnect", function(){
-                console.log("Disconnected socket");
-                fileSocketIO = null;
-                fileSocket = null;
+            fileSocket.on("disconnect", function () {
+                console.log("File socket is disconnected");
             });
-            fileSocket.on("error", (err)=>{
+            fileSocket.on("error", (err) => {
                 console.log("file error", err);
             })
         }
 
         function connectSocket(startMic) {
-            const micSocketIO = io('/',{ path: "/ekstep/test/socket.io", autoConnect: false });
-            micSocketIO.connect();
-            socket = micSocketIO.on('connect', function () {
+            socket = io('/', { path: "/ekstep/test/socket.io", autoConnect: false });
+            socket.connect();
+            socket.on('connect', function () {
                 userId = socket.id;
                 socket.emit('connect_mic_stream');
             });
@@ -513,8 +514,6 @@
                 transcription_language = language;
             });
             socket.on('disconnect', function () {
-                micSocketIO = null;
-                socket = null;
                 console.log("disconnected");
             })
             socket.on('terminate', function () {
@@ -523,7 +522,7 @@
                     console.log("end socket called");
                 }
             });
-            
+
             socket.on('abort', function () {
                 alert("The server is busy at the moment, please try after sometime.");
                 // $(".rating **").attr("disabled", "disabled").off('click');
@@ -710,11 +709,11 @@
         }
 
         function stopMediaRecorder() {
-            if(speechEvents && speechEvents !== null)
+            if (speechEvents && speechEvents !== null)
                 speechEvents.stop();
-            if(input && input !== null)
+            if (input && input !== null)
                 input.disconnect();
-            if(processor && processor !== null)
+            if (processor && processor !== null)
                 processor.disconnect();
 
             let finalBuffer = flattenArray(audioData, recordingLength);
@@ -737,7 +736,7 @@
         function updateLabel() {
             $('#file-error').hide();
             let file = document.querySelector('#audio_file_input').files[0];
-            if(!file){
+            if (!file) {
                 $('#run-model-btn').prop('disabled', true);
                 document.getElementById('file_upload_label').innerHTML = "";
                 $('#audio').hide();
@@ -788,7 +787,9 @@
                 reader.addEventListener('load', function (e) {
                     var chunk = e.target.result;
                     console.log("emitted file", chunk);
-                    fileSocket.emit('file_data', chunk, current_lang, file.name);
+                    var stream = ss.createStream();
+                    ss(fileSocket).emit('file_data', stream, current_lang, file.name);
+                    ss.createBlobReadStream(chunk).pipe(stream);
                 });
                 reader.readAsArrayBuffer(blob);
                 offset += chunk_size;
