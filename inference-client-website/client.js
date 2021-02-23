@@ -91,15 +91,23 @@ function startServer() {
   const upload = multer({ storage: multerStorage });
   app.use(upload.single('audio_data'));
   app.get("/", function (req, res) {
-    res.redirect("https://codmento.com/ekstep/test/hindi");
+    res.redirect("https://inference.vakyansh.in/hindi");
   });
   
   app.get("/feedback", function (req, res) {
     res.sendFile("feedback.html", { root: __dirname });
   });
 
+  const LANGUAGES = ['hindi','indian-english','tamil','telugu','kannada','kannada-lm'];
   app.get("/:language", function (req, res) {
-    res.sendFile("index.html", { root: __dirname });
+    const language = req.params.language;
+    //let language = req.params.language;
+        if(LANGUAGES.includes(language.toLowerCase())){
+            res.sendFile("index.html", {root: __dirname});
+        } else {
+            res.sendFile("not-found.html", {root: __dirname});
+        } 
+    //res.sendFile("index.html", { root: __dirname });
   });
 
   app.post("/api/feedback", function (req, res) {
@@ -169,7 +177,7 @@ function main() {
   io.on("connection", (socket) => {
 
     let grpc_client = new proto.Recognize(
-      'codmento.com:55102',
+      'inference.vakyansh.in:55103',
       grpc.credentials.createInsecure()
     );
     socket.on("disconnect", () => {

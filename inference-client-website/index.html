@@ -126,13 +126,13 @@
                         class="nav-link text-dark font-weight-bold dropdown-toggle" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Speech Recognition Models </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="https://codmento.com/ekstep/test/kannada">Kannada</a>
-                        <a class="dropdown-item" href="https://codmento.com/ekstep/test/hindi">Hindi</a>
-                        <a class="dropdown-item" href="https://codmento.com/ekstep/test/english">English</a>
+                        <a class="dropdown-item" href="https://inference.vakyansh.in/kannada">Kannada</a>
+                        <a class="dropdown-item" href="https://inference.vakyansh.in/hindi">Hindi</a>
+                        <a class="dropdown-item" href="https://inference.vakyansh.in/kannada-lm">Kannada (With LM)</a>
                         <a class="dropdown-item"
-                            href="https://codmento.com/ekstep/test/indian-english">Indian-English</a>
-                        <a class="dropdown-item" href="https://codmento.com/ekstep/test/telugu">Telugu</a>
-                        <a class="dropdown-item" href="https://codmento.com/ekstep/test/tamil">Tamil</a>
+                            href="https://inference.vakyansh.in/indian-english">English (IN)</a>
+                        <a class="dropdown-item" href="https://inference.vakyansh.in/telugu">Telugu</a>
+                        <a class="dropdown-item" href="https://inference.vakyansh.in/tamil">Tamil</a>
                     </div>
                 </li>
                 <li class="nav-item p-2"><a href="https://vakyansh.in/about-us"
@@ -263,8 +263,10 @@
                 return "te";
             } else if (language === "gujarati") {
                 return "gu";
+            } else if (language === "kannada-lm"){
+		return "kn-lm";
             } else {
-                return "en";
+                return "en-IN";
             }
         }
         function toCamelCase(word) {
@@ -429,7 +431,7 @@
         }
 
         function connectSocket(startMic) {
-            const socketIO = io({ path: "/ekstep/test/socket.io", autoConnect: false });
+            const socketIO = io({autoConnect: false});
             socketIO.connect();
             socket = socketIO.on('connect', function () {
                 userId = socket.id;
@@ -514,7 +516,7 @@
             //     if (socket.connected)
             //         endSocket();
             // }
-            let audio = new Audio("click_sound.wav ");
+            //let audio = new Audio("click_sound.wav ");
             if (state === "OFF") {
                 if ((verOffset = nAgt.indexOf("Firefox")) != -1) {
                     $('#mic_image').animate({
@@ -528,7 +530,7 @@
                 } else {
                     $("#mic_image").animate({ zoom: '87%' }, "slow");
                 }
-                audio.play();
+                //audio.play();
                 if (socket && socket !== null && socket.connected) {
                     startRecording();
                 } else {
@@ -538,7 +540,7 @@
                 $('#status_text').text("Starting...");
             } else if (state === "ON") {
                 stopRecording();
-                audio.play();
+                //audio.play();
                 $('#status_text').hide();
             }
         }
@@ -701,6 +703,8 @@
                 let titleLanguage = toCamelCase(pathname);
                 if (pathname === "indian-english")
                     titleLanguage = "English(IN)";
+		else if (pathname === "kannada-lm")
+		    titleLanguage = "Kannada (With LM)";
                 document.getElementById("title-text").innerHTML = titleLanguage + " Speech Recognition Model"
             }
 

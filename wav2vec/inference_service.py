@@ -218,7 +218,7 @@ class InferenceService:
                 self.models[lang] = load_cpu_model(path)
             parent_path = "/".join(path.split('/')[:-1])
             self.dict_paths[lang] =  parent_path + '/dict.ltr.txt'
-            if lang == 'hi' or lang == 'en-IN':
+            if lang == 'hi' or lang == 'en-IN' or lang == 'kn-lm':
                 # load kenlm
                 lexicon_path = parent_path + '/lexicon.lst'
                 lm_path = parent_path + '/lm.binary'
@@ -231,7 +231,7 @@ class InferenceService:
 
     def get_inference(self, file_name, language):
         generator = None
-        if language == 'hi' or language == 'en-IN':
+        if language == 'hi' or language == 'en-IN' or language == 'kn-lm':
             generator = self.generators[language]
         result = get_results( file_name , self.dict_paths[language],self.cuda,model=self.models[language], generator=generator)
         res = {}

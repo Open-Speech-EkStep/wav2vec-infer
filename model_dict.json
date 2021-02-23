@@ -1,9 +1,8 @@
 {
-    "en" : "/home/nireshkumarr/wav2vec-infer/deployed_models/english/english_v2.pt",
-    "hi" : "/home/nireshkumarr/wav2vec-infer/deployed_models/hindi/hindi.pt",
-    "hi-beta" : "/home/nireshkumarr/wav2vec-infer/deployed_models/hindi/hindi.pt",
-    "gu" : "/home/nireshkumarr/wav2vec-infer/deployed_models/gujarati/gujarati.pt",
-    "ta" : "/home/nireshkumarr/wav2vec-infer/deployed_models/tamil/tamil.pt",
-    "te" : "/home/nireshkumarr/wav2vec-infer/deployed_models/telugu/telugu.pt",
-    "en-IN": "/home/nireshkumarr/wav2vec-infer/deployed_models/indian_english/combined_model.pt"
+    "en-IN":"/home/anirudh/wav2vec-infer/deployed_models/indian_english/combined_model.pt",
+    "hi" : "/home/anirudh/wav2vec-infer/deployed_models/hindi/hindi.pt",
+    "ta" : "/home/anirudh/wav2vec-infer/deployed_models/tamil/tamil.pt",
+    "te" : "/home/anirudh/wav2vec-infer/deployed_models/telugu/telugu.pt",
+    "kn" : "/home/anirudh/wav2vec-infer/deployed_models/kannada/kannada_v2.pt",
+    "kn-lm" : "/home/anirudh/wav2vec-infer/deployed_models/kannada/kannada_v2.pt"
 }
