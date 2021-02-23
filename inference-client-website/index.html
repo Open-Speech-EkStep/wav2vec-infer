@@ -256,20 +256,20 @@
                     <!--                                                <i class="fa fa-thumbs-down fa-3x like" aria-hidden="true"></i>-->
                     <!--                                            </div>-->
                     <form id="feedback-form">
-                            <input class="star star-5" id="star-5" type="radio" name="star" value="5">
-                            <label class="star star-5" for="star-5"></label>
-                            <input class="star star-4" id="star-4" type="radio" name="star" value="4">
-                            <label class="star star-4" for="star-4"></label>
-                            <input class="star star-3" id="star-3" type="radio" name="star" value="3">
-                            <label class="star star-3" for="star-3"></label>
-                            <input class="star star-2" id="star-2" type="radio" name="star" value="2">
-                            <label class="star star-2" for="star-2"></label>
-                            <input class="star star-1" id="star-1" type="radio" name="star" value="1" required>
-                            <label class="star star-1" for="star-1"></label>
-                            <!--                <div class="feedback">-->
+                        <input class="star star-5" id="star-5" type="radio" name="star" value="5">
+                        <label class="star star-5" for="star-5"></label>
+                        <input class="star star-4" id="star-4" type="radio" name="star" value="4">
+                        <label class="star star-4" for="star-4"></label>
+                        <input class="star star-3" id="star-3" type="radio" name="star" value="3">
+                        <label class="star star-3" for="star-3"></label>
+                        <input class="star star-2" id="star-2" type="radio" name="star" value="2">
+                        <label class="star star-2" for="star-2"></label>
+                        <input class="star star-1" id="star-1" type="radio" name="star" value="1">
+                        <label class="star star-1" for="star-1"></label>
+                        <!--                <div class="feedback">-->
                         <div class="feedback">
                             <label for="feedback-dropdown">Provide Feedback</label>
-                            <select id="feedback-dropdown" required>
+                            <select id="feedback-dropdown" >
                                 <option value=""> -- select an option --</option>
                                 <option value="looks_perfect">Looks perfect</option>
                                 <option value="few_words_missing">Few words missing</option>
@@ -522,9 +522,12 @@
     */
     function enableRating(flag) {
         let value = flag ? 'auto' : 'none'
-        let select_value = flag ? false : true
-        $('select').prop("disabled", select_value)
-        $('input[type=submit]').attr("disabled", select_value)
+        // let select_value = flag ? false : true
+        if(!flag){
+            $('select').prop("disabled", true)
+            $('input[type=submit]').attr("disabled", true)
+        }
+
         $('input.star').css({'pointer-events': value})
         $('label.star').css({'pointer-events': value})
         $('#like').css({'pointer-events': value})
@@ -578,7 +581,7 @@
             $('#status_text').text("Start Speaking !");
         })
         $('.active').removeClass('active');
-        enableRating(true);
+        // enableRating(true);
         document.getElementById('output').textContent = "";
         $('#audio_sample_id').hide();
     }
@@ -601,6 +604,7 @@
         image.src = "mic.png";
         // }, 1000);
         $('#audio_sample_id').show();
+        enableRating(true);
     }
 
     function stateOnMicStart() {
@@ -841,6 +845,18 @@
             }, enableRating);
         });
         enableRating(false);
+        $('input[type=radio][name=star]').change(function () {
+            console.log($(this).val())
+            if ($(this).val() >= 1) {
+                $('select').prop("disabled", false)
+                $('input[type=submit]').attr("disabled", false)
+            } else {
+                $('select').prop("disabled", true)
+                $('input[type=submit]').attr("disabled", true)
+            }
+        });
+
+
     });
 </script>
 </body>
