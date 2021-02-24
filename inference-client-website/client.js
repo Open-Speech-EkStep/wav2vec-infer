@@ -6,6 +6,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 var ss = require('socket.io-stream');
+ss.forceBase64 = true;
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 const path = require("path");
@@ -217,13 +218,19 @@ function main() {
         io.to(response.user).emit("file_upload_response", data["transcription"], response.language);
         userCalls[socket.id].end();
       });
-      ss(socket).on("file_data", function (fileStream, language, fileName) {
+      ss(socket).on("file_data", function (fileStream, data) {
+        let language = data.language;
+        let fileName = data.name;
         console.log("called here", language, fileName);
-        fileStream.on('data',(data)=>{
-          console.log("called file data" ,data);
+        fileStream.on('data',function (chunk){
+          console.log("called file data");
           let user = socket.id;
-          let message = make_file_message(data, user, language, fileName);
+          let message = make_file_message(chunk, user, language, fileName);
           userCalls[socket.id].write(message);
+        });
+        fileStream.on('error',console.log);
+        fileStream.on('end',()=>{
+            console.log("ended");
         })
       });
       io.to(socket.id).emit("connect-success", "");
