@@ -87,6 +87,7 @@
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
         Select Date: <input type="date" id="date-search">
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <button type="button" class="btn btn-secondary id="clear-filter-btn">Clear Filters</button>
     </div>
 </center>
 <br/>
@@ -191,6 +192,15 @@
                     }
                 }
             ]
+        });
+
+        
+        $('#clear-filter-btn').on('click',function(){
+            $("#device-search").val("");
+            $("#rating-dropdown").val("");
+            $("#browser-search").val("");
+            $("#date-search").val("");
+            table.search('').columns().search('').draw();
         });
 
         $('#device-search, #rating-dropdown,#browser-search,#date-search').bind('keyup change', function () {
