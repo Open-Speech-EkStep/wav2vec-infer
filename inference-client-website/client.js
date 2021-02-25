@@ -95,7 +95,6 @@ function startServer() {
     });
 
     app.get("/feedback", function (req, res) {
-        console.log("testing nodemon")
         res.sendFile("feedback.html", {root: __dirname});
     });
 
@@ -109,7 +108,6 @@ function startServer() {
 
         uploadFile(file.path, user_id, language)
             .then((uploadResponse) => {
-                console.log("responsed")
                 const blobName = uploadResponse[0]['metadata']['name'];
                 const bucketName = uploadResponse[0]['metadata']['bucket'];
                 const audio_path = `https://storage.googleapis.com/${bucketName}/${blobName}`
@@ -172,7 +170,7 @@ function main() {
     io.on("connection", (socket) => {
 
         let grpc_client = new proto.Recognize(
-            'inference.vakyansh.in:55103',
+            'localhost:55102',
             grpc.credentials.createInsecure()
         );
         socket.on("disconnect", () => {
@@ -186,7 +184,7 @@ function main() {
         });
 
         const numUsers = socket.client.conn.server.clientsCount;
-        console.log(grpc_client.getChannel(), numUsers);
+        console.log(socket.id, numUsers);
         if (numUsers > MAX_SOCKET_CONNECTIONS) {
             socket.emit("abort");
             socket.disconnect();
