@@ -167,7 +167,7 @@ function startServer() {
         })
     })
 
-    app.get("*",()=>{
+    app.get("*",(req, res)=>{
         res.sendFile("not-found.html", { root: __dirname });
     })
 
