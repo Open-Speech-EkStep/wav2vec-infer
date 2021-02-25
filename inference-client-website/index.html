@@ -174,6 +174,7 @@
                             href="https://codmento.com/ekstep/test/indian-english">Indian-English</a>
                         <a class="dropdown-item" href="https://codmento.com/ekstep/test/telugu">Telugu</a>
                         <a class="dropdown-item" href="https://codmento.com/ekstep/test/tamil">Tamil</a>
+                        <a class="dropdown-item" href="https://codmento.com/ekstep/test/odia">Odia</a>
                     </div>
                 </li>
                 <li class="nav-item p-2"><a href="https://vakyansh.in/about-us"
@@ -203,7 +204,7 @@
                     <br />
                     <div style="min-height:100px;min-width:100px;">
                         <center>
-                            <img src="mic.png" id="mic_image" onclick="toggle()" height="100" width="100"
+                            <img src="mic.png" id="mic_image" onclick="onMicClick()" height="100" width="100"
                                 alt="MIC" /><br />
                             <p id="status_text" style="display: none;">Starting</p>
                         </center>
@@ -215,7 +216,7 @@
                 <div class="col-sm-12 col-md-12">
                     <center>
                         <audio controls id="audio_sample_id" style="display: none;">
-                            <source src="hindi.m4a" id="sample_id" />
+                            <source src="" id="sample_id" />
                         </audio>
                     </center>
                 </div>
@@ -327,7 +328,9 @@
                 return "te";
             } else if (language === "gujarati") {
                 return "gu";
-            } else {
+            } else if (language === "odia") {
+                return "or";
+            } {
                 return "en";
             }
         }
@@ -500,7 +503,7 @@
             // let select_value = flag ? false : true
             if (!flag) {
                 $('select').prop("disabled", true)
-                $('input[type=submit]').attr("disabled", true)
+                $('#Submit').attr("disabled", true);
             }
 
             $('input.star').css({ 'pointer-events': value })
@@ -556,9 +559,14 @@
                 $('#status_text').text("Start Speaking !");
             })
             $('.active').removeClass('active');
-            // enableRating(true);
+            enableRating(false);
             document.getElementById('output').textContent = "";
             $('#audio_sample_id').hide();
+            try {
+                document.getElementById("audio_sample_id").pause();
+            } catch (err) {
+
+            }
         }
 
         function uiOnMicStop() {
@@ -594,6 +602,21 @@
             state = "OFF";
             socket.emit('mic_data', null, current_lang, false, true);
         }
+        let stream = null;
+        async function onMicClick() {
+            try{
+                if(state === 'OFF'){
+                    let constraints = { audio: true, video: false }
+                    stream = await navigator.mediaDevices.getUserMedia(constraints);
+                } else {
+                    stream = null;
+                }
+                toggle();
+            }catch(err){
+                alert("Please give mic permission to interact with the website");
+                console.log(err);
+            }
+        }
 
         function toggle() {
             // disableDelaySocketClose();
@@ -601,7 +624,7 @@
             //     if (socket.connected)
             //         endSocket();
             // }
-            let audio = new Audio("click_sound.wav ");
+            // let audio = new Audio("click_sound.wav ");
             $('input[type="radio"]').prop('checked', false);
             $('#feedback-dropdown option').prop('selected', function () {
                 return this.defaultSelected;
@@ -619,7 +642,7 @@
                 } else {
                     $("#mic_image").animate({ zoom: '87%' }, "slow");
                 }
-                audio.play();
+                // audio.play();
                 if (socket && socket !== null && socket.connected) {
                     startRecording();
                 } else {
@@ -629,7 +652,7 @@
                 $('#status_text').text("Starting...");
             } else if (state === "ON") {
                 stopRecording();
-                audio.play();
+                // audio.play();
                 $('#status_text').hide();
             }
         }
@@ -691,10 +714,9 @@
             uiOnMicStart();
             stateOnMicStart();
             enableSocketClose();
-            let constraints = { audio: true, video: false }
             let sendData = false;
 
-            navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+            // navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
                 audioContextClass = window.AudioContext || window.webkitAudioContext;
 
                 context = new audioContextClass({
@@ -712,10 +734,10 @@
                 processor.connect(context.destination);
 
                 processor.onaudioprocess = streamAudioProcess;
-            }).catch(function (err) {
-                console.log(err);
-                stopRecording();
-            });
+            // }).catch(function (err) {
+            //     console.log(err);
+            //     stopRecording();
+            // });
         }
 
         function endSocket() {
@@ -782,6 +804,7 @@
                     $("#loader").hide();
                     alert("Rating update failed, Please try again")
                     enableRating(true)
+                    $('#Submit').attr("disabled", false);
                 }
             });
         }
@@ -826,10 +849,10 @@
                 console.log($(this).val())
                 if ($(this).val() >= 1) {
                     $('select').prop("disabled", false)
-                    $('input[type=submit]').attr("disabled", false)
+                    $('#Submit').attr("disabled", false)
                 } else {
                     $('select').prop("disabled", true)
-                    $('input[type=submit]').attr("disabled", true)
+                    $('#Submit').attr("disabled", true)
                 }
             });
 

@@ -168,7 +168,6 @@ function startServer() {
 function main() {
 
     io.on("connection", (socket) => {
-
         let grpc_client = new proto.Recognize(
             'localhost:55102',
             grpc.credentials.createInsecure()
