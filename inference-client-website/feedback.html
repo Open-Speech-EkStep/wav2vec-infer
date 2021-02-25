@@ -176,7 +176,7 @@
                         const obj = new Date(data)
                         let str_day_dt = obj.toUTCString()
                         let str_dt = str_day_dt.split(",")[1]
-                        return str_dt.replace('GMT', '').trim()
+                        return obj.toLocaleString()//str_dt.replace('GMT', '').trim()
                     }
                 },
                 {

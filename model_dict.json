@@ -4,5 +4,6 @@
     "ta" : "/home/anirudh/wav2vec-infer/deployed_models/tamil/tamil.pt",
     "te" : "/home/anirudh/wav2vec-infer/deployed_models/telugu/telugu.pt",
     "kn" : "/home/anirudh/wav2vec-infer/deployed_models/kannada/kannada_v2.pt",
-    "kn-lm" : "/home/anirudh/wav2vec-infer/deployed_models/kannada/kannada_v2.pt"
+    "kn-lm" : "/home/anirudh/wav2vec-infer/deployed_models/kannada/kannada_v2.pt",
+    "or": "/home/anirudh/wav2vec-infer/deployed_models/odia/odia_v1.pt"
 }

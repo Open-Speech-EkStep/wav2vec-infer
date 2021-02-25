@@ -92,14 +92,14 @@ function startServer() {
     const upload = multer({ storage: multerStorage });
     app.use(upload.single('audio_data'));
     app.get("/", function (req, res) {
-        res.redirect("https://codmento.com/ekstep/test/hindi");
+        res.redirect("/hindi");
     });
 
     app.get("/feedback", function (req, res) {
         res.sendFile("feedback.html", { root: __dirname });
     });
 
-    const LANGUAGES = ['hindi', 'indian-english', 'tamil', 'telugu', 'kannada', 'kannada-lm'];
+    const LANGUAGES = ['hindi', 'indian-english', 'tamil', 'telugu', 'kannada', 'kannada-lm', 'odia'];
     app.get("/:language", function (req, res) {
         const language = req.params.language;
         if (LANGUAGES.includes(language.toLowerCase())) {
