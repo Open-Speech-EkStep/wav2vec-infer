@@ -99,7 +99,7 @@ function startServer() {
         res.sendFile("feedback.html", { root: __dirname });
     });
 
-    const LANGUAGES = ['hindi', 'indian-english', 'tamil', 'telugu', 'kannada', 'kannada-lm', 'odia'];
+    const LANGUAGES = ['hindi', 'indian-english', 'tamil', 'telugu', 'kannada', 'kannada-lm', 'odia','gujarati'];
     app.get("/:language", function (req, res) {
         const language = req.params.language;
         if (LANGUAGES.includes(language.toLowerCase())) {
