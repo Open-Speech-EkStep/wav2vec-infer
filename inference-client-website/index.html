@@ -19,6 +19,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io-stream/0.9.1/socket.io-stream.js"
         integrity="sha512-CIsFvh6QCVJHM5XSBQFm7a3mCErndwx9AugcP+nf/YxUQVVWY14klqk+3IG/qNqDpHg5pYVcZWiMt9SeZTiQnw=="
         crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <style>
         textarea {
             width: 100%;
@@ -26,6 +27,51 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             resize: vertical;
+        }
+
+        :required {
+            background: #00b300;
+        }
+
+        div.stars {
+            width: 270px;
+            display: inline-block;
+        }
+
+        input.star {
+            display: none;
+        }
+
+        label.star {
+            float: right;
+            padding: 10px;
+            font-size: 35px;
+            color: #444;
+            transition: all .2s;
+        }
+
+        input.star:checked~label.star:before {
+            content: '\f005';
+            color: #00b300;
+            transition: all .25s;
+        }
+
+        input.star-5:checked~label.star:before {
+            color: #00b300;
+            text-shadow: 0 0 20px #952;
+        }
+
+        input.star-1:checked~label.star:before {
+            color: #F62;
+        }
+
+        label.star:hover {
+            transform: rotate(-15deg) scale(1.3);
+        }
+
+        label.star:before {
+            content: '\f006';
+            font-family: FontAwesome;
         }
 
         ::-webkit-input-placeholder {
@@ -50,12 +96,6 @@
             padding: 15px;
             margin: 15px;
             border: 1px black solid;
-        }
-
-        .rating {
-            display: inline-block;
-            width: 100%;
-            text-align: center;
         }
 
         #like,
@@ -139,15 +179,18 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item p-2 dropdown"><a href="https://inference.vakyansh.in/"
                         class="nav-link text-dark font-weight-bold dropdown-toggle" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Speech Recognition Models </a>
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Speech
+                        Recognition Models </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="https://codmento.com/ekstep/test/kannada">Kannada</a>
-                        <a class="dropdown-item" href="https://codmento.com/ekstep/test/hindi">Hindi</a>
-                        <a class="dropdown-item" href="https://codmento.com/ekstep/test/english">English</a>
                         <a class="dropdown-item"
-                            href="https://codmento.com/ekstep/test/indian-english">Indian-English</a>
-                        <a class="dropdown-item" href="https://codmento.com/ekstep/test/telugu">Telugu</a>
-                        <a class="dropdown-item" href="https://codmento.com/ekstep/test/tamil">Tamil</a>
+                            href="https://inference.vakyansh.in/indian-english">English (IN)</a>
+<a class="dropdown-item" href="https://inference.vakyansh.in/gujarati">Gujarati</a>
+                            <a class="dropdown-item" href="https://inference.vakyansh.in/hindi">Hindi</a>
+                        <a class="dropdown-item" href="https://inference.vakyansh.in/kannada">Kannada</a>
+                        <a class="dropdown-item" href="https://inference.vakyansh.in/kannada-lm">Kannada (With LM)</a>
+                        <a class="dropdown-item" href="https://inference.vakyansh.in/odia">Odia</a>
+                        <a class="dropdown-item" href="https://inference.vakyansh.in/telugu">Telugu</a>
+                        <a class="dropdown-item" href="https://inference.vakyansh.in/tamil">Tamil</a>
                     </div>
                 </li>
                 <li class="nav-item p-2"><a href="https://vakyansh.in/about-us"
@@ -177,7 +220,7 @@
                     <br />
                     <div style="min-height:100px;min-width:100px;">
                         <center>
-                            <img src="mic.png" id="mic_image" onclick="toggle()" height="100" width="100"
+                            <img src="mic.png" id="mic_image" onclick="onMicClick()" height="100" width="100"
                                 alt="MIC" /><br />
                             <p id="status_text" style="display: none;">Starting</p>
                         </center>
@@ -199,20 +242,40 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <h5>Please do provide your rating</h5>
-                    <div class="rating">
-                        <!-- Thumbs up -->
-                        <div id="like" class="grow" data-val="thumbs_up">
-                            <i class="fa fa-thumbs-up fa-3x like" aria-hidden="true"></i>
-                        </div>
-                        <!-- Thumbs down -->
-                        <div id="dislike" class="dislike grow" data-val="thumbs_down">
-                            <i class="fa fa-thumbs-down fa-3x like" aria-hidden="true"></i>
-                        </div>
+                    <center>
+                        <h5>Rate us here</h5>
+                    </center>
+                </div>
+                <div class="col-sm-12">
+                    <div class="stars">
+                        <input class="star star-5" id="star-5" type="radio" name="star" value="5">
+                        <label class="star star-5" for="star-5"></label>
+                        <input class="star star-4" id="star-4" type="radio" name="star" value="4">
+                        <label class="star star-4" for="star-4"></label>
+                        <input class="star star-3" id="star-3" type="radio" name="star" value="3">
+                        <label class="star star-3" for="star-3"></label>
+                        <input class="star star-2" id="star-2" type="radio" name="star" value="2">
+                        <label class="star star-2" for="star-2"></label>
+                        <input class="star star-1" id="star-1" type="radio" name="star" value="1">
+                        <label class="star star-1" for="star-1"></label>
                     </div>
+                </div>
+                <div class="col-sm-12">
+                    <select class="form-select" id="feedback-dropdown">
+                        <option value="" selected>Provide Feedback</option>
+                        <option value="looks_perfect">Looks perfect</option>
+                        <option value="few_words_missing">Few words missing</option>
+                        <option value="few_words_misspelled">Few words misspelled</option>
+                    </select>
+                    <br />
+                    <br />
+                    <button id="Submit" class="btn btn-secondary" type="button" name="SUBMITBUTTON">
+                        Submit Rating
+                    </button>
                     <center>
                         <div id="loader" style='display: none;'></div>
                     </center>
+                    <br />
                     <p id="rating-note">(Rating will be enabled only after you speak in the microphone)</p>
                 </div>
             </div>
@@ -275,15 +338,18 @@
             init variables
         */
         let socket, socket_close_timeout = null, fileSocket, micSocketIO, fileSocketIO;
-        let current_lang = 'en', selected_lang = 'en';
+        let current_lang = 'en-IN', selected_lang = 'en-IN';
         let bufferSize = 16384;
         let sentOnce = true;
         let state = "OFF";
         let speechEvents = null;
         let input, processor, context, globalStream, audioContextClass;
         let localBuffer = null, isSpeaking = false;
-        let timeout_ = null, state_end = false, audioData = [], recordingLength = 0, sampleRate = 44100, socket_disconnect_timeout = null;
-        let userId = null, recordedBlob = null, rating = null, device = null, transcription_text = null, transcription_language = null, end_timeout = null;
+        let timeout_ = null, state_end = false, audioData = [], recordingLength = 0, defaultSampleRate = 48000,
+            socket_disconnect_timeout = null;
+        let userId = null, recordedBlob = null, rating = null, feedback = null, device = null, browser = null,
+            transcription_text = null,
+            transcription_language = null, end_timeout = null;
         let nAgt = navigator.userAgent, verOffset;
     </script>
     <script>
@@ -304,13 +370,19 @@
                 return "te";
             } else if (language === "gujarati") {
                 return "gu";
+            } else if (language === "kannada-lm"){
+		        return "kn-lm";
+            } else if (language === "odia") {
+                return "or";
             } else {
-                return "en";
+                return "en-IN";
             }
         }
+
         function toCamelCase(word) {
             return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
         }
+
         function getDeviceInfo() {
             const os = platform.os;
             let info = os.family + " " + os.version;
@@ -319,6 +391,13 @@
             }
             return info;
         }
+
+        function getBrowserInfo() {
+            let info = platform.name + " " + platform.version;
+            return info;
+        }
+
+
         function timeout(timeLimit, funcToCall) {
             let timeout = setTimeout(function () {
                 funcToCall()
@@ -332,15 +411,18 @@
                 timeout_ = null;
             }
         }
+
         function enableAutoMicClose(callbackFunction) {
             timeout_ = timeout(120000, callbackFunction);
         }
+
         function enableDelaySocketClose() {
             end_timeout = setTimeout(() => {
                 endSocket();
                 end_timeout = null;
             }, 4000);
         }
+
         function disableDelaySocketClose() {
             if (end_timeout !== null || end_timeout) {
                 clearTimeout(end_timeout);
@@ -348,6 +430,7 @@
                 endSocket();
             }
         }
+
         function enableSocketClose() {
             if (socket_close_timeout === null) {
                 socket_close_timeout = setTimeout(() => {
@@ -357,12 +440,13 @@
                 }, 60000);
             }
         }
-        function disableSocketClose() {
-            if (socket_close_timeout !== null) {
-                clearTimeout(socket_close_timeout);
-                socket_close_timeout = null;
-            }
-        }
+
+    // function disableSocketClose() {
+    //     if (socket_close_timeout !== null) {
+    //         clearTimeout(socket_close_timeout);
+    //         socket_close_timeout = null;
+    //     }
+    // }
     </script>
     <script>
         /*
@@ -433,8 +517,8 @@
             view.setUint32(16, 16, true); // chunkSize
             view.setUint16(20, 1, true); // wFormatTag
             view.setUint16(22, 1, true); // wChannels:mono(1 channel) / stereo (2 channels)
-            view.setUint32(24, sampleRate, true); // dwSamplesPerSec
-            view.setUint32(28, sampleRate * 2, true); // dwAvgBytesPerSec
+            view.setUint32(24, defaultSampleRate, true); // dwSamplesPerSec
+            view.setUint32(28, defaultSampleRate * 2, true); // dwAvgBytesPerSec
             view.setUint16(32, 4, true); // wBlockAlign
             view.setUint16(34, 16, true); // wBitsPerSample
             // data sub-chunk
@@ -460,6 +544,14 @@
         */
         function enableRating(flag) {
             let value = flag ? 'auto' : 'none'
+            // let select_value = flag ? false : true
+            if (!flag) {
+                $('select').prop("disabled", true)
+                $('#Submit').attr("disabled", true);
+            }
+
+            $('input.star').css({ 'pointer-events': value })
+            $('label.star').css({ 'pointer-events': value })
             $('#like').css({ 'pointer-events': value })
             $('#dislike').css({ 'pointer-events': value })
             if (flag) {
@@ -470,7 +562,7 @@
         }
 
         function connectFileSocket(methodToRun) {
-            fileSocket = io({ path: "/ekstep/test/socket.io", autoConnect: false, reconnection: false });
+            fileSocket = io({autoConnect: false, reconnection: false });
             fileSocket.connect();
             fileSocket.on('connect', function () {
                 userId = fileSocket.id;
@@ -496,7 +588,7 @@
         }
 
         function connectSocket(startMic) {
-            socket = io('/', { path: "/ekstep/test/socket.io", autoConnect: false });
+            socket = io('/', {autoConnect: false });
             socket.connect();
             socket.on('connect', function () {
                 userId = socket.id;
@@ -526,7 +618,7 @@
             socket.on('abort', function () {
                 alert("The server is busy at the moment, please try after sometime.");
                 // $(".rating **").attr("disabled", "disabled").off('click');
-                enableRating(false);
+                enableRating(true);
                 // stopRecording();
                 document.getElementById('userid').innerHTML = "Server busy. Please try again after some time.";
             });
@@ -539,9 +631,14 @@
                 $('#status_text').text("Start Speaking !");
             })
             $('.active').removeClass('active');
-            enableRating(true);
+            enableRating(false);
             document.getElementById('output').textContent = "";
             $('#audio_sample_id').hide();
+            try {
+                document.getElementById("audio_sample_id").pause();
+            } catch (err) {
+
+            }
         }
 
         function uiOnMicStop() {
@@ -562,6 +659,7 @@
             image.src = "mic.png";
             // }, 1000);
             $('#audio_sample_id').show();
+            enableRating(true);
         }
 
         function stateOnMicStart() {
@@ -576,6 +674,21 @@
             state = "OFF";
             socket.emit('mic_data', null, current_lang, false, true);
         }
+        let stream = null;
+        async function onMicClick() {
+            try{
+                if(state === 'OFF'){
+                    let constraints = { audio: true, video: false }
+                    stream = await navigator.mediaDevices.getUserMedia(constraints);
+                } else {
+                    stream = null;
+                }
+                toggle();
+            }catch(err){
+                alert("Please give mic permission to interact with the website");
+                console.log(err);
+            }
+        }
 
         function toggle() {
             // disableDelaySocketClose();
@@ -583,7 +696,11 @@
             //     if (socket.connected)
             //         endSocket();
             // }
-            let audio = new Audio("click_sound.wav ");
+            // let audio = new Audio("click_sound.wav ");
+            $('input[type="radio"]').prop('checked', false);
+            $('#feedback-dropdown option').prop('selected', function () {
+                return this.defaultSelected;
+            });
             if (state === "OFF") {
                 if ((verOffset = nAgt.indexOf("Firefox")) != -1) {
                     $('#mic_image').animate({
@@ -597,7 +714,7 @@
                 } else {
                     $("#mic_image").animate({ zoom: '87%' }, "slow");
                 }
-                audio.play();
+                // audio.play();
                 if (socket && socket !== null && socket.connected) {
                     startRecording();
                 } else {
@@ -607,7 +724,7 @@
                 $('#status_text').text("Starting...");
             } else if (state === "ON") {
                 stopRecording();
-                audio.play();
+                // audio.play();
                 $('#status_text').hide();
             }
         }
@@ -634,7 +751,7 @@
                 state_end = false;
                 var data_44100 = e.inputBuffer.getChannelData(0);
                 // let data_16000 = data_44100;
-                var data_16000 = downSampleBuffer(data_44100, 44100, 16000);
+                var data_16000 = downSampleBuffer(data_44100, defaultSampleRate, 16000);
                 if (isSpeaking) {
                     sentOnce = false;
 
@@ -656,7 +773,7 @@
             } else {
                 if (!state_end) {
                     var data_44100 = e.inputBuffer.getChannelData(0);
-                    var data_16000 = downSampleBuffer(data_44100, 44100, 16000);
+                    var data_16000 = downSampleBuffer(data_44100, defaultSampleRate, 16000);
                     // let data_16000 = data_44100;
                     state_end = true;
                     socket.emit('mic_data', data_16000, current_lang, false, true);
@@ -669,15 +786,16 @@
             uiOnMicStart();
             stateOnMicStart();
             enableSocketClose();
-            let constraints = { audio: true, video: false }
             let sendData = false;
 
-            navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+            // navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
                 audioContextClass = window.AudioContext || window.webkitAudioContext;
 
                 context = new audioContextClass({
                     latencyHint: 'interactive',
                 });
+
+                defaultSampleRate = context.sampleRate;
 
                 setSilenceDetector(stream.clone(), context);
 
@@ -688,12 +806,10 @@
                 processor.connect(context.destination);
 
                 processor.onaudioprocess = streamAudioProcess;
-            }).catch(function (err) {
-                console.log(err);
-                stopRecording();
-                $('#audio_sample_id').hide();
-                $('#status_text').hide();
-            });
+            // }).catch(function (err) {
+            //     console.log(err);
+            //     stopRecording();
+            // });
         }
 
         function endSocket() {
@@ -816,11 +932,13 @@
         */
 
         function saveRating(bodyParams, enableRating) {
-            const { recordedBlob, rating, device, transcription_text, transcription_language, userId } = bodyParams;
+            const { recordedBlob, rating, feedback, device, browser, transcription_text, transcription_language, userId } = bodyParams;
             const formData = new FormData();
             formData.append('audio_data', recordedBlob);
             formData.append('rating', rating);
+            formData.append('feedback', feedback);
             formData.append('device', device);
+            formData.append('browser', browser);
             formData.append('text', transcription_text);
             formData.append('language', transcription_language);
             formData.append('user_id', userId);
@@ -841,6 +959,7 @@
                     $("#loader").hide();
                     alert("Rating update failed, Please try again")
                     enableRating(true)
+                    $('#Submit').attr("disabled", false);
                 }
             });
         }
@@ -857,21 +976,45 @@
                 let titleLanguage = toCamelCase(pathname);
                 if (pathname === "indian-english")
                     titleLanguage = "English(IN)";
+		else if (pathname === "kannada-lm")
+		    titleLanguage = "Kannada (With LM)";
                 document.getElementById("title-text").innerHTML = titleLanguage + " Speech Recognition Model"
             }
 
             device = getDeviceInfo();
-            $('#like, #dislike').on('click', function () {
+            browser = getBrowserInfo();
+            $('#Submit').on('click', function () {
                 event.preventDefault();
                 $('.active').removeClass('active');
                 $(this).addClass('active');
-
-                rating = $(this).data("val");
+                stopRecording();
+                rating = $('[name="star"]:checked').val();
+                feedback = $("#feedback-dropdown").val();
                 enableRating(false)
-
-                saveRating({ recordedBlob, rating, device, transcription_text, transcription_language, userId }, enableRating);
+                saveRating({
+                    recordedBlob,
+                    rating,
+                    feedback,
+                    device,
+                    browser,
+                    transcription_text,
+                    transcription_language,
+                    userId
+                }, enableRating);
             });
             enableRating(false);
+            $('input[type=radio][name=star]').change(function () {
+                console.log($(this).val())
+                if ($(this).val() >= 1) {
+                    $('select').prop("disabled", false)
+                    $('#Submit').attr("disabled", false)
+                } else {
+                    $('select').prop("disabled", true)
+                    $('#Submit').attr("disabled", true)
+                }
+            });
+
+
         });
     </script>
 </body>
