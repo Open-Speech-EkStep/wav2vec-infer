@@ -980,13 +980,13 @@
         function uploadFileToBatchService() {
             let files = document.querySelector('#audio_file_input').files;
             let blob = files[0];
-            let language = 'hi';
+            //let language = 'hi';
             let formData = new FormData();
             formData.append("file", blob, 'test.wav');
             let filename = blob.name;
             $.ajax({
                 type: 'POST',
-                url: 'https://codmento.com/ekstep/model-service/transcribe?lang=' + language,
+                url: 'https://codmento.com/ekstep/model-service/transcribe?lang=' + current_lang,
                 data: formData,
                 contentType: false,
                 processData: false,

@@ -313,7 +313,7 @@ def get_args(lexicon_path, lm_path, BEAM=128, LM_WEIGHT=2, WORD_SCORE=-1):
     args['labels']='ltr'
     return args
 
-def parse_transcription(model_path, dict_path, wav_path, cuda, decoder="viterbi", lexicon_path=None, lm_path=None):
+def parse_transcription(model_path, dict_path, wav_path, cuda, decoder="viterbi", lexicon_path=None, lm_path=None, language='hi'):
     target_dict = Dictionary.load(dict_path)
     if decoder=="viterbi":
         generator = W2lViterbiDecoder(target_dict)
@@ -327,10 +327,8 @@ def parse_transcription(model_path, dict_path, wav_path, cuda, decoder="viterbi"
         gpu_model = load_gpu_model(model_path)
 
         start_time, end_time = extract_time_stamps(wav_path)
-        print("Length of start time", len(start_time))
         original_file_path = wav_path.replace('clipped_audio_enhanced', 'clipped_audio')
         original_chunk = AudioSegment.from_wav(original_file_path)
-        print(os.getcwd())
         f = open('subtitle_file.srt', 'w')
         for i in tqdm(range(len(start_time))):
             if end_time[i] - start_time[i] > 80:
@@ -353,6 +351,8 @@ def parse_transcription(model_path, dict_path, wav_path, cuda, decoder="viterbi"
             f.write( formatSrtTime(end_time[i]))
             f.write('\n')
             response = get_results_from_chunks(wav_data=features, dict_path=dict_path, generator=generator, use_cuda=cuda, model=gpu_model)
+            if language=='en-IN':
+                response = response.lower()
             aligned_response = response_alignment(response, num_words_per_line=25)
             f.write('\n'.join(aligned_response))
             f.write('\n\n')
@@ -363,7 +363,7 @@ def parse_transcription(model_path, dict_path, wav_path, cuda, decoder="viterbi"
         start_time, end_time = extract_time_stamps(wav_path)
         original_file_path = wav_path.replace('clipped_audio_enhanced', 'clipped_audio')
         original_chunk = AudioSegment.from_wav(original_file_path)
-        print(os.getcwd())
+
         f = open('subtitle_file.srt', 'w')
         for i in tqdm(range(len(start_time))):
             if end_time[i] - start_time[i] > 80:
@@ -386,6 +386,8 @@ def parse_transcription(model_path, dict_path, wav_path, cuda, decoder="viterbi"
             f.write( formatSrtTime(end_time[i]))
             f.write('\n')
             response = get_results_from_chunks(wav_data=features, dict_path=dict_path, generator=generator, use_cuda=cuda, model=cpu_model)
+            if language=='en-IN':
+                response = response.lower()
             aligned_response = response_alignment(response, num_words_per_line=25)
             f.write('\n'.join(aligned_response))
             f.write('\n\n')

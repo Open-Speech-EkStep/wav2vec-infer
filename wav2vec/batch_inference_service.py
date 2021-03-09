@@ -70,7 +70,7 @@ def parse_transcription():
         delete = True
         
         #subprocess.call(["sox {} -r {} -b 16 -c 1 {}".format(filename_final, str(16000), filename_new)], shell=True)
-        srt_file_name = subtitle_generation(filename_final)
+        srt_file_name = subtitle_generation(filename_final, language=language)
         # write model infer code here
         #result = inference_service.get_inference(filename_new, language)
 
