@@ -1,16 +1,19 @@
 import logging
 import os
 from tempfile import NamedTemporaryFile
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS, cross_origin
 import subprocess
 from google.cloud import storage
 import json
+from long_audio_subtitle import subtitle_generation
+from extended_audio_infer import Wav2VecCtc, W2lViterbiDecoder, W2lDecoder, W2lKenLMDecoder
 
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-from inference_service import InferenceService, Wav2VecCtc, W2lViterbiDecoder, W2lDecoder, W2lKenLMDecoder
+#from inference_service import InferenceService, Wav2VecCtc, W2lViterbiDecoder, W2lDecoder, W2lKenLMDecoder
+
 
 ALLOWED_EXTENSIONS = set(['.wav', '.mp3', '.ogg', '.webm'])
 
@@ -66,21 +69,23 @@ def parse_transcription():
         filename_new = '/tmp/'+filename_local+'_16.wav'
         delete = True
         
-        subprocess.call(["sox {} -r {} -b 16 -c 1 {}".format(filename_final, str(16000), filename_new)], shell=True)
-
+        #subprocess.call(["sox {} -r {} -b 16 -c 1 {}".format(filename_final, str(16000), filename_new)], shell=True)
+        srt_file_name = subtitle_generation(filename_final)
         # write model infer code here
-        result = inference_service.get_inference(filename_new, language)
+        #result = inference_service.get_inference(filename_new, language)
 
         if delete:
             cmd = 'rm -f {}'.format(filename_final)
-            cmd2 = 'rm -f {}'.format(filename_new)
+            #cmd2 = 'rm -f {}'.format(filename_new)
             os.system(cmd)
-            os.system(cmd2)
+            #os.system(cmd2)
+        
+        #logging.info('File transcribed')
+        #res['status'] = "OK"
+        #res['transcription'] = result
+        #return jsonify(res)
 
-        logging.info('File transcribed')
-        res['status'] = "OK"
-        res['transcription'] = result
-        return jsonify(res)
+        return send_file(srt_file_name, mimetype = 'srt', attachment_filename= 'subtitle_file.srt', as_attachment = True) 
  
 @app.route('/transcribe_gcp', methods=['POST'])
 @cross_origin()
@@ -122,7 +127,8 @@ if __name__ == "__main__":
     cwd = os.getcwd()
     if not os.path.exists("downloads"):
         os.system("mkdir downloads")
-    inference_service = InferenceService(cwd + "/model_dict.json")
+    #inference_service = InferenceService(cwd + "/model_dict.json")
+    inference_service = None
     logging.info('Server initialised')
     app.run(host='0.0.0.0', port=8001, use_reloader=False)
 
