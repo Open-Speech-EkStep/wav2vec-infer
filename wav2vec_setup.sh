@@ -52,7 +52,7 @@ pip install -e .
 New Models are here:
 
 
-Please bring your model using [Custom model script](https://github.com/Open-Speech-EkStep/vakyansh-wav2vec2-experimentation/blob/main/scripts/inference/generate_custom_model.sh) here.
+Please bring your model using Custom model [script](https://github.com/Open-Speech-EkStep/vakyansh-wav2vec2-experimentation/blob/main/scripts/inference/generate_custom_model.sh) here.
 #### Kindly update model paths in model_dict.json
 
 
