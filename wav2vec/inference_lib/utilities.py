@@ -5,6 +5,7 @@ import torch
 import numpy as np
 from audio_normalization import AudioNormalization
 from fairseq.data import Dictionary
+from inference_lib.w2l_viterbi_decoder import W2lViterbiDecoder
 
 def get_args(lexicon_path, lm_path, BEAM=128, LM_WEIGHT=2, WORD_SCORE=-1):
     args = {}

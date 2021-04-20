@@ -1,6 +1,6 @@
 import torch
 from wav2letter.criterion import CpuViterbiPath, get_data_ptr_as_bytes
-
+from inference_lib.w2l_decoder import W2lDecoder
 
 class W2lViterbiDecoder(W2lDecoder):
     def __init__(self, tgt_dict):

@@ -526,3 +526,9 @@ fairseq_cli/preprocess.py
 fairseq_cli/score.py
 fairseq_cli/train.py
 fairseq_cli/validate.py
+inference_lib/__init__.py
+inference_lib/utilities.py
+inference_lib/w2l_decoder.py
+inference_lib/w2l_kenlm_decoder.py
+inference_lib/w2l_viterbi_decoder.py
+inference_lib/wav2vec_ctc.py

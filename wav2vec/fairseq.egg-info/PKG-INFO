@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: fairseq
-Version: 1.0.0a0+8471322
+Version: 1.0.0a0+2bc27ce
 Summary: Facebook AI Research Sequence-to-Sequence Toolkit
 Home-page: https://github.com/pytorch/fairseq
 License: UNKNOWN
@@ -24,7 +24,7 @@ Description: # wav2vec
         
         
         
-        ##License
+        ## License
         
         fairseq(-py) is MIT-licensed. The license applies to the pre-trained models as well.
 Platform: UNKNOWN

@@ -1,5 +1,6 @@
 from fairseq.models import BaseFairseqModel
 from fairseq.models.wav2vec.wav2vec2_asr import base_architecture, Wav2VecEncoder
+from fairseq import utils
 
 class Wav2VecCtc(BaseFairseqModel):
     def __init__(self, w2v_encoder, args):

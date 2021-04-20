@@ -1,7 +1,7 @@
 from wav2letter.common import create_word_dict, load_words
 from wav2letter.decoder import DecoderOptions,KenLM,SmearingMode,Trie,LexiconDecoder
 import torch
-
+from inference_lib.w2l_decoder import W2lDecoder
 
 class W2lKenLMDecoder(W2lDecoder):
     def __init__(self,args,tgt_dict):
