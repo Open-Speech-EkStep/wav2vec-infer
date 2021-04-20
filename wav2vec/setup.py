@@ -179,6 +179,7 @@ def do_setup(package_data):
             "sacrebleu>=1.4.12",
             "torch",
             "tqdm",
+            "SoundFile==0.10.3.post1"
         ],
         dependency_links=dependency_links,
         packages=find_packages(
