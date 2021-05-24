@@ -6,6 +6,7 @@ import torch
 from inference_lib.utilities import get_args, get_results, load_cpu_model ,load_gpu_model
 from inference_lib.w2l_kenlm_decoder import W2lKenLMDecoder
 from inference_lib.wav2vec_ctc import Wav2VecCtc
+from inference_lib.srt.subtitle_generator import get_srt
 
 class InferenceService:
 
@@ -46,7 +47,18 @@ class InferenceService:
         res['transcription'] = result
         return res
 
+    def get_srt(self, file_name, language):
+        generator = None
+        if language == 'hi' or language == 'en-IN' or language == 'kn-lm':
+            generator = self.generators[language]
+        result = get_srt(file_name=file_name, model=self.models[language], generator=generator, dict_path=self.dict_paths[language], language=language)
+        res = {}
+        res['status'] = "OK"
+        res['srt'] = result
+        return res
+
 if __name__ == '__main__':
     inference = InferenceService("./../model_dict.json")
-    result = inference.get_inference('./../xEOIIzS5VySDKU9OAAAB1.wav','en-IN')
+    # result = inference.get_inference('./../changed.wav','hi')
+    result = inference.get_srt('./../changed.wav','hi')
     print(result)
