@@ -47,11 +47,11 @@ class InferenceService:
         res['transcription'] = result
         return res
 
-    def get_srt(self, file_name, language):
+    def get_srt(self, file_name, language, denoiser_path):
         generator = None
         if language == 'hi' or language == 'en-IN' or language == 'kn-lm':
             generator = self.generators[language]
-        result = get_srt(file_name=file_name, model=self.models[language], generator=generator, dict_path=self.dict_paths[language], language=language)
+        result = get_srt(file_name=file_name, model=self.models[language], generator=generator, dict_path=self.dict_paths[language], language=language, denoiser_path=denoiser_path)
         res = {}
         res['status'] = "OK"
         res['srt'] = result
@@ -60,5 +60,5 @@ class InferenceService:
 if __name__ == '__main__':
     inference = InferenceService("./../model_dict.json")
     # result = inference.get_inference('./../changed.wav','hi')
-    result = inference.get_srt('./../changed.wav','hi')
+    result = inference.get_srt('./../changed.wav','hi', denoiser_path='/home/nireshkumarr/denoiser')
     print(result)
