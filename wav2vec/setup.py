@@ -180,7 +180,8 @@ def do_setup(package_data):
             "torch",
             "tqdm",
             "SoundFile==0.10.3.post1",
-            "pydub==0.24.1"
+            "pydub==0.24.1",
+            "webrtcvad == 2.0.10"
         ],
         dependency_links=dependency_links,
         packages=find_packages(
