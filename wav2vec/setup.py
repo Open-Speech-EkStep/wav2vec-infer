@@ -178,11 +178,12 @@ def do_setup(package_data):
             "regex",
             "sacrebleu>=1.4.12",
             "torch",
+            "torchvision",
             "tqdm",
             "SoundFile==0.10.3.post1",
             "pydub==0.24.1",
             "webrtcvad == 2.0.10",
-            "torchaudio==0.7.2"
+            "torchaudio"
         ],
         dependency_links=dependency_links,
         packages=find_packages(
