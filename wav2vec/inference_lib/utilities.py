@@ -56,7 +56,8 @@ def get_results(file_path, target_dict_path, use_cuda=False, w2v_path=None, mode
     hyp_pieces = target_dict.string(hypo[0][0]["tokens"].int().cpu())
     text = post_process(hyp_pieces, 'letter')
     os.remove(wav_path)
-    os.remove(file_path)
+    # os.remove(file_path)
+    print(text)
     return text
 
 
@@ -100,22 +101,23 @@ def load_cpu_model(model_path):
 
 
 def media_conversion(file_name, duration_limit=5):
-    dir_name = os.path.dirname(file_name)
+    dir_name = '/tmp'
     file_name_new = os.path.basename(file_name).split('.')[0]
     file_name_wav = file_name_new + datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + '.wav'
 
-    subprocess.call(["ffmpeg -i {} -ar {} -ac {} -bits_per_raw_sample {} -vn {}".format(file_name, 16000, 1, 16,
-                                                                                        dir_name + '/' + file_name_wav)],
-                    shell=True)
+    status = subprocess.call(["ffmpeg -i {} -ar {} -ac {} -bits_per_raw_sample {} -vn {}".format(file_name, 16000, 1, 16,
+                                                                                        dir_name + '/' + file_name_wav)],shell=True)
+    if status == 0 :
+        audio_file = AudioSegment.from_wav(dir_name + '/' + file_name_wav)
 
-    audio_file = AudioSegment.from_wav(dir_name + '/' + file_name_wav)
+        audio_duration_min = audio_file.duration_seconds / 60
+        os.remove(dir_name + '/' + file_name_wav)
+        if audio_duration_min > duration_limit:
+            clipped_audio = audio_file[:300000]
+            clipped_audio.export(dir_name + '/' + file_name_wav, format='wav')
+        else:
+            audio_file.export(dir_name + '/' + file_name_wav, format='wav')
 
-    audio_duration_min = audio_file.duration_seconds / 60
-    os.remove(dir_name + '/' + file_name_wav)
-    if audio_duration_min > duration_limit:
-        clipped_audio = audio_file[:300000]
-        clipped_audio.export(dir_name + '/' + file_name_wav, format='wav')
-    else:
-        audio_file.export(dir_name + '/' + file_name_wav, format='wav')
-
-    return dir_name + '/' + file_name_wav
+        return dir_name + '/' + file_name_wav
+    else :
+        return file_name
