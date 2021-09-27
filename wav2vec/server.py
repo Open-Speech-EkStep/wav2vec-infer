@@ -353,11 +353,11 @@ if __name__ == "__main__":
     with open(args_local.model_path) as f:
         model_dict = json.load(f)
 
-    dict_path = '/home/harveen.chadha/deployed_models/hi/dict.ltr.txt'
+    dict_path = '' ## dict path of deployed model
 
     args_lm = {}
-    args_lm['lexicon'] = '/home/harveen.chadha/github/lm/LM_v2/lexicon.lst'
-    args_lm['kenlm_model'] = '/home/harveen.chadha/github/lm/LM_v2/lm.binary'
+    args_lm['lexicon'] = ''  #lexicon path
+    args_lm['kenlm_model'] = ''  # binary path
     args_lm['beam'] = 128
     args_lm['beam_threshold'] = 25
     args_lm['lm_weight'] = 0.4

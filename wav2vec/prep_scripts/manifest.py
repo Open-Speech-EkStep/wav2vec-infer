@@ -1,4 +1,3 @@
-## Authors: Aman_Tiwari, Harveen Chadha
 ## Usage: python manifest.py <path to wav files> --dest <path to destination tsv> --ext wav --train-name train.tsv --valid-percent 0 --jobs -1
 
 import argparse
